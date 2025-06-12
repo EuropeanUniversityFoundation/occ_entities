@@ -1,0 +1,10 @@
+entity.occ_los.edit_form:
+  route_name: entity.occ_los.edit_form
+  group: occ_los
+  title: 'Edit'
+
+entity.occ_los.delete_form:
+  route_name: entity.occ_los.delete_form
+  group: occ_los
+  title: 'Delete'
+  weight: 10

@@ -1,0 +1,22 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Install, update and uninstall functions for the OCC Entities module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function occ_entities_install(): void {
+  \Drupal::messenger()->addStatus(t('Module OCC Entities has been installed.'));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function occ_entities_uninstall(): void {
+  \Drupal::messenger()->addStatus(t('Module OCC Entities has been uninstalled.'));
+}

@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ewp_core
+    - occ_entities
+id: occ_los.programme__eqf_level
+field_name: programme__eqf_level
+entity_type: occ_los
+type: eqf_level
+settings: {  }
+module: ewp_core
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

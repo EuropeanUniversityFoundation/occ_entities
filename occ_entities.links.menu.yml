@@ -1,0 +1,11 @@
+entity.occ_los_type.collection:
+  title: 'Learning Opportunity Specification types'
+  description: 'Manage and CRUD actions on Learning Opportunity Specification type.'
+  parent: system.admin_structure
+  route_name: entity.occ_los_type.collection
+
+entity.occ_los.collection:
+  title: 'Learning Opportunity Specifications'
+  description: 'List of learning opportunity specifications.'
+  route_name: entity.occ_los.collection
+  parent: system.admin_content

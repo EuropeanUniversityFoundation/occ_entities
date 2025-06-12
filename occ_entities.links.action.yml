@@ -1,0 +1,11 @@
+occ_los.type_add:
+  title: 'Add learning opportunity specification type'
+  route_name: entity.occ_los_type.add_form
+  appears_on:
+    - entity.occ_los_type.collection
+
+occ_los.add_page:
+  title: 'Add learning opportunity specification'
+  route_name: entity.occ_los.add_page
+  appears_on:
+    - entity.occ_los.collection

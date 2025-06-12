@@ -1,0 +1,18 @@
+administer occ_los types:
+  title: 'Administer learning opportunity specification types'
+  description: 'Maintain the types of occ los entity.'
+  restrict access: true
+view occ_los:
+  title: 'View learning opportunity specification'
+edit occ_los:
+  title: 'Edit learning opportunity specification'
+delete occ_los:
+  title: 'Delete learning opportunity specification'
+create occ_los:
+  title: 'Create learning opportunity specification'
+view occ_los revision:
+  title: 'View learning opportunity specification revision'
+revert occ_los revision:
+  title: 'Revert learning opportunity specification revision'
+delete occ_los revision:
+  title: 'Delete learning opportunity specification revision'

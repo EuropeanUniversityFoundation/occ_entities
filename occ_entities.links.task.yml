@@ -1,0 +1,26 @@
+entity.occ_los.view:
+  title: 'View'
+  route_name: entity.occ_los.canonical
+  base_route: entity.occ_los.canonical
+entity.occ_los.edit_form:
+  title: 'Edit'
+  route_name: entity.occ_los.edit_form
+  base_route: entity.occ_los.canonical
+entity.occ_los.delete_form:
+  title: 'Delete'
+  route_name: entity.occ_los.delete_form
+  base_route: entity.occ_los.canonical
+  weight: 10
+entity.occ_los.collection:
+  title: 'Learning Opportunity Specifications'
+  route_name: entity.occ_los.collection
+  base_route: system.admin_content
+  weight: 10
+entity.occ_los_type.edit_form:
+  title: 'Edit'
+  route_name: entity.occ_los_type.edit_form
+  base_route: entity.occ_los_type.edit_form
+entity.occ_los_type.collection:
+  title: 'List'
+  route_name: entity.occ_los_type.collection
+  base_route: entity.occ_los_type.collection

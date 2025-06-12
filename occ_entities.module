@@ -1,0 +1,97 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Provides a learning opportunity specification entity type.
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function occ_entities_theme(): array {
+  return [
+    'occ_los' => ['render element' => 'elements'],
+  ];
+}
+
+/**
+ * Prepares variables for learning opportunity specification templates.
+ *
+ * Default template: occ-los.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the learning opportunity specification information and any
+ *     fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_occ_los(array &$variables): void {
+  dpm(get_class_methods(Drupal\occ_entities\Entity\LearningOpportunitySpecification::class));
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+// TODO: review
+function occ_entities_user_cancel($edit, UserInterface $account, $method): void {
+  switch ($method) {
+    case 'user_cancel_block_unpublish':
+      // Unpublish learning opportunity specifications.
+      $storage = \Drupal::entityTypeManager()->getStorage('occ_los');
+      $occ_los_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->condition('status', 1)
+        ->accessCheck(FALSE)
+        ->execute();
+      foreach ($storage->loadMultiple($occ_los_ids) as $occ_los) {
+        $occ_los->set('status', FALSE)->save();
+      }
+      break;
+
+    case 'user_cancel_reassign':
+      // Anonymize learning opportunity specifications.
+      $storage = \Drupal::entityTypeManager()->getStorage('occ_los');
+      $occ_los_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->accessCheck(FALSE)
+        ->execute();
+      foreach ($storage->loadMultiple($occ_los_ids) as $occ_los) {
+        $occ_los->setOwnerId(0)->save();
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for user entities.
+ */
+// TODO: review
+function occ_entities_user_predelete(UserInterface $account): void {
+  // Delete learning opportunity specifications that belong to this account.
+  $storage = \Drupal::entityTypeManager()->getStorage('occ_los');
+  $occ_los_ids = $storage->getQuery()
+    ->condition('uid', $account->id())
+    ->accessCheck(FALSE)
+    ->execute();
+  $storage->delete(
+    $storage->loadMultiple($occ_los_ids)
+  );
+  // Delete old revisions.
+  $occ_los_ids = $storage->getQuery()
+    ->allRevisions()
+    ->condition('uid', $account->id())
+    ->accessCheck(FALSE)
+    ->execute();
+  foreach (array_keys($occ_los_ids) as $revision_id) {
+    $storage->deleteRevision($revision_id);
+  }
+}

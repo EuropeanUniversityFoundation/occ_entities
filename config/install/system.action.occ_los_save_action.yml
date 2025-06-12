@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - occ_entities
+id: occ_los_save_action
+label: 'Save learning opportunity specifications'
+type: occ_los
+plugin: entity:save_action:occ_los
+configuration: {  }
