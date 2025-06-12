@@ -1,0 +1,42 @@
+{
+    "name": "euf/occ_entities",
+    "type": "drupal-module",
+    "description": "Defines content entity types for Open Course Catalogue.",
+    "keywords": [
+        "Drupal",
+        "Erasmus Without Paper",
+        "Entity type",
+        "Open Course Catalogue",
+        "OCCAPI"
+    ],
+    "homepage": "https://github.com/EuropeanUniversityFoundation/occ_entities",
+    "support": {
+        "issues": "https://github.com/EuropeanUniversityFoundation/occ_entities/issues",
+        "source": "https://github.com/EuropeanUniversityFoundation/occ_entities"
+    },
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Gábor Grósz",
+            "email": "gabor.grosz@uni-foundation.eu",
+            "role": "Maintainer"
+        },
+        {
+            "name": "Tiago Simões",
+            "email": "tiago.simoes@uni-foundation.eu",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "euf/ewp_core": "^1.0",
+        "euf/ewp_institutions": "^1.0",
+        "euf/ewp_ounits": "^1.0"
+    },
+    "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.uni-foundation.eu"
+        }
+    ]
+}
