@@ -103,6 +103,10 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
     return $this->get('title')->getValue()[0]['string'];
   }
 
+  public function getLabel(): string {
+    return $this->get('title')->getValue()[0]['string'];
+  }
+
   /**
    * {@inheritdoc}
    */
