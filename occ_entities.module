@@ -40,6 +40,17 @@ function occ_entities_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
       $fields['course__related_programme']->addConstraint('year_matches_programme', []);
     }
   }
+
+  if ($entity_type->id() == 'occ_los' && $bundle == 'programme') {
+    if (isset($fields['programme__eqf_level'])) {
+      $fields['programme__eqf_level']->addPropertyConstraints('value', [
+        'Range' => [
+          'min' => 5,
+          'max' => 8,
+        ]
+      ]);
+    }
+  }
 }
 
 /**
