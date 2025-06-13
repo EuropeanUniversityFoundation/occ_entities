@@ -5,7 +5,7 @@ namespace Drupal\occ_entities\Plugin\Validation\Constraint;
 use Symfony\Component\Validator\Constraint;
 
 /**
- * Checks if combnation of code and HEI reference is unique.
+ * Checks if combination of code and HEI reference is unique.
  *
  * @Constraint(
  *   id = "code_and_hei_unique",
