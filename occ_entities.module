@@ -10,10 +10,22 @@ declare(strict_types=1);
 use Drupal\Core\Render\Element;
 use Drupal\user\UserInterface;
 
+function occ_entities_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type, $bundle)
+{
+  if ($entity_type->id() === 'occ_los' && $bundle === 'course') {
+    if (isset($fields['course__related_programme'])) {
+      $fields['course__related_programme']->addConstraint('unique_programme_reference', []);
+      $fields['course__related_programme']->addConstraint('year_format', []);
+      $fields['course__related_programme']->addConstraint('year_matches_programme', []);
+    }
+  }
+}
+
 /**
  * Implements hook_theme().
  */
-function occ_entities_theme(): array {
+function occ_entities_theme(): array
+{
   return [
     'occ_los' => ['render element' => 'elements'],
   ];
@@ -30,8 +42,8 @@ function occ_entities_theme(): array {
  *     fields attached to the entity.
  *   - attributes: HTML attributes for the containing element.
  */
-function template_preprocess_occ_los(array &$variables): void {
-  dpm(get_class_methods(Drupal\occ_entities\Entity\LearningOpportunitySpecification::class));
+function template_preprocess_occ_los(array &$variables): void
+{
   $variables['view_mode'] = $variables['elements']['#view_mode'];
   foreach (Element::children($variables['elements']) as $key) {
     $variables['content'][$key] = $variables['elements'][$key];
@@ -42,7 +54,8 @@ function template_preprocess_occ_los(array &$variables): void {
  * Implements hook_user_cancel().
  */
 // TODO: review
-function occ_entities_user_cancel($edit, UserInterface $account, $method): void {
+function occ_entities_user_cancel($edit, UserInterface $account, $method): void
+{
   switch ($method) {
     case 'user_cancel_block_unpublish':
       // Unpublish learning opportunity specifications.
@@ -53,6 +66,7 @@ function occ_entities_user_cancel($edit, UserInterface $account, $method): void 
         ->accessCheck(FALSE)
         ->execute();
       foreach ($storage->loadMultiple($occ_los_ids) as $occ_los) {
+        /** @var \Drupal\occ_entities\Entity\LearningOpportunitySpecification $occ_los */
         $occ_los->set('status', FALSE)->save();
       }
       break;
@@ -65,6 +79,7 @@ function occ_entities_user_cancel($edit, UserInterface $account, $method): void 
         ->accessCheck(FALSE)
         ->execute();
       foreach ($storage->loadMultiple($occ_los_ids) as $occ_los) {
+        /** @var \Drupal\occ_entities\Entity\LearningOpportunitySpecification $occ_los */
         $occ_los->setOwnerId(0)->save();
       }
       break;
@@ -75,7 +90,8 @@ function occ_entities_user_cancel($edit, UserInterface $account, $method): void 
  * Implements hook_ENTITY_TYPE_predelete() for user entities.
  */
 // TODO: review
-function occ_entities_user_predelete(UserInterface $account): void {
+function occ_entities_user_predelete(UserInterface $account): void
+{
   // Delete learning opportunity specifications that belong to this account.
   $storage = \Drupal::entityTypeManager()->getStorage('occ_los');
   $occ_los_ids = $storage->getQuery()
