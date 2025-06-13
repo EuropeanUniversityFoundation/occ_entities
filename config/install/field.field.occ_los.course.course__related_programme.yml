@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.occ_los.course__related_programme
+    - occ_entities.occ_los_type.course
+    - occ_entities.occ_los_type.programme
+  module:
+    - occ_entities
+id: occ_los.course.course__related_programme
+field_name: course__related_programme
+entity_type: occ_los
+bundle: course
+label: 'Related Programme'
+description: 'Information on Programmes the course is related to.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:occ_los'
+  handler_settings:
+    target_bundles:
+      programme: programme
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: 0
+    auto_create_bundle: ''
+field_type: related_programme

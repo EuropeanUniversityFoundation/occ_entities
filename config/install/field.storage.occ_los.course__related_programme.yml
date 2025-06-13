@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - occ_entities
+id: occ_los.course__related_programme
+field_name: course__related_programme
+entity_type: occ_los
+type: related_programme
+settings:
+  target_type: occ_los
+module: occ_entities
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

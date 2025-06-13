@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - occ_entities
+id: occ_los.programme__length
+field_name: programme__length
+entity_type: occ_los
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
