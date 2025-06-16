@@ -80,9 +80,18 @@ use Drupal\occ_entities\Entity\LearningOpportunitySpecificationInterface;
  *   common_reference_target = TRUE,
  *   revisionable = TRUE,
  *   translatable = FALSE,
+ *   constraints = {
+ *     "code_and_hei_unique" = {
+ *       "code_field" = "code",
+ *       "hei_field" = "hei",
+ *       "entity_label" = "Learning Opportunity Specification",
+ *       "errorPath" = "code",
+ *     }
+ *   },
  * )
  */
-final class LearningOpportunitySpecification extends RevisionableContentEntityBase implements LearningOpportunitySpecificationInterface {
+final class LearningOpportunitySpecification extends RevisionableContentEntityBase implements LearningOpportunitySpecificationInterface
+{
 
   use EntityChangedTrait;
   use EntityOwnerTrait;
@@ -91,7 +100,8 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
    * {@inheritdoc}
    */
   // TODO: review
-  public function preSave(EntityStorageInterface $storage): void {
+  public function preSave(EntityStorageInterface $storage): void
+  {
     parent::preSave($storage);
     if (!$this->getOwnerId()) {
       // If no owner has been set explicitly, make the anonymous user the owner.
@@ -99,18 +109,21 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
     }
   }
 
-  public function label(): string {
+  public function label(): string
+  {
     return $this->get('title')->getValue()[0]['string'];
   }
 
-  public function getLabel(): string {
+  public function getLabel(): string
+  {
     return $this->get('title')->getValue()[0]['string'];
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array {
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array
+  {
 
     $fields = parent::baseFieldDefinitions($entity_type);
 
@@ -350,5 +363,4 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
 
     return $fields;
   }
-
 }
