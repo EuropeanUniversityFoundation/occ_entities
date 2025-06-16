@@ -11,6 +11,4 @@ use Drupal\user\EntityOwnerInterface;
 /**
  * Provides an interface defining a learning opportunity specification entity type.
  */
-interface LearningOpportunitySpecificationInterface extends ContentEntityInterface, EntityOwnerInterface, EntityChangedInterface {
-
-}
+interface LearningOpportunitySpecificationInterface extends ContentEntityInterface, EntityOwnerInterface, EntityChangedInterface {}
