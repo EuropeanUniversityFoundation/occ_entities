@@ -85,7 +85,6 @@ use Drupal\occ_entities\Entity\LearningOpportunitySpecificationInterface;
  *       "code_field" = "code",
  *       "hei_field" = "hei",
  *       "entity_label" = "Learning Opportunity Specification",
- *       "errorPath" = "code",
  *     }
  *   },
  * )
