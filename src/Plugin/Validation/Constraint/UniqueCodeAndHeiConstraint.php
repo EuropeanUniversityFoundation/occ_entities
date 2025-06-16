@@ -22,19 +22,24 @@ class UniqueCodeAndHeiConstraint extends Constraint
    *
    * @var string
    */
-  public $code_field;
+  public $code_field = 'code';
 
   /**
    * Field name storing the assosiated HEI.
    *
    * @var mixed
    */
-  public $hei_field;
+  public $hei_field = 'hei';
 
   /**
    * Human readable name of the entity.
    *
    * @var string
    */
-  public $entity_label;
+  public $entity_label = 'Learning Opportunity Specification';
+
+  public function getRequiredOptions()
+  {
+    return ['code_field', 'hei_field', 'entity_label'];
+  }
 }

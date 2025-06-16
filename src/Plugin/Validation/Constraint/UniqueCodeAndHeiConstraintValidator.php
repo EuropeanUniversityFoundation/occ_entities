@@ -36,36 +36,32 @@ class UniqueCodeAndHeiConstraintValidator extends ConstraintValidator implements
 
   public function validate($entity, Constraint $constraint)
   {
-
     // @phpstan-ignore property.notFound
     $entity_code = $entity->get($constraint->code_field)->value;
     // @phpstan-ignore property.notFound
     $entity_hei = $entity->get($constraint->hei_field)->referencedEntities();
     $entity_hei = reset($entity_hei);
     $entity_type = $entity->getEntityTypeId();
-
     $is_new = $entity->isNew();
 
     /** @var UniqueCodeAndHeiConstraint $constraint */
-    if ($is_new) {
-      $result = $this->entityTypeManager
-        ->getStorage($entity_type)
-        ->loadByProperties(
-          [
-            $constraint->code_field => $entity_code,
-            $constraint->hei_field => $entity_hei->id(),
-          ]
-        );
-    } else {
-      $result = $this->entityTypeManager
-        ->getStorage($entity_type)
-        ->getQuery()
-        ->accessCheck(FALSE)
-        ->condition($constraint->code_field, $entity_code)
-        ->condition($constraint->hei_field, $entity_hei->id())
-        ->condition('id', $entity->id(), '<>')
-        ->execute();
+    $query = $this->entityTypeManager
+      ->getStorage($entity_type)
+      ->getQuery()
+      ->accessCheck(FALSE)
+      ->condition($constraint->hei_field, $entity_hei->id())
+      ->condition($constraint->code_field, $entity_code);
+
+    if (!$is_new) {
+      $query->condition('id', $entity->id(), '<>');
     }
+
+    // if (!empty($constraint->bundle)) {
+    //   // TODO: use $bundle as array.
+    //   $query->condition('bundle', $constraint->bundle);
+    // }
+
+    $result = $query->execute();
 
     if (!empty($result)) {
       $this->context->addViolation($constraint->message, ['%entity_label' => $constraint->entity_label, '%code' => $entity_code, '%hei' => $entity_hei->label()]);
