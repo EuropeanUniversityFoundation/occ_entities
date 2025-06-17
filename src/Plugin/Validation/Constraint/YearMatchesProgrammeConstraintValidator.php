@@ -37,7 +37,7 @@ class YearMatchesProgrammeConstraintValidator extends ConstraintValidator implem
       $referenced_programme_id = $item->{self::PROGRAMME_SUBFIELD_NAME};
       $referenced_programme = $this->findProgrammeById($referenced_programme_id);
       // @phpstan-ignore property.notFound
-      $referenced_programme_length = $referenced_programme->get('field_programme__length')->value;
+      $referenced_programme_length = $referenced_programme->get('programme__length')->value;
       $referenced_programme_label = $referenced_programme->label();
       $year_value = $item->{self::YEAR_SUBFIELD_NAME};
 
