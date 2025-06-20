@@ -10,27 +10,6 @@ declare(strict_types=1);
 use Drupal\Core\Render\Element;
 use Drupal\user\UserInterface;
 
-function occ_entities_entity_type_alter(array &$entity_types)
-{
-  $entity_types['ounit']->addConstraint(
-    'code_and_hei_unique',
-    [
-      'code_field' => 'ounit_code',
-      'hei_field' => 'parent_hei',
-      'entity_label' => 'Organizational unit',
-    ]
-  );
-
-  $entity_types['ounit']->addConstraint(
-    'no_circular_reference',
-    [
-      'code_field' => 'ounit_code',
-      'parent_field' => 'parent_ounit',
-      'entity_label' => 'Organizational unit',
-    ]
-  );
-}
-
 function occ_entities_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type, $bundle)
 {
   if ($entity_type->id() === 'occ_los' && $bundle === 'course') {
