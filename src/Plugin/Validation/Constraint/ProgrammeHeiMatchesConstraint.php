@@ -23,5 +23,5 @@ use Symfony\Component\Validator\Constraint;
 final class ProgrammeHeiMatchesConstraint extends Constraint
 {
 
-  public string $message = '%programme must reference the same HEI as this course';
+  public string $message = 'Programme %programme must reference the same HEI as this Learning Opportunity Specification.';
 }
