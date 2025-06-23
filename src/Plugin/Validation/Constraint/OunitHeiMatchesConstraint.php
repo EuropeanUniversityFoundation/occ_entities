@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraint;
  *
  * @Constraint(
  *   id = "ounit_hei_matches",
- *   label = @Translation("ProgrammeHeiMatches", context = "Validation"),
+ *   label = @Translation("OunitHeiMatches", context = "Validation"),
  * )
  *
  * @DCG
@@ -23,5 +23,5 @@ use Symfony\Component\Validator\Constraint;
 final class OunitHeiMatchesConstraint extends Constraint
 {
 
-  public string $message = '%ounit must reference the same HEI as this Learning Opportunity Specification.';
+  public string $message = 'Organizatoinal Unit %ounit must reference the same HEI as this Learning Opportunity Specification.';
 }
