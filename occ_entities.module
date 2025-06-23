@@ -17,6 +17,7 @@ function occ_entities_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
       $fields['course__related_programme']->addConstraint('unique_programme_reference', []);
       $fields['course__related_programme']->addConstraint('year_format', []);
       $fields['course__related_programme']->addConstraint('year_matches_programme', []);
+      $fields['course__related_programme']->addConstraint('programme_hei_matches', []);
     }
   }
 
