@@ -25,6 +25,10 @@ final class OunitHeiMatchesConstraintValidator extends ConstraintValidator
       );
     }
 
+    if ($item->isEmpty()) {
+      return;
+    }
+
     $referenced_hei_target_ids = $item->getEntity()->get('hei')->getValue();
     // @phpstan-ignore property.notFound
     $referenced_entity_hei_target_ids = $item->entity->parent_hei->getValue();
