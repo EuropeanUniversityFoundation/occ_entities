@@ -12,13 +12,15 @@ class UniqueProgrammeReferenceConstraintValidator extends ConstraintValidator {
   public function validate($value, Constraint $constraint) {
 
     $referenced_ids = [];
-    foreach ($value as $item) {
+    foreach ($value as $delta =>$item) {
       $target_id = $item->{self::SUBFIELD_NAME};
       if (!in_array($target_id, $referenced_ids)) {
         $referenced_ids[] = $target_id;
       } else {
         /** @var UniqueProgrammeReferenceConstraint $constraint */
-        $this->context->addViolation($constraint->message);
+        $this->context->buildViolation($constraint->message)
+          ->atPath($delta)
+          ->addViolation();
       }
     }
   }
