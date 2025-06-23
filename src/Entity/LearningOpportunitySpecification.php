@@ -257,7 +257,6 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
     $fields['description'] = BaseFieldDefinition::create('ewp_multiline_lang')
       ->setLabel(new TranslatableMarkup('Description'))
       ->setDescription(new TranslatableMarkup('Description of the Learning Opportunity Specification.'))
-      //->setDefaultValue('')
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'ewp_multiline_lang_default',
@@ -276,7 +275,6 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
     $fields['learning_outcomes'] = BaseFieldDefinition::create('ewp_multiline_lang')
       ->setLabel(new TranslatableMarkup('Learning outcomes'))
       ->setDescription(new TranslatableMarkup('Learning outcomes of the Learning Opportunity Specification.'))
-      //->setDefaultValue('')
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'ewp_multiline_lang_default',
@@ -355,6 +353,29 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
         'weight' => 15,
       ])
       ->setDisplayConfigurable('view', TRUE);
+
+    $fields['language_of_instruction'] = BaseFieldDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('Language of Instruction'))
+      ->setDescription(new TranslatableMarkup('Language(s) of Instruction for the Learning Opportunity Specification.'))
+      ->setSettings([
+        'max_length' => 100,
+        'text_processing' => 0,
+      ])
+      //->addConstraint('ValidLanguageTag', [])
+      ->setDefaultValue('')
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'string',
+        'weight' => -20,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'weight' => -20,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setRequired(FALSE)
+      ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
 
     return $fields;
   }
