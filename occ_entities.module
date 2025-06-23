@@ -19,6 +19,10 @@ function occ_entities_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
       $fields['course__related_programme']->addConstraint('year_matches_programme', []);
       $fields['course__related_programme']->addConstraint('programme_hei_matches', []);
     }
+
+    if (isset($fields['course__academic_term'])) {
+      $fields['course__academic_term']->addConstraint('int_over_int', []);
+    }
   }
 
   if ($entity_type->id() == 'occ_los' && $bundle == 'programme') {
