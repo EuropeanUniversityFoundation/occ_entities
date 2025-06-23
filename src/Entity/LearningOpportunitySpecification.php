@@ -53,7 +53,7 @@ use Drupal\occ_entities\Entity\LearningOpportunitySpecificationInterface;
  *     "id" = "id",
  *     "revision" = "revision_id",
  *     "bundle" = "bundle",
- *     "label" = "uuid",
+ *     "label" = "title.0.string",
  *     "uuid" = "uuid",
  *     "owner" = "uid",
  *   },
