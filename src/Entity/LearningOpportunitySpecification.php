@@ -217,9 +217,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setDescription(new TranslatableMarkup('Abbreviation of the Learning Opportunity Specification.'))
       ->setSettings([
         'max_length' => 255,
-        //'text_processing' => 0,
       ])
-      //->setDefaultValue('')
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'ewp_string_lang_default',
@@ -240,9 +238,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setDescription(new TranslatableMarkup('Title of the Learning Opportunity Specification.'))
       ->setSettings([
         'max_length' => 255,
-        //'text_processing' => 0,
       ])
-      //->setDefaultValue('')
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'ewp_string_lang_default',
@@ -299,7 +295,6 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
     $fields['url'] = BaseFieldDefinition::create('ewp_http_lang')
       ->setLabel(new TranslatableMarkup('URL'))
       ->setDescription(new TranslatableMarkup('External URLs of the Learning Opportunity Specification.'))
-      //->setDefaultValue('')
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'ewp_http_lang_default',
@@ -343,6 +338,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setLabel(new TranslatableMarkup('Organizational Unit'))
       ->setSetting('target_type', 'ounit')
       ->setSetting('handler', 'default:ounit')
+      ->addConstraint('ounit_hei_matches', [])
       ->setDisplayOptions('form', [
         'type' => 'entity_reference_autocomplete',
         'settings' => [
