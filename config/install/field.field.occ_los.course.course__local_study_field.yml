@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.occ_los.course__local_study_field
+    - occ_entities.occ_los_type.course
+id: occ_los.course.course__local_study_field
+field_name: course__local_study_field
+entity_type: occ_los
+bundle: course
+label: 'Local study field'
+description: 'Study field names, codes, anything specific to the Institution.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
