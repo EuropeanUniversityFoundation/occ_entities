@@ -11,12 +11,12 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  */
 #[Constraint(
   id: 'year_format',
-  label: new TranslatableMarkup('Already have reference to Programme: ', [], ['context' => 'Validation']),
+  label: new TranslatableMarkup('Year value is invalid.', [], ['context' => 'Validation']),
 )]
-class YearFormatConstraint extends SymfonyConstraint {
+class YearFormatConstraint extends SymfonyConstraint
+{
 
   public $noRegexMatchMessage = 'The year value %value must be in an n/N format, where n and N are integers (numbers).';
 
   public $numberValueMismatchMessage = 'Invalid value: %value. The number before the "/" must be less or equal to the number after the "/".';
-
 }
