@@ -56,11 +56,6 @@ class UniqueCodeAndHeiConstraintValidator extends ConstraintValidator implements
       $query->condition('id', $entity->id(), '<>');
     }
 
-    // if (!empty($constraint->bundle)) {
-    //   // TODO: use $bundle as array.
-    //   $query->condition('bundle', $constraint->bundle);
-    // }
-
     $result = $query->execute();
 
     if (!empty($result)) {
