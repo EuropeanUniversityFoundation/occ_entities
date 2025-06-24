@@ -354,22 +354,20 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ])
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['language_of_instruction'] = BaseFieldDefinition::create('string')
+    $fields['language_of_instruction'] = BaseFieldDefinition::create('ewp_lang')
       ->setLabel(new TranslatableMarkup('Language of Instruction'))
       ->setDescription(new TranslatableMarkup('Language(s) of Instruction for the Learning Opportunity Specification.'))
       ->setSettings([
         'max_length' => 100,
         'text_processing' => 0,
       ])
-      //->addConstraint('ValidLanguageTag', [])
-      ->setDefaultValue('')
       ->setDisplayOptions('view', [
         'label' => 'hidden',
-        'type' => 'string',
+        'type' => 'ewp_lang_default',
         'weight' => -20,
       ])
       ->setDisplayOptions('form', [
-        'type' => 'string_textfield',
+        'type' => 'ewp_lang_default',
         'weight' => -20,
       ])
       ->setDisplayConfigurable('form', TRUE)
