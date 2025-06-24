@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.occ_los.course__subject_area
+    - occ_entities.occ_los_type.course
+  module:
+    - erasmus_subject_area_code
+id: occ_los.course.course__subject_area
+field_name: course__subject_area
+entity_type: occ_los
+bundle: course
+label: 'Erasmus subject area code'
+description: 'Erasmus subject area code for the course.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: erasmus_subject_area_code
