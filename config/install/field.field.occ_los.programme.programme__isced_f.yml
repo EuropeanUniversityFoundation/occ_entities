@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.occ_los.programme__isced_f
+    - occ_entities.occ_los_type.programme
+  module:
+    - isced_field
+id: occ_los.programme.programme__isced_f
+field_name: programme__isced_f
+entity_type: occ_los
+bundle: programme
+label: 'ISCED-F field of study'
+description: 'ISCED-F field of study.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: isced_f
