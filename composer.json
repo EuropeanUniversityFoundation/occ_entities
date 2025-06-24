@@ -30,7 +30,8 @@
     "require": {
         "euf/ewp_core": "^1.0",
         "euf/ewp_institutions": "^1.0",
-        "euf/ewp_ounits": "^1.0"
+        "euf/ewp_ounits": "^1.0",
+        "euf/isced_field": "^1.0"
     },
     "minimum-stability": "dev",
     "repositories": [
