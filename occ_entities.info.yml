@@ -8,4 +8,5 @@ dependencies:
   - ewp_institutions:ewp_institutions
   - ewp_ounits:ewp_ounits
   - isced_field:isced_field
+  - erasmus_subject_area_code:erasmus_subject_area_code
 configure: entity.occ_los_type.collection
