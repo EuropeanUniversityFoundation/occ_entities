@@ -32,9 +32,13 @@ class YearMatchesProgrammeConstraintValidator extends ConstraintValidator implem
 
   public function validate($value, Constraint $constraint)
   {
-
     foreach ($value as $item) {
-      $referenced_programme_id = $item->{self::PROGRAMME_SUBFIELD_NAME};
+      $reference_value = $item->{self::PROGRAMME_SUBFIELD_NAME};
+      if ($reference_value instanceof LearningOpportunitySpecification) {
+        $referenced_programme_id = $reference_value->id();
+      } else {
+        $referenced_programme_id = $reference_value;
+      }
       $referenced_programme = $this->findProgrammeById($referenced_programme_id);
       // @phpstan-ignore property.notFound
       $referenced_programme_length = $referenced_programme->get('programme__length')->value;
