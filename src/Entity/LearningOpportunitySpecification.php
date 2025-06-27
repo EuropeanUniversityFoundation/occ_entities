@@ -136,13 +136,13 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
         'settings' => [
           'display_label' => FALSE,
         ],
-        'weight' => 0,
+        'weight' => 100,
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayOptions('view', [
         'type' => 'boolean',
         'label' => 'above',
-        'weight' => 0,
+        'weight' => 100,
         'settings' => [
           'format' => 'enabled-disabled',
         ],
@@ -201,11 +201,11 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'string',
-        'weight' => -20,
+        'weight' => -90,
       ])
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
-        'weight' => -20,
+        'weight' => -90,
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
@@ -242,11 +242,11 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'ewp_string_lang_default',
-        'weight' => -20,
+        'weight' => -100,
       ])
       ->setDisplayOptions('form', [
         'type' => 'ewp_string_lang_default',
-        'weight' => -20,
+        'weight' => -100,
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
@@ -320,13 +320,13 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
           'size' => 60,
           'placeholder' => '',
         ],
-        'weight' => 15,
+        'weight' => -80,
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
-        'weight' => 15,
+        'weight' => -80,
       ])
       ->setDisplayConfigurable('view', TRUE)
       ->setRequired(TRUE);
@@ -344,13 +344,13 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
           'size' => 60,
           'placeholder' => '',
         ],
-        'weight' => 15,
+        'weight' => -70,
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
-        'weight' => 15,
+        'weight' => -70,
       ])
       ->setDisplayConfigurable('view', TRUE);
 
