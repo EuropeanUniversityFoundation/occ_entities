@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - elm_vocabulary_field
+    - occ_entities
+id: occ_los.course__elm_learning_schedule
+field_name: course__elm_learning_schedule
+entity_type: occ_los
+type: elm_controlled_vocabulary
+settings:
+  vocabulary: learning_schedule
+module: elm_vocabulary_field
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
