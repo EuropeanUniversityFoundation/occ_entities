@@ -1,7 +1,7 @@
 name: 'OCC Entities'
 type: module
 description: '@todo Add description.'
-package: '@todo Add package'
+package: 'Open Course Catalogue'
 core_version_requirement: ^10.3 || ^11
 dependencies:
   - ewp_core:ewp_core
