@@ -1,0 +1,24 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Adds reference selection handlers to occ_los entities.
+ */
+
+/**
+ * Adds entity reference selection handler to both Programme and Course ounit base field.
+ *
+ * @param mixed $fields
+ * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
+ * @return void
+ */
+function occ_entity_reference_selection_entity_base_field_info_alter(&$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type)
+{
+  if ($entity_type->id() === 'occ_los') {
+    if (isset($fields['ounit'])) {
+      $fields['ounit']->setSetting('handler', 'occ_entity_reference_selection_ounit_selection');
+    }
+  }
+}
