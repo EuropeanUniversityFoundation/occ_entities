@@ -1,0 +1,9 @@
+entity_reference_selection.occ_entity_reference_selection_ounit_selection:
+  type: entity_reference_selection.default
+  label: 'Own HEIs OUnit selection handler settings'
+entity_reference_selection.occ_entity_reference_selection_programme_selection:
+  type: entity_reference_selection.default
+  label: 'Own HEIs Programme selection handler settings'
+entity_reference_selection.occ_entity_reference_selection_course_selection:
+  type: entity_reference_selection.default
+  label: 'Own HEIs Course selection handler settings'

@@ -1,0 +1,7 @@
+name: 'OCC entity reference selection'
+type: module
+description: '@todo Add description.'
+package: 'Open Course Catalogue'
+core_version_requirement: ^10.3 || ^11
+dependencies:
+  - occ_entites:occ_entities
