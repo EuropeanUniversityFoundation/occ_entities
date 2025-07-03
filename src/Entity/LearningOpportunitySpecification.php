@@ -336,7 +336,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setLabel(new TranslatableMarkup('Organizational Unit'))
       ->setSetting('target_type', 'ounit')
       ->setSetting('handler', 'default:ounit')
-      ->addConstraint('ounit_hei_matches', [])
+      ->addConstraint('ounit_hei_matches_los', [])
       ->setDisplayOptions('form', [
         'type' => 'entity_reference_autocomplete',
         'settings' => [

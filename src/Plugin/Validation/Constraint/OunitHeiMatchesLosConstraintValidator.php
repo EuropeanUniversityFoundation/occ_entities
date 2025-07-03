@@ -9,9 +9,9 @@ use Drupal\Core\Field\EntityReferenceFieldItemList;
 use Symfony\Component\Validator\ConstraintValidator;
 
 /**
- * Validates the OunitHeiMatches constraint.
+ * Validates the OunitHeiMatchesLos constraint.
  */
-final class OunitHeiMatchesConstraintValidator extends ConstraintValidator
+final class OunitHeiMatchesLosConstraintValidator extends ConstraintValidator
 {
 
   /**
@@ -34,7 +34,7 @@ final class OunitHeiMatchesConstraintValidator extends ConstraintValidator
     $referenced_entity_hei_target_ids = $item->entity->parent_hei->getValue();
 
     if ($referenced_hei_target_ids !== $referenced_entity_hei_target_ids) {
-      /** @var OunitHeiMatchesConstraint $constraint */
+      /** @var OunitHeiMatchesLosConstraint $constraint */
       $this->context->buildViolation($constraint->message)
         // @phpstan-ignore property.notFound
         ->setParameter('%ounit', $item->entity->label())

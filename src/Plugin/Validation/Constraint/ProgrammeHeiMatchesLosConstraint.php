@@ -7,11 +7,11 @@ namespace Drupal\occ_entities\Plugin\Validation\Constraint;
 use Symfony\Component\Validator\Constraint;
 
 /**
- * Provides a OunitHeiMatches constraint.
+ * Provides a ProgrammeHeiMatches constraint.
  *
  * @Constraint(
- *   id = "ounit_hei_matches",
- *   label = @Translation("OunitHeiMatches", context = "Validation"),
+ *   id = "programme_hei_matches_los",
+ *   label = @Translation("ProgrammeHeiMatches", context = "Validation"),
  * )
  *
  * @DCG
@@ -20,8 +20,8 @@ use Symfony\Component\Validator\Constraint;
  *
  * @see https://www.drupal.org/node/2015723
  */
-final class OunitHeiMatchesConstraint extends Constraint
+final class ProgrammeHeiMatchesLosConstraint extends Constraint
 {
 
-  public string $message = 'Organizatoinal Unit %ounit must reference the same HEI as this Learning Opportunity Specification.';
+  public string $message = 'Programme %programme must reference the same HEI as this Learning Opportunity Specification.';
 }
