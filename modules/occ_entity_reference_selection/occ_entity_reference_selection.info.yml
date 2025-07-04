@@ -5,4 +5,4 @@ package: 'Open Course Catalogue'
 core_version_requirement: ^10.3 || ^11
 dependencies:
   - occ_entities:occ_entities
-  - ewp_institution:ewp_institution_user
+  - ewp_institutions:ewp_institutions_user
