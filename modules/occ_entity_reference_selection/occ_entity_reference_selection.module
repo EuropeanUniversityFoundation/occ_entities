@@ -20,5 +20,14 @@ function occ_entity_reference_selection_entity_base_field_info_alter(&$fields, \
     if (isset($fields['ounit'])) {
       $fields['ounit']->setSetting('handler', 'occ_entity_reference_selection_ounit_selection');
     }
+
+    if (isset($fields['hei'])) {
+      $fields['hei']
+        ->setSetting('handler', 'ewp_institutions_user')
+        ->setSetting('handler_settings', [
+          'negate' => FALSE,
+          'show_all' => FALSE,
+        ]);
+    }
   }
 }
