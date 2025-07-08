@@ -4,5 +4,5 @@ description: '@todo Add description.'
 package: 'Open Course Catalogue'
 core_version_requirement: ^10.3 || ^11
 dependencies:
-  - occ_entites:occ_entities
-  - ewp_institution_user:ewp_institution_user
+  - occ_entities:occ_entities
+  - ewp_institutions:ewp_institutions_user
