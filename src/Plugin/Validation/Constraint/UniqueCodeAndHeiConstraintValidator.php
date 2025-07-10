@@ -59,7 +59,12 @@ class UniqueCodeAndHeiConstraintValidator extends ConstraintValidator implements
     $result = $query->execute();
 
     if (!empty($result)) {
-      $this->context->addViolation($constraint->message, ['%entity_label' => $constraint->entity_label, '%code' => $entity_code, '%hei' => $entity_hei->label()]);
+      $this->context->buildViolation($constraint->message)
+        ->setParameter('%entity_label', $entity->label())
+        ->setParameter('%code', $entity_code)
+        ->setParameter('%hei', $entity_hei->label())
+        ->atPath($constraint->code_field)
+        ->addViolation();
     }
   }
 }
