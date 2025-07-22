@@ -190,6 +190,29 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setLabel(new TranslatableMarkup('Changed'))
       ->setDescription(new TranslatableMarkup('The time that the learning opportunity specification was last edited.'));
 
+    $fields['deprecated'] = BaseFieldDefinition::create('boolean')
+      ->setRevisionable(TRUE)
+      ->setLabel(new TranslatableMarkup('Deprecated'))
+      ->setDefaultValue(FALSE)
+      ->setSetting('on_label', 'Deprecated')
+      ->setDisplayOptions('form', [
+        'type' => 'boolean_checkbox',
+        'settings' => [
+          'display_label' => FALSE,
+        ],
+        'weight' => 100,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayOptions('view', [
+        'type' => 'boolean',
+        'label' => 'above',
+        'weight' => 100,
+        'settings' => [
+          'format' => 'enabled-disabled',
+        ],
+      ])
+      ->setDisplayConfigurable('view', TRUE);
+
     $fields['code'] = BaseFieldDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Code'))
       ->setDescription(new TranslatableMarkup('Code of the Learning Opportunity Specification.'))
