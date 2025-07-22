@@ -52,7 +52,17 @@ content:
         granularity: 2
         refresh: 60
     third_party_settings: {  }
-    weight: 16
+    weight: 17
+    region: content
+  deprecated:
+    type: boolean
+    label: above
+    settings:
+      format: enabled-disabled
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 15
     region: content
   description:
     type: ewp_multiline_lang_default
@@ -148,7 +158,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 17
+    weight: 18
     region: content
   title:
     type: ewp_string_lang_default
@@ -162,7 +172,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 15
+    weight: 16
     region: content
   url:
     type: ewp_http_lang_default

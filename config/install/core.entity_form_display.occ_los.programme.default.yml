@@ -37,9 +37,16 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 16
+    weight: 17
     region: content
     settings: {  }
+    third_party_settings: {  }
+  deprecated:
+    type: boolean_checkbox
+    weight: 15
+    region: content
+    settings:
+      display_label: false
     third_party_settings: {  }
   description:
     type: ewp_multiline_lang_default
@@ -123,7 +130,7 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 17
+    weight: 18
     region: content
     settings:
       display_label: false
@@ -138,7 +145,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 15
+    weight: 16
     region: content
     settings:
       match_operator: CONTAINS
