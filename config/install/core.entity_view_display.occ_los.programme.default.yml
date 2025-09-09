@@ -9,6 +9,8 @@ dependencies:
     - field.field.occ_los.programme.programme__eqf_level
     - field.field.occ_los.programme.programme__isced_f
     - field.field.occ_los.programme.programme__length
+    - field.field.occ_los.programme.programme__valid_since
+    - field.field.occ_los.programme.programme__valid_until
     - occ_entities.occ_los_type.programme
   module:
     - elm_vocabulary_field
@@ -69,7 +71,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 12
+    weight: 9
     region: content
   hei:
     type: entity_reference_label
@@ -91,7 +93,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 13
+    weight: 10
     region: content
   programme__ects:
     type: number_integer
@@ -108,7 +110,7 @@ content:
     settings:
       prefix: false
     third_party_settings: {  }
-    weight: 9
+    weight: 11
     region: content
   programme__elm_learning_schedule:
     type: elm_controlled_vocabulary_default
@@ -116,7 +118,7 @@ content:
     settings:
       prefix: false
     third_party_settings: {  }
-    weight: 10
+    weight: 12
     region: content
   programme__elm_lo_type:
     type: elm_controlled_vocabulary_default
@@ -124,7 +126,7 @@ content:
     settings:
       prefix: false
     third_party_settings: {  }
-    weight: 11
+    weight: 13
     region: content
   programme__eqf_level:
     type: eqf_level_default
@@ -142,11 +144,10 @@ content:
     weight: 5
     region: content
   programme__length:
-    type: number_integer
+    type: string
     label: above
     settings:
-      thousand_separator: ''
-      prefix_suffix: true
+      link_to_entity: false
     third_party_settings: {  }
     weight: 7
     region: content
@@ -183,3 +184,5 @@ content:
     region: content
 hidden:
   ounit: true
+  programme__valid_since: true
+  programme__valid_until: true
