@@ -6,10 +6,8 @@ dependencies:
 id: occ_los.course__restricted_to_alliance
 field_name: course__restricted_to_alliance
 entity_type: occ_los
-type: integer
-settings:
-  unsigned: false
-  size: normal
+type: boolean
+settings: {  }
 module: core
 locked: false
 cardinality: 1
