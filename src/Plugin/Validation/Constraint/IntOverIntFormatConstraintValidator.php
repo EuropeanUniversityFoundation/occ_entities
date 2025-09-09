@@ -6,7 +6,7 @@ use Drupal\Core\Field\FieldItemList;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class IntOverIntConstraintValidator extends ConstraintValidator
+class IntOverIntFormatConstraintValidator extends ConstraintValidator
 {
 
   public function validate($value, Constraint $constraint)
@@ -24,22 +24,11 @@ class IntOverIntConstraintValidator extends ConstraintValidator
     foreach ($value as $delta => $item) {
       $field_value = $item->get('value')->getValue();
       if (!preg_match('~^\d+/\d+$~', $field_value)) {
-        /** @var IntOverIntConstraint $constraint */
+        /** @var IntOverGreaterOrEqualIntConstraint $constraint */
         $this->context->buildViolation($constraint->noRegexMatchMessage)
           ->setParameter('%value', $field_value)
           ->atPath($delta)
           ->addViolation();
-      }
-
-      if (str_contains($field_value, '/')) {
-        $field_values = explode('/', $field_value);
-        if ($field_values[0] > $field_values[1]) {
-          /** @var IntOverIntConstraint $constraint */
-          $this->context->buildViolation($constraint->numberValueMismatchMessage)
-            ->setParameter('%value', $field_value)
-            ->atPath($delta)
-            ->addViolation();
-        }
       }
     }
   }
