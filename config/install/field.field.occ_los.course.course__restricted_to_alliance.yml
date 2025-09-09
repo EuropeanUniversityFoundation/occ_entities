@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.occ_los.course__restricted_to_alliance
+    - occ_entities.occ_los_type.course
+id: occ_los.course.course__restricted_to_alliance
+field_name: course__restricted_to_alliance
+entity_type: occ_los
+bundle: course
+label: 'Restricted to alliance students'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: 1
+  prefix: ''
+  suffix: ''
+field_type: integer

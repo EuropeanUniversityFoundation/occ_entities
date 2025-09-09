@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.occ_los.programme__valid_until
+    - occ_entities.occ_los_type.programme
+  module:
+    - datetime
+id: occ_los.programme.programme__valid_until
+field_name: programme__valid_until
+entity_type: occ_los
+bundle: programme
+label: 'Valid until'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

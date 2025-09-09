@@ -9,14 +9,10 @@ field_name: programme__length
 entity_type: occ_los
 bundle: programme
 label: Length
-description: 'The length of the Programme in years.'
-required: false
+description: 'In an N/F format, where N is the total number of terms and F is the number of terms in a year'
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings:
-  min: null
-  max: null
-  prefix: ''
-  suffix: ''
-field_type: integer
+settings: {  }
+field_type: string
