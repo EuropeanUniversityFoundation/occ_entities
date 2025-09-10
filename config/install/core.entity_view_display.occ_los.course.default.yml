@@ -6,8 +6,9 @@ dependencies:
     - field.field.occ_los.course.course__bibliography
     - field.field.occ_los.course.course__course_content
     - field.field.occ_los.course.course__ects
+    - field.field.occ_los.course.course__elm_activity_type
+    - field.field.occ_los.course.course__elm_assessment_type
     - field.field.occ_los.course.course__elm_learning_mode
-    - field.field.occ_los.course.course__elm_learning_schedule
     - field.field.occ_los.course.course__elm_lo_type
     - field.field.occ_los.course.course__isced_f
     - field.field.occ_los.course.course__other_prerequisites
@@ -48,21 +49,21 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 10
+    weight: 8
     region: content
   course__bibliography:
     type: ewp_multiline_lang_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 16
+    weight: 14
     region: content
   course__course_content:
     type: ewp_multiline_lang_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 14
+    weight: 12
     region: content
   course__ects:
     type: number_decimal
@@ -75,6 +76,22 @@ content:
     third_party_settings: {  }
     weight: 6
     region: content
+  course__elm_activity_type:
+    type: elm_controlled_vocabulary_default
+    label: above
+    settings:
+      prefix: false
+    third_party_settings: {  }
+    weight: 16
+    region: content
+  course__elm_assessment_type:
+    type: elm_controlled_vocabulary_default
+    label: above
+    settings:
+      prefix: false
+    third_party_settings: {  }
+    weight: 17
+    region: content
   course__elm_learning_mode:
     type: elm_controlled_vocabulary_default
     label: above
@@ -83,21 +100,13 @@ content:
     third_party_settings: {  }
     weight: 18
     region: content
-  course__elm_learning_schedule:
-    type: elm_controlled_vocabulary_default
-    label: above
-    settings:
-      prefix: false
-    third_party_settings: {  }
-    weight: 19
-    region: content
   course__elm_lo_type:
     type: elm_controlled_vocabulary_default
     label: above
     settings:
       prefix: false
     third_party_settings: {  }
-    weight: 17
+    weight: 15
     region: content
   course__isced_f:
     type: isced_f_default
@@ -112,7 +121,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 12
+    weight: 10
     region: content
   course__prerequisite_course:
     type: entity_reference_label
@@ -120,7 +129,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 11
+    weight: 9
     region: content
   course__related_programme:
     type: related_programme_view
@@ -128,25 +137,35 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 9
+    weight: 7
     region: content
   course__restricted_to_alliance:
-    type: number_integer
+    type: boolean
     label: above
     settings:
-      thousand_separator: ''
-      prefix_suffix: true
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
     third_party_settings: {  }
-    weight: 8
+    weight: 25
     region: content
   course__restricted_to_local:
-    type: number_integer
+    type: boolean
     label: above
     settings:
-      thousand_separator: ''
-      prefix_suffix: true
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
     third_party_settings: {  }
-    weight: 7
+    weight: 24
+    region: content
+  couse__elm_assessment_type:
+    type: elm_controlled_vocabulary_default
+    label: above
+    settings:
+      prefix: false
+    third_party_settings: {  }
+    weight: 17
     region: content
   created:
     type: timestamp
@@ -165,7 +184,7 @@ content:
         granularity: 2
         refresh: 60
     third_party_settings: {  }
-    weight: 23
+    weight: 22
     region: content
   deprecated:
     type: boolean
@@ -175,14 +194,14 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 21
+    weight: 20
     region: content
   description:
     type: ewp_multiline_lang_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 13
+    weight: 11
     region: content
   hei:
     type: entity_reference_label
@@ -204,7 +223,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 15
+    weight: 13
     region: content
   status:
     type: boolean
@@ -214,7 +233,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 24
+    weight: 23
     region: content
   title:
     type: ewp_string_lang_default
@@ -228,14 +247,14 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 22
+    weight: 21
     region: content
   url:
     type: ewp_http_lang_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 20
+    weight: 19
     region: content
 hidden:
   ounit: true
