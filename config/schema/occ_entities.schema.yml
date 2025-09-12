@@ -1,0 +1,33 @@
+field.value.occ_entities_local_classification:
+  type: mapping
+  label: Default value
+  mapping:
+    type:
+      type: string
+      label: 'Type'
+      constraints:
+        NotNull: []
+    value:
+      type: string
+      label: 'Value'
+      constraints:
+        NotNull: []
+
+field.storage_settings.occ_entities_local_classification:
+  type: mapping
+  label: 'String settings'
+  mapping:
+    max_length:
+      type: integer
+      label: 'Maximum length'
+
+field.widget.settings.occ_entities_local_classification_default:
+  type: mapping
+  label: 'Local classification default widget settings'
+  mapping:
+    size:
+      type: integer
+      label: 'Size'
+    placeholder:
+      type: string
+      label: 'Placeholder'
