@@ -27,6 +27,10 @@ function occ_entities_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
     if (isset($fields['course__academic_term'])) {
       $fields['course__academic_term']->addConstraint('int_over_greater_or_equal_int', []);
     }
+
+    if (isset($fields['field_local_classification_multi'])) {
+      $fields['field_local_classification_multi']->addConstraint('value_and_type_provided', []);
+    }
   }
 
   if ($entity_type->id() == 'occ_los' && $bundle == 'programme') {
