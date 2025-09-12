@@ -3,7 +3,9 @@ status: true
 dependencies:
   config:
     - field.field.occ_los.course.course__academic_term
+    - field.field.occ_los.course.course__assessment_method
     - field.field.occ_los.course.course__bibliography
+    - field.field.occ_los.course.course__course_availability
     - field.field.occ_los.course.course__course_content
     - field.field.occ_los.course.course__ects
     - field.field.occ_los.course.course__elm_activity_type
@@ -11,13 +13,12 @@ dependencies:
     - field.field.occ_los.course.course__elm_learning_mode
     - field.field.occ_los.course.course__elm_lo_type
     - field.field.occ_los.course.course__isced_f
-    - field.field.occ_los.course.course__other_prerequisites
+    - field.field.occ_los.course.course__local_classification
+    - field.field.occ_los.course.course__prerequisites
     - field.field.occ_los.course.course__prerequisite_course
     - field.field.occ_los.course.course__related_programme
     - field.field.occ_los.course.course__restricted_to_alliance
     - field.field.occ_los.course.course__restricted_to_local
-    - field.field.occ_los.course.course__assessment_method
-    - field.field.occ_los.course.course__course_availability
     - field.field.occ_los.course.course__teaching_method
     - occ_entities.occ_los_type.course
   module:
@@ -32,7 +33,7 @@ mode: default
 content:
   abbreviation:
     type: ewp_string_lang_default
-    weight: 3
+    weight: 7
     region: content
     settings:
       size: 60
@@ -40,7 +41,7 @@ content:
     third_party_settings: {  }
   code:
     type: string_textfield
-    weight: 2
+    weight: 1
     region: content
     settings:
       size: 60
@@ -54,9 +55,25 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  course__assessment_method:
+    type: ewp_multiline_lang_default
+    weight: 9
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   course__bibliography:
     type: ewp_multiline_lang_default
-    weight: 17
+    weight: 10
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  course__course_availability:
+    type: ewp_multiline_lang_default
+    weight: 11
     region: content
     settings:
       rows: 5
@@ -64,7 +81,7 @@ content:
     third_party_settings: {  }
   course__course_content:
     type: ewp_multiline_lang_default
-    weight: 15
+    weight: 12
     region: content
     settings:
       rows: 5
@@ -72,49 +89,59 @@ content:
     third_party_settings: {  }
   course__ects:
     type: number
-    weight: 6
+    weight: 3
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   course__elm_activity_type:
     type: elm_controlled_vocabulary_select
-    weight: 20
+    weight: 14
     region: content
     settings:
       prefix: false
     third_party_settings: {  }
   course__elm_assessment_type:
     type: elm_controlled_vocabulary_select
-    weight: 21
+    weight: 13
     region: content
     settings:
       prefix: false
     third_party_settings: {  }
   course__elm_learning_mode:
     type: elm_controlled_vocabulary_select
-    weight: 23
+    weight: 16
     region: content
     settings:
       prefix: false
     third_party_settings: {  }
   course__elm_lo_type:
     type: elm_controlled_vocabulary_select
-    weight: 19
+    weight: 15
     region: content
     settings:
       prefix: false
     third_party_settings: {  }
   course__isced_f:
     type: isced_f_select
-    weight: 4
+    weight: 17
     region: content
     settings:
       allow_all_levels: true
     third_party_settings: {  }
-  course__other_prerequisites:
+  course__local_classification:
+    type: occ_entities_local_classification_default
+    weight: 18
+    region: content
+    settings:
+      type_size: 60
+      type_placeholder: ''
+      value_size: 60
+      value_placeholder: ''
+    third_party_settings: {  }
+  course__prerequisites:
     type: ewp_multiline_lang_default
-    weight: 13
+    weight: 20
     region: content
     settings:
       rows: 5
@@ -122,7 +149,7 @@ content:
     third_party_settings: {  }
   course__prerequisite_course:
     type: entity_reference_autocomplete
-    weight: 12
+    weight: 19
     region: content
     settings:
       match_operator: CONTAINS
@@ -132,7 +159,7 @@ content:
     third_party_settings: {  }
   course__related_programme:
     type: related_programme_autocomplete
-    weight: 7
+    weight: 21
     region: content
     settings:
       match_operator: CONTAINS
@@ -142,58 +169,42 @@ content:
     third_party_settings: {  }
   course__restricted_to_alliance:
     type: boolean_checkbox
-    weight: 11
+    weight: 23
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   course__restricted_to_local:
     type: boolean_checkbox
-    weight: 10
+    weight: 22
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
+  course__teaching_method:
+    type: ewp_multiline_lang_default
+    weight: 24
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 27
+    weight: 28
     region: content
     settings: {  }
     third_party_settings: {  }
   deprecated:
     type: boolean_checkbox
-    weight: 25
+    weight: 26
     region: content
     settings:
       display_label: false
     third_party_settings: {  }
   description:
     type: ewp_multiline_lang_default
-    weight: 14
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  course__assessment_method:
-    type: ewp_multiline_lang_default
-    weight: 22
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  course__course_availability:
-    type: ewp_multiline_lang_default
-    weight: 9
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  course__teaching_method:
-    type: ewp_multiline_lang_default
-    weight: 18
+    weight: 5
     region: content
     settings:
       rows: 5
@@ -201,7 +212,7 @@ content:
     third_party_settings: {  }
   hei:
     type: entity_reference_autocomplete
-    weight: 1
+    weight: 2
     region: content
     settings:
       match_operator: CONTAINS
@@ -211,13 +222,13 @@ content:
     third_party_settings: {  }
   language_of_instruction:
     type: ewp_lang_default
-    weight: 5
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
   learning_outcomes:
     type: ewp_multiline_lang_default
-    weight: 16
+    weight: 6
     region: content
     settings:
       rows: 5
@@ -225,7 +236,7 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 28
+    weight: 29
     region: content
     settings:
       display_label: false
@@ -240,7 +251,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 26
+    weight: 27
     region: content
     settings:
       match_operator: CONTAINS
@@ -250,7 +261,7 @@ content:
     third_party_settings: {  }
   url:
     type: ewp_http_lang_default
-    weight: 24
+    weight: 25
     region: content
     settings:
       placeholder_url: ''
