@@ -25,9 +25,15 @@ field.widget.settings.occ_entities_local_classification_default:
   type: mapping
   label: 'Local classification default widget settings'
   mapping:
-    size:
+    type_size:
       type: integer
-      label: 'Size'
-    placeholder:
+      label: 'Type textfield size'
+    type_placeholder:
       type: string
-      label: 'Placeholder'
+      label: 'Type textfield placeholder'
+    value_size:
+      type: integer
+      label: 'Value textfield size'
+    value_placeholder:
+      type: string
+      label: 'Value textfield placeholder'
