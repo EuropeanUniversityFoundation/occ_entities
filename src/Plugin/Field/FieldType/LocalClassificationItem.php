@@ -19,7 +19,7 @@ use Drupal\Core\TypedData\DataDefinition;
   description: [
     new TranslatableMarkup("Stores pairs of classification type and value."),
   ],
-  category: "ewp_institutions",
+  category: "occ_entities",
   default_widget: "occ_entities_local_classification_default",
   default_formatter: "occ_entities_local_classification_default",
 )]
@@ -96,7 +96,8 @@ class LocalClassificationItem extends FieldItemBase {
    */
   public function isEmpty() {
     $value = $this->get('value')->getValue();
-    return $value === NULL || $value === '';
+    $type = $this->get('type')->getValue();
+    return ($type === NULL || $type === '') && ($value === NULL || $value === '');
   }
 
 }

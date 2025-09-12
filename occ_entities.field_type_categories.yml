@@ -1,0 +1,6 @@
+occ_entities:
+  label: 'OCC Entities'
+  description: 'OCC Entities related field and data types.'
+  weight: 120
+  # libraries:
+  #   - ewp_institutions/field_ui
