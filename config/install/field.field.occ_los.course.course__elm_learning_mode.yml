@@ -10,7 +10,7 @@ id: occ_los.course.course__elm_learning_mode
 field_name: course__elm_learning_mode
 entity_type: occ_los
 bundle: course
-label: 'Mode of learning and assessment'
+label: 'ELM - Mode of learning and assessment'
 description: 'ELM vocabulary for Mode of learning and assessment'
 required: false
 translatable: false

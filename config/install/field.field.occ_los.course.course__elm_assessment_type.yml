@@ -10,7 +10,7 @@ id: occ_los.course.course__elm_assessment_type
 field_name: course__elm_assessment_type
 entity_type: occ_los
 bundle: course
-label: 'Assessment type'
+label: 'ELM - Assessment type'
 description: ''
 required: false
 translatable: false

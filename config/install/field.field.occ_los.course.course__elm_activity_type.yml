@@ -10,7 +10,7 @@ id: occ_los.course.course__elm_activity_type
 field_name: course__elm_activity_type
 entity_type: occ_los
 bundle: course
-label: 'Learning activity type'
+label: 'ELM - Learning activity type'
 description: ''
 required: false
 translatable: false
