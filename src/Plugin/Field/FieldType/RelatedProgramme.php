@@ -15,7 +15,7 @@ use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
  *   id = "related_programme",
  *   label = @Translation("Related Programme"),
  *   description = {@Translation("A field containing a reference to a programme, mandatory flag and year.")},
- *   category = "reference",
+ *   category = "occ_entities",
  *   default_widget = "related_programme_autocomplete",
  *   default_formatter = "related_programme_view",
  *   list_class = "\Drupal\Core\Field\EntityReferenceFieldItemList",
