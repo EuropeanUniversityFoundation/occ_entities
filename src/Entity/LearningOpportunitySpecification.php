@@ -291,7 +291,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
-      ->setRequired(FALSE)
+      ->setRequired(TRUE)
       ->setTranslatable(FALSE)
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
 
@@ -309,7 +309,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
-      ->setRequired(FALSE)
+      ->setRequired(TRUE)
       ->setTranslatable(FALSE)
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
 
@@ -395,7 +395,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
-      ->setRequired(FALSE)
+      ->setRequired(TRUE)
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
 
     return $fields;
