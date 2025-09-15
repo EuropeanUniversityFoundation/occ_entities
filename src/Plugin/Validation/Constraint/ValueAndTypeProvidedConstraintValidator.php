@@ -19,7 +19,7 @@ class ValueAndTypeProvidedConstraintValidator extends ConstraintValidator
         }
       }
 
-      if ($filled < 2) {
+      if ($filled === 1) {
         /** @var ValueAndTypeProvidedConstraint $constraint */
         $this->context->buildViolation($constraint->message)
           ->atPath($delta)
