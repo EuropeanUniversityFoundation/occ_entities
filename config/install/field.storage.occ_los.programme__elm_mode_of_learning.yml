@@ -4,8 +4,8 @@ dependencies:
   module:
     - elm_vocabulary_field
     - occ_entities
-id: occ_los.programme__elm_learning_mode
-field_name: programme__elm_learning_mode
+id: occ_los.programme__elm_mode_of_learning
+field_name: programme__elm_mode_of_learning
 entity_type: occ_los
 type: elm_controlled_vocabulary
 settings:

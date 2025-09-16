@@ -10,7 +10,7 @@ id: occ_los.programme.programme__elm_lo_type
 field_name: programme__elm_lo_type
 entity_type: occ_los
 bundle: programme
-label: 'Learning opportunity type'
+label: 'ELM - Learning opportunity type'
 description: 'ELM vocabulary for Learning Opportunity type'
 required: false
 translatable: false

@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.occ_los.programme__abbreviation
+    - occ_entities.occ_los_type.programme
+  module:
+    - ewp_core
+id: occ_los.programme.programme__abbreviation
+field_name: programme__abbreviation
+entity_type: occ_los
+bundle: programme
+label: Abbreviation
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: ewp_string_lang

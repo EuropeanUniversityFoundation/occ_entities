@@ -190,29 +190,6 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setLabel(new TranslatableMarkup('Changed'))
       ->setDescription(new TranslatableMarkup('The time that the learning opportunity specification was last edited.'));
 
-    $fields['deprecated'] = BaseFieldDefinition::create('boolean')
-      ->setRevisionable(TRUE)
-      ->setLabel(new TranslatableMarkup('Deprecated'))
-      ->setDefaultValue(FALSE)
-      ->setSetting('on_label', 'Deprecated')
-      ->setDisplayOptions('form', [
-        'type' => 'boolean_checkbox',
-        'settings' => [
-          'display_label' => FALSE,
-        ],
-        'weight' => 100,
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayOptions('view', [
-        'type' => 'boolean',
-        'label' => 'above',
-        'weight' => 100,
-        'settings' => [
-          'format' => 'enabled-disabled',
-        ],
-      ])
-      ->setDisplayConfigurable('view', TRUE);
-
     $fields['code'] = BaseFieldDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Code'))
       ->setDescription(new TranslatableMarkup('Code of the Learning Opportunity Specification.'))
@@ -234,27 +211,6 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setDisplayConfigurable('view', TRUE)
       ->setRequired(TRUE)
       ->setTranslatable(FALSE);
-
-    $fields['abbreviation'] = BaseFieldDefinition::create('ewp_string_lang')
-      ->setLabel(new TranslatableMarkup('Abbreviation'))
-      ->setDescription(new TranslatableMarkup('Abbreviation of the Learning Opportunity Specification.'))
-      ->setSettings([
-        'max_length' => 255,
-      ])
-      ->setDisplayOptions('view', [
-        'label' => 'hidden',
-        'type' => 'ewp_string_lang_default',
-        'weight' => -20,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'ewp_string_lang_default',
-        'weight' => -20,
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE)
-      ->setRequired(FALSE)
-      ->setTranslatable(FALSE)
-      ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
 
     $fields['title'] = BaseFieldDefinition::create('ewp_string_lang')
       ->setLabel(new TranslatableMarkup('Title'))

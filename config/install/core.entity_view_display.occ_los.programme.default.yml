@@ -2,10 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.occ_los.programme.programme__abbreviation
     - field.field.occ_los.programme.programme__ects
-    - field.field.occ_los.programme.programme__elm_learning_mode
     - field.field.occ_los.programme.programme__elm_learning_schedule
     - field.field.occ_los.programme.programme__elm_lo_type
+    - field.field.occ_los.programme.programme__elm_mode_of_learning
     - field.field.occ_los.programme.programme__eqf_level
     - field.field.occ_los.programme.programme__isced_f
     - field.field.occ_los.programme.programme__length
@@ -13,6 +14,7 @@ dependencies:
     - field.field.occ_los.programme.programme__valid_until
     - occ_entities.occ_los_type.programme
   module:
+    - datetime
     - elm_vocabulary_field
     - ewp_core
     - isced_field
@@ -22,20 +24,13 @@ targetEntityType: occ_los
 bundle: programme
 mode: default
 content:
-  abbreviation:
-    type: ewp_string_lang_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
-    region: content
   code:
     type: string
-    label: hidden
+    label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 2
+    weight: 1
     region: content
   created:
     type: timestamp
@@ -54,24 +49,14 @@ content:
         granularity: 2
         refresh: 60
     third_party_settings: {  }
-    weight: 17
-    region: content
-  deprecated:
-    type: boolean
-    label: above
-    settings:
-      format: enabled-disabled
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 15
+    weight: 18
     region: content
   description:
     type: ewp_multiline_lang_default
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 5
     region: content
   hei:
     type: entity_reference_label
@@ -79,21 +64,28 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 1
+    weight: 16
     region: content
   language_of_instruction:
     type: ewp_lang_default
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
     weight: 4
     region: content
   learning_outcomes:
     type: ewp_multiline_lang_default
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 6
+    region: content
+  programme__abbreviation:
+    type: ewp_string_lang_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
     region: content
   programme__ects:
     type: number_integer
@@ -102,15 +94,7 @@ content:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 6
-    region: content
-  programme__elm_learning_mode:
-    type: elm_controlled_vocabulary_default
-    label: above
-    settings:
-      prefix: false
-    third_party_settings: {  }
-    weight: 11
+    weight: 2
     region: content
   programme__elm_learning_schedule:
     type: elm_controlled_vocabulary_default
@@ -118,7 +102,7 @@ content:
     settings:
       prefix: false
     third_party_settings: {  }
-    weight: 12
+    weight: 9
     region: content
   programme__elm_lo_type:
     type: elm_controlled_vocabulary_default
@@ -126,14 +110,22 @@ content:
     settings:
       prefix: false
     third_party_settings: {  }
-    weight: 13
+    weight: 8
+    region: content
+  programme__elm_mode_of_learning:
+    type: elm_controlled_vocabulary_default
+    label: above
+    settings:
+      prefix: false
+    third_party_settings: {  }
+    weight: 10
     region: content
   programme__eqf_level:
     type: eqf_level_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 3
     region: content
   programme__isced_f:
     type: isced_f_default
@@ -141,7 +133,7 @@ content:
     settings:
       prefix: true
     third_party_settings: {  }
-    weight: 5
+    weight: 11
     region: content
   programme__length:
     type: string
@@ -149,7 +141,25 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 7
+    weight: 12
+    region: content
+  programme__valid_since:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  programme__valid_until:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 15
     region: content
   status:
     type: boolean
@@ -159,11 +169,11 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 18
+    weight: 19
     region: content
   title:
     type: ewp_string_lang_default
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
     weight: 0
@@ -173,16 +183,14 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 16
+    weight: 17
     region: content
   url:
     type: ewp_http_lang_default
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 14
+    weight: 13
     region: content
 hidden:
   ounit: true
-  programme__valid_since: true
-  programme__valid_until: true
