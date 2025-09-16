@@ -3,17 +3,18 @@ status: true
 dependencies:
   module:
     - occ_entities
-id: occ_los.programme__ects
-field_name: programme__ects
+id: occ_los.course__other_categorization
+field_name: course__other_categorization
 entity_type: occ_los
-type: integer
+type: string
 settings:
-  unsigned: false
-  size: normal
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
 module: core
 locked: false
 cardinality: 1
-translatable: false
+translatable: true
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false

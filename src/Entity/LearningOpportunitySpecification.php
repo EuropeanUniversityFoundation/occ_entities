@@ -190,28 +190,28 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setLabel(new TranslatableMarkup('Changed'))
       ->setDescription(new TranslatableMarkup('The time that the learning opportunity specification was last edited.'));
 
-    $fields['deprecated'] = BaseFieldDefinition::create('boolean')
-      ->setRevisionable(TRUE)
-      ->setLabel(new TranslatableMarkup('Deprecated'))
-      ->setDefaultValue(FALSE)
-      ->setSetting('on_label', 'Deprecated')
-      ->setDisplayOptions('form', [
-        'type' => 'boolean_checkbox',
-        'settings' => [
-          'display_label' => FALSE,
-        ],
-        'weight' => 100,
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayOptions('view', [
-        'type' => 'boolean',
-        'label' => 'above',
-        'weight' => 100,
-        'settings' => [
-          'format' => 'enabled-disabled',
-        ],
-      ])
-      ->setDisplayConfigurable('view', TRUE);
+    // $fields['deprecated'] = BaseFieldDefinition::create('boolean')
+    //   ->setRevisionable(TRUE)
+    //   ->setLabel(new TranslatableMarkup('Deprecated'))
+    //   ->setDefaultValue(FALSE)
+    //   ->setSetting('on_label', 'Deprecated')
+    //   ->setDisplayOptions('form', [
+    //     'type' => 'boolean_checkbox',
+    //     'settings' => [
+    //       'display_label' => FALSE,
+    //     ],
+    //     'weight' => 100,
+    //   ])
+    //   ->setDisplayConfigurable('form', TRUE)
+    //   ->setDisplayOptions('view', [
+    //     'type' => 'boolean',
+    //     'label' => 'above',
+    //     'weight' => 100,
+    //     'settings' => [
+    //       'format' => 'enabled-disabled',
+    //     ],
+    //   ])
+    //   ->setDisplayConfigurable('view', TRUE);
 
     $fields['code'] = BaseFieldDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Code'))
@@ -235,26 +235,26 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setRequired(TRUE)
       ->setTranslatable(FALSE);
 
-    $fields['abbreviation'] = BaseFieldDefinition::create('ewp_string_lang')
-      ->setLabel(new TranslatableMarkup('Abbreviation'))
-      ->setDescription(new TranslatableMarkup('Abbreviation of the Learning Opportunity Specification.'))
-      ->setSettings([
-        'max_length' => 255,
-      ])
-      ->setDisplayOptions('view', [
-        'label' => 'hidden',
-        'type' => 'ewp_string_lang_default',
-        'weight' => -20,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'ewp_string_lang_default',
-        'weight' => -20,
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE)
-      ->setRequired(FALSE)
-      ->setTranslatable(FALSE)
-      ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
+    // $fields['abbreviation'] = BaseFieldDefinition::create('ewp_string_lang')
+    //   ->setLabel(new TranslatableMarkup('Abbreviation'))
+    //   ->setDescription(new TranslatableMarkup('Abbreviation of the Learning Opportunity Specification.'))
+    //   ->setSettings([
+    //     'max_length' => 255,
+    //   ])
+    //   ->setDisplayOptions('view', [
+    //     'label' => 'hidden',
+    //     'type' => 'ewp_string_lang_default',
+    //     'weight' => -20,
+    //   ])
+    //   ->setDisplayOptions('form', [
+    //     'type' => 'ewp_string_lang_default',
+    //     'weight' => -20,
+    //   ])
+    //   ->setDisplayConfigurable('form', TRUE)
+    //   ->setDisplayConfigurable('view', TRUE)
+    //   ->setRequired(FALSE)
+    //   ->setTranslatable(FALSE)
+    //   ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
 
     $fields['title'] = BaseFieldDefinition::create('ewp_string_lang')
       ->setLabel(new TranslatableMarkup('Title'))
@@ -291,7 +291,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
-      ->setRequired(FALSE)
+      ->setRequired(TRUE)
       ->setTranslatable(FALSE)
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
 
@@ -309,7 +309,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
-      ->setRequired(FALSE)
+      ->setRequired(TRUE)
       ->setTranslatable(FALSE)
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
 
@@ -395,8 +395,43 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
-      ->setRequired(FALSE)
-      ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
+      ->setRequired(TRUE);
+
+    $fields['isced_code'] = BaseFieldDefinition::create('isced_f')
+      ->setLabel(new TranslatableMarkup('ISCED-F code'))
+      ->setDescription(new TranslatableMarkup('Field of education for the Learning Opportunity Specification.'))
+      ->setSettings([
+        'max_length' => 100,
+        'text_processing' => 0,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'isced_f_default',
+        'weight' => -20,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'isced_f_select',
+        'weight' => -20,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setRequired(TRUE);
+
+    $fields['ects'] = BaseFieldDefinition::create('integer')
+      ->setLabel(new TranslatableMarkup('ECTS'))
+      ->setDescription(new TranslatableMarkup('ECTS for the Learning Opportunity Specification.'))
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'number_integer',
+        'weight' => -20,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'number',
+        'weight' => -20,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setRequired(TRUE);
 
     return $fields;
   }

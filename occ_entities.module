@@ -20,9 +20,9 @@ function occ_entities_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
       $fields['course__related_programme']->addConstraint('programme_hei_matches_los', []);
     }
 
-    if (isset($fields['course__prerequisite_course'])) {
-      $fields['course__prerequisite_course']->addConstraint('course_hei_matches_los', []);
-    }
+    // if (isset($fields['course__prerequisite_course'])) {
+    //   $fields['course__prerequisite_course']->addConstraint('course_hei_matches_los', []);
+    // }
 
     if (isset($fields['course__academic_term'])) {
       $fields['course__academic_term']->addConstraint('int_over_greater_or_equal_int', []);
@@ -39,9 +39,10 @@ function occ_entities_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
       ]);
     }
 
-    if (isset($fields['programme__length'])) {
-      $fields['programme__length']->addConstraint('int_over_int_format', []);
-    }
+    // TODO: Review
+    // if (isset($fields['programme__length'])) {
+    //   $fields['programme__length']->addConstraint('int_over_int_format', []);
+    // }
   }
 }
 

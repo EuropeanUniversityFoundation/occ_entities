@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.occ_los.course__restricted_to_local
+    - field.storage.occ_los.course__unavailable_for_incoming
     - occ_entities.occ_los_type.course
-id: occ_los.course.course__restricted_to_local
-field_name: course__restricted_to_local
+id: occ_los.course.course__unavailable_for_incoming
+field_name: course__unavailable_for_incoming
 entity_type: occ_los
 bundle: course
-label: 'Restricted to local students'
+label: 'Unavailable for incoming mobility'
 description: ''
 required: false
 translatable: false
@@ -17,6 +17,6 @@ default_value:
     value: 0
 default_value_callback: ''
 settings:
-  on_label: 'Yes'
-  off_label: 'No'
+  on_label: 'On'
+  off_label: 'Off'
 field_type: boolean

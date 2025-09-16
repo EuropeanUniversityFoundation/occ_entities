@@ -2,15 +2,16 @@ langcode: en
 status: true
 dependencies:
   module:
+    - ewp_core
     - occ_entities
-id: occ_los.course__restricted_to_alliance
-field_name: course__restricted_to_alliance
+id: occ_los.course__course_availability
+field_name: course__course_availability
 entity_type: occ_los
-type: boolean
+type: ewp_multiline_lang
 settings: {  }
-module: core
+module: ewp_core
 locked: false
-cardinality: 1
+cardinality: -1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

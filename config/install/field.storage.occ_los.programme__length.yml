@@ -6,11 +6,10 @@ dependencies:
 id: occ_los.programme__length
 field_name: programme__length
 entity_type: occ_los
-type: string
+type: integer
 settings:
-  max_length: 10
-  case_sensitive: false
-  is_ascii: false
+  unsigned: false
+  size: normal
 module: core
 locked: false
 cardinality: 1

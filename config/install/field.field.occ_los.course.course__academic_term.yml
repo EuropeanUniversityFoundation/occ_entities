@@ -10,7 +10,7 @@ entity_type: occ_los
 bundle: course
 label: 'Academic term'
 description: 'Academic term the course is generally delivered at in an n/N format.'
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''

@@ -2,19 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.occ_los.programme.programme__ects
-    - field.field.occ_los.programme.programme__elm_learning_mode
-    - field.field.occ_los.programme.programme__elm_learning_schedule
-    - field.field.occ_los.programme.programme__elm_lo_type
     - field.field.occ_los.programme.programme__eqf_level
-    - field.field.occ_los.programme.programme__isced_f
     - field.field.occ_los.programme.programme__length
-    - field.field.occ_los.programme.programme__valid_since
-    - field.field.occ_los.programme.programme__valid_until
     - occ_entities.occ_los_type.programme
   module:
-    - datetime
-    - elm_vocabulary_field
     - ewp_core
     - isced_field
 id: occ_los.programme.default
@@ -22,17 +13,9 @@ targetEntityType: occ_los
 bundle: programme
 mode: default
 content:
-  abbreviation:
-    type: ewp_string_lang_default
-    weight: 3
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   code:
     type: string_textfield
-    weight: 2
+    weight: 1
     region: content
     settings:
       size: 60
@@ -40,28 +23,28 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 19
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
-  deprecated:
-    type: boolean_checkbox
-    weight: 17
-    region: content
-    settings:
-      display_label: false
-    third_party_settings: {  }
   description:
     type: ewp_multiline_lang_default
-    weight: 9
+    weight: 2
     region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  ects:
+    type: number
+    weight: 3
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
   hei:
     type: entity_reference_autocomplete
-    weight: 1
+    weight: 9
     region: content
     settings:
       match_operator: CONTAINS
@@ -69,84 +52,53 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  language_of_instruction:
-    type: ewp_lang_default
-    weight: 4
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  learning_outcomes:
-    type: ewp_multiline_lang_default
-    weight: 10
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  programme__ects:
-    type: number
-    weight: 6
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  programme__elm_learning_mode:
-    type: elm_controlled_vocabulary_select
-    weight: 11
-    region: content
-    settings:
-      prefix: false
-    third_party_settings: {  }
-  programme__elm_learning_schedule:
-    type: elm_controlled_vocabulary_select
-    weight: 12
-    region: content
-    settings:
-      prefix: false
-    third_party_settings: {  }
-  programme__elm_lo_type:
-    type: elm_controlled_vocabulary_select
-    weight: 13
-    region: content
-    settings:
-      prefix: false
-    third_party_settings: {  }
-  programme__eqf_level:
-    type: eqf_level_default
-    weight: 8
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  programme__isced_f:
+  isced_code:
     type: isced_f_select
     weight: 5
     region: content
     settings:
       allow_all_levels: true
     third_party_settings: {  }
-  programme__length:
-    type: string_textfield
-    weight: 7
+  language_of_instruction:
+    type: ewp_lang_default
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  learning_outcomes:
+    type: ewp_multiline_lang_default
+    weight: 11
     region: content
     settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  ounit:
+    type: entity_reference_autocomplete
+    weight: 10
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  programme__valid_since:
-    type: datetime_default
-    weight: 15
+  programme__eqf_level:
+    type: eqf_level_default
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
-  programme__valid_until:
-    type: datetime_default
-    weight: 16
+  programme__length:
+    type: number
+    weight: 7
     region: content
-    settings: {  }
+    settings:
+      placeholder: ''
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 20
+    weight: 14
     region: content
     settings:
       display_label: false
@@ -161,7 +113,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 18
+    weight: 12
     region: content
     settings:
       match_operator: CONTAINS
@@ -171,11 +123,10 @@ content:
     third_party_settings: {  }
   url:
     type: ewp_http_lang_default
-    weight: 14
+    weight: 8
     region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-hidden:
-  ounit: true
+hidden: {  }

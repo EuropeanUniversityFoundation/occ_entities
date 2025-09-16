@@ -4,8 +4,8 @@ dependencies:
   module:
     - ewp_core
     - occ_entities
-id: occ_los.course__other_prerequisites
-field_name: course__other_prerequisites
+id: occ_los.course__teaching_method
+field_name: course__teaching_method
 entity_type: occ_los
 type: ewp_multiline_lang
 settings: {  }

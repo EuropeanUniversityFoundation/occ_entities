@@ -3,22 +3,19 @@ status: true
 dependencies:
   config:
     - field.field.occ_los.course.course__academic_term
+    - field.field.occ_los.course.course__assessment_method
     - field.field.occ_los.course.course__bibliography
+    - field.field.occ_los.course.course__course_availability
     - field.field.occ_los.course.course__course_content
-    - field.field.occ_los.course.course__ects
-    - field.field.occ_los.course.course__elm_activity_type
-    - field.field.occ_los.course.course__elm_assessment_type
-    - field.field.occ_los.course.course__elm_learning_mode
-    - field.field.occ_los.course.course__elm_lo_type
-    - field.field.occ_los.course.course__isced_f
-    - field.field.occ_los.course.course__other_prerequisites
-    - field.field.occ_los.course.course__prerequisite_course
+    - field.field.occ_los.course.course__prerequisites
     - field.field.occ_los.course.course__related_programme
-    - field.field.occ_los.course.course__restricted_to_alliance
-    - field.field.occ_los.course.course__restricted_to_local
+    - field.field.occ_los.course.course__teaching_method
+    - field.field.occ_los.course.course__unavailable_for_incoming
+    - field.field.occ_los.course.course__subject_area
+    - field.field.occ_los.course.course__other_categorization
     - occ_entities.occ_los_type.course
   module:
-    - elm_vocabulary_field
+    - erasmus_subject_area_code
     - ewp_core
     - isced_field
     - occ_entities
@@ -28,20 +25,13 @@ targetEntityType: occ_los
 bundle: course
 mode: default
 content:
-  abbreviation:
-    type: ewp_string_lang_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
-    region: content
   code:
     type: string
-    label: hidden
+    label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 2
+    weight: 1
     region: content
   course__academic_term:
     type: string
@@ -49,87 +39,42 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 8
+    weight: 4
+    region: content
+  course__assessment_method:
+    type: ewp_multiline_lang_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 17
     region: content
   course__bibliography:
     type: ewp_multiline_lang_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 14
+    weight: 12
+    region: content
+  course__course_availability:
+    type: ewp_multiline_lang_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 15
     region: content
   course__course_content:
     type: ewp_multiline_lang_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 12
+    weight: 13
     region: content
-  course__ects:
-    type: number_decimal
-    label: above
-    settings:
-      thousand_separator: ''
-      decimal_separator: .
-      scale: 2
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 6
-    region: content
-  course__elm_activity_type:
-    type: elm_controlled_vocabulary_default
-    label: above
-    settings:
-      prefix: false
-    third_party_settings: {  }
-    weight: 16
-    region: content
-  course__elm_assessment_type:
-    type: elm_controlled_vocabulary_default
-    label: above
-    settings:
-      prefix: false
-    third_party_settings: {  }
-    weight: 17
-    region: content
-  course__elm_learning_mode:
-    type: elm_controlled_vocabulary_default
-    label: above
-    settings:
-      prefix: false
-    third_party_settings: {  }
-    weight: 18
-    region: content
-  course__elm_lo_type:
-    type: elm_controlled_vocabulary_default
-    label: above
-    settings:
-      prefix: false
-    third_party_settings: {  }
-    weight: 15
-    region: content
-  course__isced_f:
-    type: isced_f_default
-    label: above
-    settings:
-      prefix: true
-    third_party_settings: {  }
-    weight: 4
-    region: content
-  course__other_prerequisites:
+  course__prerequisites:
     type: ewp_multiline_lang_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 10
-    region: content
-  course__prerequisite_course:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 9
+    weight: 14
     region: content
   course__related_programme:
     type: related_programme_view
@@ -137,9 +82,16 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 7
+    weight: 18
     region: content
-  course__restricted_to_alliance:
+  course__teaching_method:
+    type: ewp_multiline_lang_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 16
+    region: content
+  course__unavailable_for_incoming:
     type: boolean
     label: above
     settings:
@@ -147,25 +99,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 25
-    region: content
-  course__restricted_to_local:
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 24
-    region: content
-  couse__elm_assessment_type:
-    type: elm_controlled_vocabulary_default
-    label: above
-    settings:
-      prefix: false
-    third_party_settings: {  }
-    weight: 17
+    weight: 10
     region: content
   created:
     type: timestamp
@@ -186,22 +120,37 @@ content:
     third_party_settings: {  }
     weight: 22
     region: content
-  deprecated:
-    type: boolean
-    label: above
-    settings:
-      format: enabled-disabled
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 20
-    region: content
   description:
     type: ewp_multiline_lang_default
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 11
+    weight: 2
+    region: content
+  ects:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  course__subject_area:
+    type: erasmus_subject_area_code_default
+    label: above
+    settings:
+      prefix: true
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  course__other_categorization:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 9
     region: content
   hei:
     type: entity_reference_label
@@ -209,21 +158,37 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 1
+    weight: 19
+    region: content
+  isced_code:
+    type: isced_f_default
+    label: above
+    settings:
+      prefix: true
+    third_party_settings: {  }
+    weight: 7
     region: content
   language_of_instruction:
     type: ewp_lang_default
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
   learning_outcomes:
     type: ewp_multiline_lang_default
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 13
+    weight: 3
+    region: content
+  ounit:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 20
     region: content
   status:
     type: boolean
@@ -237,7 +202,7 @@ content:
     region: content
   title:
     type: ewp_string_lang_default
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
     weight: 0
@@ -251,10 +216,9 @@ content:
     region: content
   url:
     type: ewp_http_lang_default
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 19
+    weight: 11
     region: content
-hidden:
-  ounit: true
+hidden: {  }

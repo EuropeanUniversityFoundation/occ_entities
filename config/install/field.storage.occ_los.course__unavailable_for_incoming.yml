@@ -2,15 +2,13 @@ langcode: en
 status: true
 dependencies:
   module:
-    - datetime
     - occ_entities
-id: occ_los.programme__valid_since
-field_name: programme__valid_since
+id: occ_los.course__unavailable_for_incoming
+field_name: course__unavailable_for_incoming
 entity_type: occ_los
-type: datetime
-settings:
-  datetime_type: date
-module: datetime
+type: boolean
+settings: {  }
+module: core
 locked: false
 cardinality: 1
 translatable: true
