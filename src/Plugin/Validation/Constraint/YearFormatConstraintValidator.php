@@ -25,7 +25,24 @@ class YearFormatConstraintValidator extends ConstraintValidator
 
       if (str_contains($year_value, '/')) {
         $year_values = explode('/', $year_value);
-        if ($year_values[0] > $year_values[1]) {
+        // Ensures n/N: n >= 0
+        if ((int) $year_values[0] < 0) {
+          /** @var YearFormatConstraint $constraint */
+          $this->context->buildViolation($constraint->negativeTermNumberMessage)
+            ->setParameter('%value', $year_value)
+            ->atPath($delta)
+            ->addViolation();
+        }
+        // Ensures n/N: N > 0
+        if ((int) $year_values[1] <= 0) {
+          /** @var YearFormatConstraint $constraint */
+          $this->context->buildViolation($constraint->nonPositiveTotalTermNumberMessage)
+            ->setParameter('%value', $year_value)
+            ->atPath($delta)
+            ->addViolation();
+        }
+        // Ensures n/N: n <= N
+        if ((int) $year_values[0] > (int) $year_values[1]) {
           /** @var YearFormatConstraint $constraint */
           $this->context->buildViolation($constraint->numberValueMismatchMessage)
             ->setParameter('%value', $year_value)
