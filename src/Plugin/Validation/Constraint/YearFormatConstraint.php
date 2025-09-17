@@ -15,8 +15,11 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 )]
 class YearFormatConstraint extends SymfonyConstraint
 {
-
   public $noRegexMatchMessage = 'The year value %value must be in an n/N format, where n and N are integers (numbers).';
 
   public $numberValueMismatchMessage = 'Invalid value: %value. The number before the "/" must be less or equal to the number after the "/".';
+
+  public $negativeTermNumberMessage = 'Invalid value: %value. The number before the "/" cannot be negative.';
+
+  public $nonPositiveTotalTermNumberMessage = 'Invalid value: %value. The number after the "/" must be greater than zero.';
 }
