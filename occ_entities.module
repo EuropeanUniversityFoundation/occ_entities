@@ -26,11 +26,11 @@ function occ_entities_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
     }
 
     if (isset($fields['course__academic_term'])) {
-      $fields['course__academic_term']->addConstraint('int_over_greater_or_equal_int', []);
+      $fields['course__academic_term']->addConstraint('int_over_greater_or_equal_positive_int', []);
     }
 
-    if (isset($fields['field_local_classification_multi'])) {
-      $fields['field_local_classification_multi']->addConstraint('value_and_type_provided', []);
+    if (isset($fields['course__local_classification'])) {
+      $fields['course__local_classification']->addConstraint('value_and_type_provided', []);
     }
   }
 
@@ -45,7 +45,7 @@ function occ_entities_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
     }
 
     if (isset($fields['programme__length'])) {
-      $fields['programme__length']->addConstraint('int_over_int_format', []);
+      $fields['programme__length']->addConstraint('positive_int_over_int', []);
     }
   }
 }
