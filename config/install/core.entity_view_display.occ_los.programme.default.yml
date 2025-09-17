@@ -16,7 +16,7 @@ mode: default
 content:
   code:
     type: string
-    label: hidden
+    label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -43,14 +43,14 @@ content:
     region: content
   description:
     type: ewp_multiline_lang_default
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
     weight: 2
     region: content
   ects:
     type: number_integer
-    label: hidden
+    label: above
     settings:
       thousand_separator: ''
       prefix_suffix: true
@@ -67,7 +67,7 @@ content:
     region: content
   isced_code:
     type: isced_f_default
-    label: hidden
+    label: above
     settings:
       prefix: true
     third_party_settings: {  }
@@ -75,7 +75,7 @@ content:
     region: content
   language_of_instruction:
     type: ewp_lang_default
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
     weight: 6
@@ -116,7 +116,7 @@ content:
     region: content
   title:
     type: ewp_string_lang_default
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
     weight: 0
@@ -130,7 +130,7 @@ content:
     region: content
   url:
     type: ewp_http_lang_default
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
     weight: 8

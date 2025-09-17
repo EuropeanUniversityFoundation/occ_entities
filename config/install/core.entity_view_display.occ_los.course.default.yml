@@ -7,13 +7,13 @@ dependencies:
     - field.field.occ_los.course.course__bibliography
     - field.field.occ_los.course.course__course_availability
     - field.field.occ_los.course.course__course_content
+    - field.field.occ_los.course.course__learning_outcomes
     - field.field.occ_los.course.course__other_categorization
     - field.field.occ_los.course.course__prerequisites
     - field.field.occ_los.course.course__related_programme
     - field.field.occ_los.course.course__subject_area
     - field.field.occ_los.course.course__teaching_method
     - field.field.occ_los.course.course__unavailable_for_incoming
-    - field.field.occ_los.course.course__learning_outcomes
     - occ_entities.occ_los_type.course
   module:
     - erasmus_subject_area_code
@@ -69,6 +69,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 13
+    region: content
+  course__learning_outcomes:
+    type: ewp_multiline_lang_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
     region: content
   course__other_categorization:
     type: string
@@ -152,13 +159,6 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     weight: 5
-    region: content
-  course__learning_outcomes:
-    type: ewp_multiline_lang_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
     region: content
   hei:
     type: entity_reference_label

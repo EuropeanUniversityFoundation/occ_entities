@@ -7,13 +7,13 @@ dependencies:
     - field.field.occ_los.course.course__bibliography
     - field.field.occ_los.course.course__course_availability
     - field.field.occ_los.course.course__course_content
+    - field.field.occ_los.course.course__learning_outcomes
     - field.field.occ_los.course.course__other_categorization
     - field.field.occ_los.course.course__prerequisites
     - field.field.occ_los.course.course__related_programme
     - field.field.occ_los.course.course__subject_area
     - field.field.occ_los.course.course__teaching_method
     - field.field.occ_los.course.course__unavailable_for_incoming
-    - field.field.occ_los.course.course__learning_outcomes
     - occ_entities.occ_los_type.course
   module:
     - erasmus_subject_area_code
@@ -31,7 +31,7 @@ content:
     region: content
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Course code...'
     third_party_settings: {  }
   course__academic_term:
     type: string_textfield
@@ -39,7 +39,7 @@ content:
     region: content
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'i.e. 2/6...'
     third_party_settings: {  }
   course__assessment_method:
     type: ewp_multiline_lang_default
@@ -47,7 +47,7 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
+      placeholder: 'Assessment method...'
     third_party_settings: {  }
   course__bibliography:
     type: ewp_multiline_lang_default
@@ -55,7 +55,7 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
+      placeholder: Bibliography...
     third_party_settings: {  }
   course__course_availability:
     type: ewp_multiline_lang_default
@@ -63,7 +63,7 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
+      placeholder: 'Course availability...'
     third_party_settings: {  }
   course__course_content:
     type: ewp_multiline_lang_default
@@ -71,7 +71,15 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
+      placeholder: 'Course content...'
+    third_party_settings: {  }
+  course__learning_outcomes:
+    type: ewp_multiline_lang_default
+    weight: 3
+    region: content
+    settings:
+      rows: 5
+      placeholder: 'Learning outcomes...'
     third_party_settings: {  }
   course__other_categorization:
     type: string_textfield
@@ -79,7 +87,7 @@ content:
     region: content
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Other study field category...'
     third_party_settings: {  }
   course__prerequisites:
     type: ewp_multiline_lang_default
@@ -87,7 +95,7 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
+      placeholder: 'List of prerequisites...'
     third_party_settings: {  }
   course__related_programme:
     type: related_programme_autocomplete
@@ -95,9 +103,9 @@ content:
     region: content
     settings:
       match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      match_limit: '10'
+      size: '60'
+      placeholder: 'Pick an existing Programme...'
     third_party_settings: {  }
   course__subject_area:
     type: erasmus_subject_area_code_default
@@ -111,7 +119,7 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
+      placeholder: 'Teaching method...'
     third_party_settings: {  }
   course__unavailable_for_incoming:
     type: boolean_checkbox
@@ -132,22 +140,14 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
+      placeholder: 'Course description...'
     third_party_settings: {  }
   ects:
     type: number
     weight: 5
     region: content
     settings:
-      placeholder: ''
-    third_party_settings: {  }
-  course__learning_outcomes:
-    type: ewp_multiline_lang_default
-    weight: 3
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
+      placeholder: 'No of credits...'
     third_party_settings: {  }
   hei:
     type: entity_reference_autocomplete
@@ -157,7 +157,7 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ''
+      placeholder: 'Institution offering the course...'
     third_party_settings: {  }
   isced_code:
     type: isced_f_select
@@ -180,7 +180,7 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ''
+      placeholder: 'Organizational unit offering the course...'
     third_party_settings: {  }
   status:
     type: boolean_checkbox
@@ -195,7 +195,7 @@ content:
     region: content
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Course title...'
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
@@ -212,7 +212,7 @@ content:
     weight: 11
     region: content
     settings:
-      placeholder_url: ''
-      placeholder_title: ''
+      placeholder_url: 'Link with more information'
+      placeholder_title: 'Displayed text for link'
     third_party_settings: {  }
 hidden: {  }

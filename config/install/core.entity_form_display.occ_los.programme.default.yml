@@ -19,7 +19,7 @@ content:
     region: content
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Programme code...'
     third_party_settings: {  }
   created:
     type: datetime_timestamp
@@ -33,14 +33,14 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
+      placeholder: 'Programme description...'
     third_party_settings: {  }
   ects:
     type: number
     weight: 3
     region: content
     settings:
-      placeholder: ''
+      placeholder: 'No of credits...'
     third_party_settings: {  }
   hei:
     type: entity_reference_autocomplete
@@ -50,7 +50,7 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ''
+      placeholder: 'Institution offering the Programme...'
     third_party_settings: {  }
   isced_code:
     type: isced_f_select
@@ -73,7 +73,7 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ''
+      placeholder: 'Organizational Unit offering the Programme...'
     third_party_settings: {  }
   programme__eqf_level:
     type: eqf_level_default
@@ -86,7 +86,7 @@ content:
     weight: 7
     region: content
     settings:
-      placeholder: ''
+      placeholder: 'Length in years (rounded up)...'
     third_party_settings: {  }
   status:
     type: boolean_checkbox
@@ -101,7 +101,7 @@ content:
     region: content
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Programme title...'
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
@@ -118,7 +118,7 @@ content:
     weight: 8
     region: content
     settings:
-      placeholder_url: ''
-      placeholder_title: ''
+      placeholder_url: 'Link with more information...'
+      placeholder_title: 'Displayed text for link...'
     third_party_settings: {  }
 hidden: {  }
