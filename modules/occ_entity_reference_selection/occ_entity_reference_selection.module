@@ -31,3 +31,13 @@ function occ_entity_reference_selection_entity_base_field_info_alter(&$fields, \
     }
   }
 }
+
+// Activates select own HEIs Programmes only for course__related_programme bundle field
+function occ_entity_reference_selection_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type, $bundle)
+{
+  if ($entity_type->id() === 'occ_los' && $bundle === 'course') {
+    if (isset($fields['course__related_programme'])) {
+      $fields['course__related_programme']->setSetting('handler', 'occ_entity_reference_selection_programme_selection');
+    }
+  }
+}
