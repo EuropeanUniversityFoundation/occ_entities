@@ -11,8 +11,6 @@ third_party_settings:
     circular_reference: true
     circular_reference_deep: true
     duplicate_reference: true
-_core:
-  default_config_hash: dl21WiCR7bhxA0jFTuFF1KFL1Bc-7ytgxaue2c_aWDs
 id: occ_los.course.course__prerequisite_course
 field_name: course__prerequisite_course
 entity_type: occ_los
