@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.occ_los.course__learning_outcomes
+    - occ_entities.occ_los_type.course
+  module:
+    - ewp_core
+id: occ_los.course.course__learning_outcomes
+field_name: course__learning_outcomes
+entity_type: occ_los
+bundle: course
+label: 'Learning outcomes'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: ewp_multiline_lang

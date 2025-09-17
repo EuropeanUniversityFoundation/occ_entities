@@ -7,12 +7,13 @@ dependencies:
     - field.field.occ_los.course.course__bibliography
     - field.field.occ_los.course.course__course_availability
     - field.field.occ_los.course.course__course_content
+    - field.field.occ_los.course.course__other_categorization
     - field.field.occ_los.course.course__prerequisites
     - field.field.occ_los.course.course__related_programme
+    - field.field.occ_los.course.course__subject_area
     - field.field.occ_los.course.course__teaching_method
     - field.field.occ_los.course.course__unavailable_for_incoming
-    - field.field.occ_los.course.course__subject_area
-    - field.field.occ_los.course.course__other_categorization
+    - field.field.occ_los.course.course__learning_outcomes
     - occ_entities.occ_los_type.course
   module:
     - erasmus_subject_area_code
@@ -69,6 +70,14 @@ content:
     third_party_settings: {  }
     weight: 13
     region: content
+  course__other_categorization:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 9
+    region: content
   course__prerequisites:
     type: ewp_multiline_lang_default
     label: above
@@ -83,6 +92,14 @@ content:
       link: true
     third_party_settings: {  }
     weight: 18
+    region: content
+  course__subject_area:
+    type: erasmus_subject_area_code_default
+    label: above
+    settings:
+      prefix: true
+    third_party_settings: {  }
+    weight: 8
     region: content
   course__teaching_method:
     type: ewp_multiline_lang_default
@@ -136,21 +153,12 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
-  course__subject_area:
-    type: erasmus_subject_area_code_default
+  course__learning_outcomes:
+    type: ewp_multiline_lang_default
     label: above
-    settings:
-      prefix: true
+    settings: {  }
     third_party_settings: {  }
-    weight: 8
-    region: content
-  course__other_categorization:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 9
+    weight: 3
     region: content
   hei:
     type: entity_reference_label
@@ -174,13 +182,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 6
-    region: content
-  learning_outcomes:
-    type: ewp_multiline_lang_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
     region: content
   ounit:
     type: entity_reference_label

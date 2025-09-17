@@ -65,14 +65,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  learning_outcomes:
-    type: ewp_multiline_lang_default
-    weight: 11
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
   ounit:
     type: entity_reference_autocomplete
     weight: 10

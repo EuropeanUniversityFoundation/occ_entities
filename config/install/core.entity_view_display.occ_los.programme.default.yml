@@ -80,13 +80,6 @@ content:
     third_party_settings: {  }
     weight: 6
     region: content
-  learning_outcomes:
-    type: ewp_multiline_lang_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 9
-    region: content
   ounit:
     type: entity_reference_label
     label: above
