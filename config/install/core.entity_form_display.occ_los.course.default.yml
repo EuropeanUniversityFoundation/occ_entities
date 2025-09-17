@@ -38,7 +38,7 @@ content:
     region: content
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Course code...'
     third_party_settings: {  }
   course__academic_term:
     type: string_textfield
@@ -46,7 +46,7 @@ content:
     region: content
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'e.g. 1/2'
     third_party_settings: {  }
   course__assessment_method:
     type: ewp_multiline_lang_default
@@ -54,7 +54,7 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
+      placeholder: 'Course assessment method...'
     third_party_settings: {  }
   course__bibliography:
     type: ewp_multiline_lang_default
@@ -62,7 +62,7 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
+      placeholder: 'Bibliography for the Course...'
     third_party_settings: {  }
   course__course_availability:
     type: ewp_multiline_lang_default
@@ -70,7 +70,7 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
+      placeholder: 'Course availability...'
     third_party_settings: {  }
   course__course_content:
     type: ewp_multiline_lang_default
@@ -78,7 +78,7 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
+      placeholder: 'Course content...'
     third_party_settings: {  }
   course__deprecated:
     type: boolean_checkbox
@@ -92,7 +92,7 @@ content:
     weight: 2
     region: content
     settings:
-      placeholder: ''
+      placeholder: 'No of Credits...'
     third_party_settings: {  }
   course__elm_activity_type:
     type: elm_controlled_vocabulary_select
@@ -135,9 +135,9 @@ content:
     region: content
     settings:
       type_size: 60
-      type_placeholder: 'Classification type'
+      type_placeholder: 'Classification type...'
       value_size: 60
-      value_placeholder: 'Classification value'
+      value_placeholder: 'Classification value...'
     third_party_settings: {  }
   course__prerequisite_course:
     type: entity_reference_autocomplete
@@ -147,7 +147,7 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ''
+      placeholder: 'Prerequisite Course...'
     third_party_settings: {  }
   course__prerequisites:
     type: ewp_multiline_lang_default
@@ -155,7 +155,7 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
+      placeholder: 'Other prerequisites...'
     third_party_settings: {  }
   course__related_programme:
     type: related_programme_autocomplete
@@ -163,9 +163,9 @@ content:
     region: content
     settings:
       match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      match_limit: '10'
+      size: '60'
+      placeholder: 'Related Programme...'
     third_party_settings: {  }
   course__restricted_to_alliance:
     type: boolean_checkbox
@@ -187,7 +187,7 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
+      placeholder: 'Teaching method...'
     third_party_settings: {  }
   created:
     type: datetime_timestamp
@@ -201,7 +201,7 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
+      placeholder: 'Course description...'
     third_party_settings: {  }
   hei:
     type: entity_reference_autocomplete
@@ -211,7 +211,7 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ''
+      placeholder: 'Institution offering the Course...'
     third_party_settings: {  }
   language_of_instruction:
     type: ewp_lang_default
@@ -225,7 +225,7 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
+      placeholder: 'Course learning outcomes...'
     third_party_settings: {  }
   status:
     type: boolean_checkbox
@@ -240,7 +240,7 @@ content:
     region: content
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Course title...'
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
@@ -257,8 +257,8 @@ content:
     weight: 23
     region: content
     settings:
-      placeholder_url: ''
-      placeholder_title: ''
+      placeholder_url: 'Link with more information...'
+      placeholder_title: 'Text displayed for the link...'
     third_party_settings: {  }
 hidden:
   ounit: true

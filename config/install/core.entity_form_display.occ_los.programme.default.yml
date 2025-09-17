@@ -29,7 +29,7 @@ content:
     region: content
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Programme code...'
     third_party_settings: {  }
   created:
     type: datetime_timestamp
@@ -43,7 +43,7 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
+      placeholder: 'Programme description...'
     third_party_settings: {  }
   hei:
     type: entity_reference_autocomplete
@@ -53,7 +53,7 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ''
+      placeholder: 'Institution offering the Programme...'
     third_party_settings: {  }
   language_of_instruction:
     type: ewp_lang_default
@@ -67,7 +67,7 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
+      placeholder: 'Programme learning outcomes...'
     third_party_settings: {  }
   programme__abbreviation:
     type: ewp_string_lang_default
@@ -75,14 +75,14 @@ content:
     region: content
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Abbreviation...'
     third_party_settings: {  }
   programme__ects:
     type: number
     weight: 2
     region: content
     settings:
-      placeholder: ''
+      placeholder: 'No of Credits...'
     third_party_settings: {  }
   programme__elm_learning_schedule:
     type: elm_controlled_vocabulary_select
@@ -124,7 +124,7 @@ content:
     region: content
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'e.g. 6/2'
     third_party_settings: {  }
   programme__valid_since:
     type: datetime_default
@@ -151,7 +151,7 @@ content:
     region: content
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Programme title...'
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
@@ -168,8 +168,8 @@ content:
     weight: 13
     region: content
     settings:
-      placeholder_url: ''
-      placeholder_title: ''
+      placeholder_url: 'Link with more information...'
+      placeholder_title: 'Display text for link...'
     third_party_settings: {  }
 hidden:
   ounit: true
