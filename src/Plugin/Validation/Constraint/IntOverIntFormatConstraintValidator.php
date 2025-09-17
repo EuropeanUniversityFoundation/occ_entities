@@ -24,7 +24,7 @@ class IntOverIntFormatConstraintValidator extends ConstraintValidator
     foreach ($value as $delta => $item) {
       $field_value = $item->get('value')->getValue();
       if (!preg_match('~^\d+/\d+$~', $field_value)) {
-        /** @var IntOverGreaterOrEqualIntConstraint $constraint */
+        /** @var IntOverIntFormatConstraint $constraint */
         $this->context->buildViolation($constraint->noRegexMatchMessage)
           ->setParameter('%value', $field_value)
           ->atPath($delta)

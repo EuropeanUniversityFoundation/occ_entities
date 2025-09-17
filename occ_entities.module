@@ -25,7 +25,7 @@ function occ_entities_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
     // }
 
     if (isset($fields['course__academic_term'])) {
-      $fields['course__academic_term']->addConstraint('int_over_greater_or_equal_int', []);
+      $fields['course__academic_term']->addConstraint('int_over_greater_or_equal_positive_int', []);
     }
   }
 

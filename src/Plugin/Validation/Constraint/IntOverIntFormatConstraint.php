@@ -18,5 +18,4 @@ class IntOverIntFormatConstraint extends SymfonyConstraint
 
   public $noRegexMatchMessage = 'Value %value must be in an n/N format, where n and N are integers (numbers).';
 
-  public $numberValueMismatchMessage = 'Invalid value: %value. The number before the "/" must be less or equal to the number after the "/".';
 }
