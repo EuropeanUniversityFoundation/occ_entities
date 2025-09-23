@@ -7,7 +7,7 @@ dependencies:
     - field.field.occ_los.programme.programme__elm_learning_schedule
     - field.field.occ_los.programme.programme__elm_lo_type
     - field.field.occ_los.programme.programme__elm_mode_of_learning
-    - field.field.occ_los.programme.programme__eqf_level
+    - field.field.occ_los.programme.programme__eqf_level_provided
     - field.field.occ_los.programme.programme__isced_code
     - field.field.occ_los.programme.programme__length
     - field.field.occ_los.programme.programme__valid_since
@@ -120,7 +120,7 @@ content:
     third_party_settings: {  }
     weight: 12
     region: content
-  programme__eqf_level:
+  programme__eqf_level_provided:
     type: eqf_level_default
     label: above
     settings: {  }
