@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.occ_los.course__isced_f
+    - field.storage.occ_los.course__isced_code
     - occ_entities.occ_los_type.course
   module:
     - isced_field
-id: occ_los.course.course__isced_f
-field_name: course__isced_f
+id: occ_los.course.course__isced_code
+field_name: course__isced_code
 entity_type: occ_los
 bundle: course
 label: 'ISCED-F field of study'

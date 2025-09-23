@@ -8,7 +8,7 @@ dependencies:
     - field.field.occ_los.programme.programme__elm_lo_type
     - field.field.occ_los.programme.programme__elm_mode_of_learning
     - field.field.occ_los.programme.programme__eqf_level
-    - field.field.occ_los.programme.programme__isced_f
+    - field.field.occ_los.programme.programme__isced_code
     - field.field.occ_los.programme.programme__length
     - field.field.occ_los.programme.programme__valid_since
     - field.field.occ_los.programme.programme__valid_until
@@ -127,7 +127,7 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
-  programme__isced_f:
+  programme__isced_code:
     type: isced_f_default
     label: above
     settings:

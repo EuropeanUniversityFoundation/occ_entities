@@ -4,8 +4,8 @@ dependencies:
   module:
     - isced_field
     - occ_entities
-id: occ_los.course__isced_f
-field_name: course__isced_f
+id: occ_los.course__isced_code
+field_name: course__isced_code
 entity_type: occ_los
 type: isced_f
 settings: {  }

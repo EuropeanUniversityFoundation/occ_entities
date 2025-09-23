@@ -13,7 +13,7 @@ dependencies:
     - field.field.occ_los.course.course__elm_assessment_type
     - field.field.occ_los.course.course__elm_lo_type
     - field.field.occ_los.course.course__elm_mode_of_learning
-    - field.field.occ_los.course.course__isced_f
+    - field.field.occ_los.course.course__isced_code
     - field.field.occ_los.course.course__local_classification
     - field.field.occ_los.course.course__prerequisite_course
     - field.field.occ_los.course.course__prerequisites
@@ -130,7 +130,7 @@ content:
     third_party_settings: {  }
     weight: 14
     region: content
-  course__isced_f:
+  course__isced_code:
     type: isced_f_default
     label: above
     settings:
