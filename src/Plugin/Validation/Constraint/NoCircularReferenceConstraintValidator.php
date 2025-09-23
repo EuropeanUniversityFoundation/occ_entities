@@ -9,12 +9,7 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
- * Checks if combnation of code and HEI reference is unique.
- *
- * @Constraint(
- *   id = "no_circular_reference",
- *   label = @Translation("Two entities reference each other as parents.", context = "Validation"),
- * )
+ * Validates the NoCircularReference constraint.
  */
 class NoCircularReferenceConstraintValidator extends ConstraintValidator implements ContainerInjectionInterface
 {

@@ -2,19 +2,14 @@
 
 namespace Drupal\occ_entities\Plugin\Validation\Constraint;
 
-use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidator;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
 
 /**
- * Checks if combnation of code and HEI reference is unique.
- *
- * @Constraint(
- *   id = "code_and_hei_unique",
- *   label = @Translation("The combination of the code and the Institution must be unique.", context = "Validation"),
- * )
+ * Validates the UniqueCodeAndHei constraint.
  */
 class UniqueCodeAndHeiConstraintValidator extends ConstraintValidator implements ContainerInjectionInterface
 {
