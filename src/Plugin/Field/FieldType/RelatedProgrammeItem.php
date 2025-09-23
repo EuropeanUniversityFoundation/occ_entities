@@ -57,16 +57,14 @@ use Drupal\Core\Form\FormStateInterface;
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $properties = parent::propertyDefinitions($field_definition);
-    $mandatory_definition = DataDefinition::create('integer')
+
+    $properties['mandatory'] = DataDefinition::create('boolean')
       ->setLabel(new TranslatableMarkup('Mandatory'))
       ->setRequired(TRUE);
 
-    $properties['mandatory'] = $mandatory_definition;
-
-    $year_definition = DataDefinition::create('string')
+    $properties['year'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Year'))
       ->setRequired(TRUE);
-    $properties['year'] = $year_definition;
 
     return $properties;
   }
@@ -76,17 +74,17 @@ use Drupal\Core\Form\FormStateInterface;
    */
   public static function schema(FieldStorageDefinitionInterface $field_definition) {
     $schema = parent::schema($field_definition);
-    $schema['columns']['mandatory'] = array(
+    $schema['columns']['mandatory'] = [
       'type' => 'int',
-      //'size' => 'tiny',
+      'size' => 'tiny',
       'indexes' => [
         'mandatory' => ['value'],
       ],
-    );
+    ];
 
-    $schema['columns']['year'] = array(
+    $schema['columns']['year'] = [
       'type' => 'text',
-    );
+    ];
 
     return $schema;
   }
@@ -102,15 +100,15 @@ use Drupal\Core\Form\FormStateInterface;
    * {@inheritdoc}
    */
   public function isEmpty() {
-    $mandatory = $this->get('mandatory')->getValue();
-    if ($mandatory === NULL) {
-      return TRUE;
-    }
+    // $mandatory = $this->get('mandatory')->getValue();
+    // if ($mandatory === NULL) {
+    //   return TRUE;
+    // }
 
-    $year = $this->get('year')->getValue();
-    if ($year === NULL || $year === '') {
-      return TRUE;
-    }
+    // $year = $this->get('year')->getValue();
+    // if ($year === NULL || $year === '') {
+    //   return TRUE;
+    // }
 
     return parent::isEmpty();
   }
