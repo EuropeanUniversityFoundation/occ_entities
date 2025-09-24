@@ -12,7 +12,6 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Entity\RevisionableContentEntityBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
-use Drupal\occ_entities\Entity\LearningOpportunitySpecificationInterface;
 
 /**
  * Defines the learning opportunity specification entity class.
@@ -89,18 +88,17 @@ use Drupal\occ_entities\Entity\LearningOpportunitySpecificationInterface;
  *   },
  * )
  */
-final class LearningOpportunitySpecification extends RevisionableContentEntityBase implements LearningOpportunitySpecificationInterface
-{
+final class LearningOpportunitySpecification extends RevisionableContentEntityBase implements LearningOpportunitySpecificationInterface {
 
   use EntityChangedTrait;
   use EntityOwnerTrait;
 
   /**
    * {@inheritdoc}
+   *
+   * @todo review.
    */
-  // TODO: review
-  public function preSave(EntityStorageInterface $storage): void
-  {
+  public function preSave(EntityStorageInterface $storage): void {
     parent::preSave($storage);
     if (!$this->getOwnerId()) {
       // If no owner has been set explicitly, make the anonymous user the owner.
@@ -108,21 +106,24 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
     }
   }
 
-  public function label(): string
-  {
-    return $this->get('title')->getValue()[0]['string'];
+  /**
+   * {@inheritdoc}
+   */
+  public function label(): string {
+    return $this->getLabel();
   }
 
-  public function getLabel(): string
-  {
+  /**
+   * {@inheritdoc}
+   */
+  public function getLabel(): string {
     return $this->get('title')->getValue()[0]['string'];
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array
-  {
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array {
 
     $fields = parent::baseFieldDefinitions($entity_type);
 
@@ -315,7 +316,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setLabel(new TranslatableMarkup('Organizational Unit'))
       ->setSetting('target_type', 'ounit')
       ->setSetting('handler', 'default:ounit')
-      ->addConstraint('ounit_hei_matches_los', [])
+      ->addConstraint('OunitHeiMatchesLos', [])
       ->setDisplayOptions('form', [
         'type' => 'entity_reference_autocomplete',
         'settings' => [
@@ -356,4 +357,5 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
 
     return $fields;
   }
+
 }

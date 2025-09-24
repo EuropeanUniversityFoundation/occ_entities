@@ -1,3 +1,4 @@
+# Schema for the configuration of the Local classification field type.
 field.value.occ_entities_local_classification:
   type: mapping
   label: Default value
@@ -37,3 +38,23 @@ field.widget.settings.occ_entities_local_classification_default:
     value_placeholder:
       type: string
       label: 'Value textfield placeholder'
+
+# Schema for the configuration of the Related programme field type.
+field.value.related_programme:
+  type: mapping
+  label: Default value
+  mapping:
+    target_id:
+      type: string
+      label: 'Value'
+    target_uuid:
+      type: uuid
+    mandatory:
+      type: boolean
+      label: Mandatory
+    year:
+      type: string
+      label: Year
+      constraints:
+        NotNull: []
+        YearMatchesProgramme: ~

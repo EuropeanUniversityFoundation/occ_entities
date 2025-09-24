@@ -18,14 +18,12 @@ use Drupal\Core\Entity\Plugin\EntityReferenceSelection\DefaultSelection;
  *   entity_types = {"occ_los"},
  * )
  */
-final class CourseSelection extends DefaultSelection
-{
+final class CourseSelection extends DefaultSelection {
 
   /**
    * {@inheritdoc}
    */
-  protected function buildEntityQuery($match = NULL, $match_operator = 'CONTAINS'): QueryInterface
-  {
+  protected function buildEntityQuery($match = NULL, $match_operator = 'CONTAINS'): QueryInterface {
     $query = parent::buildEntityQuery($match, $match_operator);
 
     // @phpstan-ignore class.notFound
@@ -45,4 +43,5 @@ final class CourseSelection extends DefaultSelection
 
     return $query;
   }
+
 }

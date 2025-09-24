@@ -18,17 +18,14 @@ use Drupal\Core\Entity\Plugin\EntityReferenceSelection\DefaultSelection;
  *   entity_types = {"occ_los"},
  * )
  */
-final class ProgrammeSelection extends DefaultSelection
-{
+final class ProgrammeSelection extends DefaultSelection {
 
   /**
    * {@inheritdoc}
    */
-  protected function buildEntityQuery($match = NULL, $match_operator = 'CONTAINS'): QueryInterface
-  {
+  protected function buildEntityQuery($match = NULL, $match_operator = 'CONTAINS'): QueryInterface {
     $query = parent::buildEntityQuery($match, $match_operator);
 
-    // @phpstan-ignore class.notFound
     $user = User::load($this->currentUser->id());
 
     if ($user->hasPermission('select any programme')) {
@@ -45,4 +42,5 @@ final class ProgrammeSelection extends DefaultSelection
 
     return $query;
   }
+
 }

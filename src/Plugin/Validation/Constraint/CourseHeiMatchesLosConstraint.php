@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace Drupal\occ_entities\Plugin\Validation\Constraint;
 
-use Symfony\Component\Validator\Constraint;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Validation\Attribute\Constraint;
+use Symfony\Component\Validator\Constraint as SymfonyConstraint;
 
 /**
  * Provides a CourseHeiMatchesLos constraint.
- *
- * @Constraint(
- *   id = "course_hei_matches_los",
- *   label = @Translation("CourseHeiMatches", context = "Validation"),
- * )
- *
- * @DCG
- * To apply this constraint on third party entity types implement either
- * hook_entity_base_field_info_alter() or hook_entity_bundle_field_info_alter().
- *
- * @see https://www.drupal.org/node/2015723
  */
-final class CourseHeiMatchesLosConstraint extends Constraint
-{
+#[Constraint(
+  id: 'CourseHeiMatchesLos',
+  label: new TranslatableMarkup('Courses reference the same Institution.', [], ['context' => 'Validation'])
+)]
+final class CourseHeiMatchesLosConstraint extends SymfonyConstraint {
 
-  public string $message = 'Course %course must reference the same HEI as this Course.';
+  /**
+   * The error message if Courses do not reference the same Institution.
+   *
+   * @var string
+   */
+  public string $message = 'Course %course must reference the same Institution as this Course.';
+
 }

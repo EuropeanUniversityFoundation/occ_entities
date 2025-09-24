@@ -5,15 +5,19 @@ namespace Drupal\occ_entities\Plugin\Validation\Constraint;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class ValueAndTypeProvidedConstraintValidator extends ConstraintValidator
-{
+/**
+ * Validates the ValueAndTypeProvided constraint.
+ */
+class ValueAndTypeProvidedConstraintValidator extends ConstraintValidator {
 
-  public function validate($value, Constraint $constraint)
-  {
+  /**
+   * {@inheritdoc}
+   */
+  public function validate($value, Constraint $constraint) {
     foreach ($value as $delta => $item) {
 
       $filled = 0;
-      foreach ($item as $subfield => $property_value) {
+      foreach ($item as $property_value) {
         if ($property_value->getValue() !== NULL && $property_value->getValue() !== '') {
           $filled++;
         }
@@ -22,9 +26,10 @@ class ValueAndTypeProvidedConstraintValidator extends ConstraintValidator
       if ($filled === 1) {
         /** @var ValueAndTypeProvidedConstraint $constraint */
         $this->context->buildViolation($constraint->message)
-          ->atPath($delta)
+          ->atPath((string) $delta)
           ->addViolation();
       }
     }
   }
+
 }

@@ -9,7 +9,6 @@ use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- *
  * Plugin implementation of the 'related_programme' field type.
  *
  * @FieldType(
@@ -22,8 +21,7 @@ use Drupal\Core\Form\FormStateInterface;
  *   list_class = "\Drupal\Core\Field\EntityReferenceFieldItemList",
  * )
  */
-
- class RelatedProgrammeItem extends EntityReferenceItem {
+class RelatedProgrammeItem extends EntityReferenceItem {
 
   /**
    * {@inheritdoc}
@@ -47,7 +45,7 @@ use Drupal\Core\Form\FormStateInterface;
       '#size' => 1,
     ];
 
-    $options = \Drupal::service('entity_type.repository')->getEntityTypeLabels(TRUE);
+    $options = \Drupal::service('entity_type.repository')->getEntityTypeLabels(FALSE);
     $element['target_type']['#options'] = ['occ_los' => $options['occ_los']];
     return $element;
   }
@@ -89,6 +87,9 @@ use Drupal\Core\Form\FormStateInterface;
     return $schema;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public static function getPreconfiguredOptions() {
     // In the base EntityReference class, this is used to populate the
     // list of field-types with options for each destination entity type.
@@ -102,14 +103,12 @@ use Drupal\Core\Form\FormStateInterface;
   public function isEmpty() {
     // $mandatory = $this->get('mandatory')->getValue();
     // if ($mandatory === NULL) {
-    //   return TRUE;
+    // return TRUE;
     // }
-
     // $year = $this->get('year')->getValue();
     // if ($year === NULL || $year === '') {
-    //   return TRUE;
+    // return TRUE;
     // }
-
     return parent::isEmpty();
   }
 

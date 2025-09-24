@@ -11,14 +11,12 @@ use Symfony\Component\Validator\ConstraintValidator;
 /**
  * Validates the OunitHeiMatches constraint.
  */
-final class CourseHeiMatchesLosConstraintValidator extends ConstraintValidator
-{
+final class CourseHeiMatchesLosConstraintValidator extends ConstraintValidator {
 
   /**
    * {@inheritdoc}
    */
-  public function validate(mixed $items, Constraint $constraint): void
-  {
+  public function validate(mixed $items, Constraint $constraint): void {
     if (!$items instanceof EntityReferenceFieldItemList) {
       throw new \InvalidArgumentException(
         sprintf('The validated value must be instance of \Drupal\Core\Field\EntityReferenceFieldItemList, %s was given.', get_debug_type($items))
@@ -37,9 +35,10 @@ final class CourseHeiMatchesLosConstraintValidator extends ConstraintValidator
         /** @var CourseHeiMatchesLosConstraint $constraint */
         $this->context->buildViolation($constraint->message)
           ->setParameter('%course', $item->entity->label())
-          ->atPath($delta)
+          ->atPath((string) $delta)
           ->addViolation();
       }
     }
   }
+
 }

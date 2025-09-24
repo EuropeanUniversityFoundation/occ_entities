@@ -21,7 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 )]
 class LocalClassificationDefaultWidget extends WidgetBase implements ContainerFactoryPluginInterface {
 
-    /**
+  /**
    * {@inheritdoc}
    */
   public function __construct(
@@ -38,7 +38,6 @@ class LocalClassificationDefaultWidget extends WidgetBase implements ContainerFa
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    // @phpstan-ignore new.static
     return new static(
       $plugin_id,
       $plugin_definition,
@@ -151,8 +150,7 @@ class LocalClassificationDefaultWidget extends WidgetBase implements ContainerFa
     $element['#attached']['library'][] = 'ewp_core/inline_widget';
 
     // Get the field name from this particular field definiton.
-    $field_name = $items->getFieldDefinition()->getName();
-
+    // $field_name = $items->getFieldDefinition()->getName();
     // Get the field defaults.
     $default_type = $items[$delta]->type ?? NULL;
     $default_value = $items[$delta]->value ?? NULL;

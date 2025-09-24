@@ -11,28 +11,40 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 /**
  * Validates the NoCircularReference constraint.
  */
-class NoCircularReferenceConstraintValidator extends ConstraintValidator implements ContainerInjectionInterface
-{
+class NoCircularReferenceConstraintValidator extends ConstraintValidator implements ContainerInjectionInterface {
 
-  protected EntityTypeManagerInterface $entityTypeManager;
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
 
-  public function __construct(EntityTypeManagerInterface $entity_type_manager)
-  {
+  /**
+   * Constructs the object.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   */
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
     $this->entityTypeManager = $entity_type_manager;
   }
 
-  public static function create(ContainerInterface $container)
-  {
-    // @phpstan-ignore new.static
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity_type.manager'),
     );
   }
 
-  public function validate($entity, Constraint $constraint)
-  {
+  /**
+   * {@inheritdoc}
+   */
+  public function validate($entity, Constraint $constraint) {
 
-    $entity_type = $entity->getEntityTypeId();
+    // $entity_type = $entity->getEntityTypeId();
     $entity_id = $entity->id();
     /** @var NoCircularReferenceConstraint $constraint */
     $parent_entity = $entity->get($constraint->parent_field)->referencedEntities();
@@ -48,10 +60,11 @@ class NoCircularReferenceConstraintValidator extends ConstraintValidator impleme
           $this->context->addViolation($constraint->message, [
             '%entity_label' => $constraint->entity_label,
             '%code_1' => $entity->get($constraint->code_field)->value,
-            '%code_2' => $parent_entity->get($constraint->code_field)->value
+            '%code_2' => $parent_entity->get($constraint->code_field)->value,
           ]);
         }
       }
     }
   }
+
 }

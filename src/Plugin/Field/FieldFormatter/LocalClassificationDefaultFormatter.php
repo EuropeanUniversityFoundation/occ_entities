@@ -86,14 +86,12 @@ class LocalClassificationDefaultFormatter extends FormatterBase implements Conta
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     // $types = $this->otherIdManager->getDefinedTypes();
-
     $elements = [];
 
     foreach ($items as $delta => $item) {
       $value = $item->value;
       $type = $item->type;
       // $type = (array_key_exists($key, $types)) ? $types[$key]->render() : $key;
-
       $elements[$delta] = [
         '#theme' => 'other_id',
         '#value' => $value,
