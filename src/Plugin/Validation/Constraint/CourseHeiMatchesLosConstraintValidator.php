@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\occ_entities\Plugin\Validation\Constraint;
 
-use Symfony\Component\Validator\Constraint;
 use Drupal\Core\Field\EntityReferenceFieldItemList;
+use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 /**
- * Validates the OunitHeiMatches constraint.
+ * Validates the CourseHeiMatchesLos constraint.
  */
 final class CourseHeiMatchesLosConstraintValidator extends ConstraintValidator {
 

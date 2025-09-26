@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\occ_entities\Entity;
 
-use Drupal\user\EntityOwnerTrait;
 use Drupal\Core\Entity\EntityChangedTrait;
-use Drupal\Core\Field\BaseFieldDefinition;
-use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\RevisionableContentEntityBase;
+use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\user\EntityOwnerTrait;
 
 /**
  * Defines the learning opportunity specification entity class.
@@ -80,7 +80,7 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  *   revisionable = TRUE,
  *   translatable = FALSE,
  *   constraints = {
- *     "code_and_hei_unique" = {
+ *     "UniqueCodeAndHei" = {
  *       "code_field" = "code",
  *       "hei_field" = "hei",
  *       "entity_label" = "Learning Opportunity Specification",

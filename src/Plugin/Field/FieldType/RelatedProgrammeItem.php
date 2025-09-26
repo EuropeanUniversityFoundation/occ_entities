@@ -2,25 +2,28 @@
 
 namespace Drupal\occ_entities\Plugin\Field\FieldType;
 
-use Drupal\Core\TypedData\DataDefinition;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\TypedData\DataDefinition;
 
 /**
- * Plugin implementation of the 'related_programme' field type.
- *
- * @FieldType(
- *   id = "related_programme",
- *   label = @Translation("Related Programme"),
- *   description = {@Translation("A field containing a reference to a programme, mandatory flag and year.")},
- *   category = "occ_entities",
- *   default_widget = "related_programme_autocomplete",
- *   default_formatter = "related_programme_view",
- *   list_class = "\Drupal\Core\Field\EntityReferenceFieldItemList",
- * )
+ * Plugin implementation of the 'occ_entities_local_classification' field type.
  */
+#[FieldType(
+  id: "related_programme",
+  module: "occ_entities",
+  label: new TranslatableMarkup("Related Programme"),
+  description: [
+    new TranslatableMarkup("A field containing a reference to a programme, mandatory flag and year."),
+  ],
+  category: "occ_entities",
+  default_widget: "related_programme_autocomplete",
+  default_formatter: "related_programme_view",
+  list_class: "\Drupal\Core\Field\EntityReferenceFieldItemList",
+)]
 class RelatedProgrammeItem extends EntityReferenceItem {
 
   /**
@@ -95,6 +98,17 @@ class RelatedProgrammeItem extends EntityReferenceItem {
     // list of field-types with options for each destination entity type.
     // This removes those options for each entity type.
     return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getConstraints() {
+    $constraints = parent::getConstraints();
+    $constraints[] = \Drupal::typedDataManager()
+      ->getValidationConstraintManager()
+      ->create('YearMatchesProgramme', []);
+    return $constraints;
   }
 
   /**

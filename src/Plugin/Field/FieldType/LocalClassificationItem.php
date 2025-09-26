@@ -10,7 +10,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
 
 /**
- * Plugin implementation of the 'ewp_other_hei_id' field type.
+ * Plugin implementation of the 'occ_entities_local_classification' field type.
  */
 #[FieldType(
   id: "occ_entities_local_classification",

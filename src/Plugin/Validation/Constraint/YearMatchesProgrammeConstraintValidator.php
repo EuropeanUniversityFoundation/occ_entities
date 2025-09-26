@@ -2,20 +2,18 @@
 
 namespace Drupal\occ_entities\Plugin\Validation\Constraint;
 
-use Symfony\Component\Validator\Constraint;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Symfony\Component\Validator\ConstraintValidator;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\occ_entities\Entity\LearningOpportunitySpecification;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\occ_entities\Plugin\Field\FieldType\RelatedProgrammeItem;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
 
 /**
  * Validates the YearMatchesProgramme constraint.
  */
 class YearMatchesProgrammeConstraintValidator extends ConstraintValidator implements ContainerInjectionInterface {
-
-  public const PROGRAMME_SUBFIELD_NAME = 'target_id';
-  public const YEAR_SUBFIELD_NAME = 'year';
 
   /**
    * The entity type manager.
@@ -47,27 +45,37 @@ class YearMatchesProgrammeConstraintValidator extends ConstraintValidator implem
    * {@inheritdoc}
    */
   public function validate($value, Constraint $constraint) {
-    foreach ($value as $item) {
-      $reference_value = $item->{self::PROGRAMME_SUBFIELD_NAME};
-      if ($reference_value instanceof LearningOpportunitySpecification) {
-        $referenced_programme_id = $reference_value->id();
-      }
-      else {
-        $referenced_programme_id = $reference_value;
-      }
-      $referenced_programme = $this->findProgrammeById($referenced_programme_id);
-      $referenced_programme_length = $referenced_programme->get('programme__length')->value;
-      $referenced_programme_label = $referenced_programme->label();
-      $year_value = $item->{self::YEAR_SUBFIELD_NAME};
+    $field_value = ($value instanceof RelatedProgrammeItem)
+      ? $value->getValue()
+      : $value;
+
+    /** @var \Drupal\occ_entities\Entity\LearningOpportunitySpecificationInterface|null $programme */
+    $programme = $this->findProgramme(($field_value));
+
+    if (!is_null($programme)) {
+      $programme_length = $programme->get('programme__length')->value;
+      $programme_length_values = explode('/', $programme_length);
+      $total_terms = (int) $programme_length_values[0];
+      $terms_per_year = (int) $programme_length_values[1];
+      $programme_length_int = (int) ceil($total_terms / $terms_per_year);
+
+      $programme_label = $programme->label();
+
+      $year_value = $field_value['year'];
 
       if (strpos($year_value, '/') !== FALSE) {
         $year_values = explode('/', $year_value);
-        $programme_length_value = $year_values[1];
-        if ((int) $programme_length_value !== (int) $referenced_programme_length) {
+        $year_item = (int) $year_values[0];
+        $year_total = (int) $year_values[1];
+
+        $year_total_match = ($year_total === $programme_length_int);
+        $year_item_within = ($year_item <= $programme_length_int);
+
+        if (!$year_total_match || !$year_item_within) {
           /** @var YearMatchesProgrammeConstraint $constraint */
           $this->context->addViolation($constraint->message, [
-            '%programme_length' => $referenced_programme_length,
-            '%programme_label' => $referenced_programme_label,
+            '%programme_length' => $programme_length_int,
+            '%programme_label' => $programme_label,
           ]);
         }
       }
@@ -75,15 +83,27 @@ class YearMatchesProgrammeConstraintValidator extends ConstraintValidator implem
   }
 
   /**
-   * Finds a Programme by ID.
+   * Finds a Programme from a field value.
    */
-  private function findProgrammeById($id): ?LearningOpportunitySpecification {
-    /** @var \Drupal\occ_entities\Entity\LearningOpportunitySpecification|null $programme */
-    $programme = $this->entityTypeManager
-      ->getStorage('occ_los')
-      ->load($id);
+  private function findProgramme($value): ?EntityInterface {
+    if (is_null($value)) {
+      return NULL;
+    }
 
-    return $programme;
+    $storage = $this->entityTypeManager->getStorage('occ_los');
+
+    if (array_key_exists('target_id', $value)) {
+      return $storage->load($value['target_id']);
+    }
+
+    if (array_key_exists('target_uuid', $value)) {
+      $programme = $storage->loadByProperties([
+        'uuid' => $value['target_uuid'],
+      ]);
+      return array_values($programme)[0];
+    }
+
+    return NULL;
   }
 
 }

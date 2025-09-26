@@ -24,6 +24,7 @@ class RelatedProgrammeAutocomplete extends EntityReferenceAutocompleteWidget {
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
 
     $widget = parent::formElement($items, $delta, $element, $form, $form_state);
+
     unset($widget['target_id']['#title_display']);
     $widget['target_id']['#title'] = $this->t('Programme');
     $widget['target_id']['#description'] = $this->t('Title of the programme the course is part of.');
@@ -38,44 +39,15 @@ class RelatedProgrammeAutocomplete extends EntityReferenceAutocompleteWidget {
     ];
 
     $mandatory_value = $items[$delta]->mandatory;
-    if (is_null($mandatory_value)) {
-      $mandatory_value = '_none';
-    }
-
     $widget['mandatory'] = [
       '#title' => $this->t('Mandatory'),
-      '#type' => 'select',
-      '#options' => [
-        '_none' => $this->t('- Not specified -'),
-        '0' => $this->t('No'),
-        '1' => $this->t('Yes'),
-      ],
+      '#type' => 'checkbox',
       '#key_column' => 'mandatory',
       '#default_value' => $mandatory_value,
       '#weight' => 3,
     ];
 
-    $widget['mandatory']['#element_validate'][] = [static::class, 'validateMandatoryElement'];
-
     return $widget;
-  }
-
-  /**
-   * Validates the Mandatory property element.
-   */
-  public static function validateMandatoryElement(array $element, FormStateInterface $form_state) {
-    if ($element['#required'] && $element['#value'] == '_none') {
-      if (isset($element['#required_error'])) {
-        $form_state->setError($element, $element['#required_error']);
-      }
-      else {
-        $form_state->setError($element, new TranslatableMarkup('@name field is required.', ['@name' => $element['#title']]));
-      }
-    }
-
-    if ($element['#value'] == '_none') {
-      $form_state->setValueForElement($element, NULL);
-    }
   }
 
 }

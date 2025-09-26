@@ -19,6 +19,6 @@ class YearMatchesProgrammeConstraint extends SymfonyConstraint {
    *
    * @var string
    */
-  public $message = 'The related programme %programme_label is %programme_length years long. The corresponding year value must be formatted: X/%programme_length.';
+  public $message = 'The related programme %programme_label is %programme_length years long. The corresponding year value must be formatted: X/%programme_length where X is less than or equal to %programme_length.';
 
 }
