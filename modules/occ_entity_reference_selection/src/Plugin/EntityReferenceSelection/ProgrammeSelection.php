@@ -4,20 +4,21 @@ declare(strict_types=1);
 
 namespace Drupal\occ_entity_reference_selection\Plugin\EntityReferenceSelection;
 
-use Drupal\user\Entity\User;
-use Drupal\Core\Entity\Query\QueryInterface;
+use Drupal\Core\Entity\Attribute\EntityReferenceSelection;
 use Drupal\Core\Entity\Plugin\EntityReferenceSelection\DefaultSelection;
+use Drupal\Core\Entity\Query\QueryInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\user\Entity\User;
 
 /**
- * @todo Add plugin description here.
- *
- * @EntityReferenceSelection(
- *   id = "occ_entity_reference_selection_programme_selection",
- *   label = @Translation("Own HEIs Programme selection"),
- *   group = "occ_entity_reference_selection_programme_selection",
- *   entity_types = {"occ_los"},
- * )
+ * Plugin implementation of the Own HEIs Programme selection plugin.
  */
+#[EntityReferenceSelection(
+  id: "occ_entity_reference_selection_programme_selection",
+  label: new TranslatableMarkup("Own HEIs Programme selection"),
+  group: "occ_entity_reference_selection_programme_selection",
+  entity_types: ['occ_los'],
+)]
 final class ProgrammeSelection extends DefaultSelection {
 
   /**
