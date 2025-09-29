@@ -18,6 +18,7 @@ use Drupal\user\Entity\User;
   label: new TranslatableMarkup("Own HEIs OUnit selection"),
   group: "occ_entity_reference_selection_ounit_selection",
   entity_types: ['ounit'],
+  weight: 0,
 )]
 final class OunitSelection extends DefaultSelection {
 

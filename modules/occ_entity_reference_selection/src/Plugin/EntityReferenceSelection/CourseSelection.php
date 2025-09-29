@@ -18,6 +18,7 @@ use Drupal\user\Entity\User;
   label: new TranslatableMarkup("Own HEIs Course selection"),
   group: "occ_entity_reference_selection_course_selection",
   entity_types: ['occ_los'],
+  weight: 0,
 )]
 final class CourseSelection extends DefaultSelection {
 

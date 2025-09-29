@@ -18,6 +18,7 @@ use Drupal\user\Entity\User;
   label: new TranslatableMarkup("Own HEIs Programme selection"),
   group: "occ_entity_reference_selection_programme_selection",
   entity_types: ['occ_los'],
+  weight: 0,
 )]
 final class ProgrammeSelection extends DefaultSelection {
 
