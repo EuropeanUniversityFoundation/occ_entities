@@ -43,7 +43,7 @@ class RelatedProgrammeAutocomplete extends EntityReferenceAutocompleteWidget {
       '#title' => $this->t('Mandatory'),
       '#type' => 'checkbox',
       '#key_column' => 'mandatory',
-      '#default_value' => $mandatory_value,
+      '#default_value' => $mandatory_value ?? TRUE,
       '#weight' => 3,
     ];
 
