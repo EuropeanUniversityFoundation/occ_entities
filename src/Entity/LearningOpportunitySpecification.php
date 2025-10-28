@@ -12,6 +12,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\user\EntityOwnerTrait;
+use Drupal\occ_entities\Plugin\Field\FieldType\LosLabelComputedField;
 
 /**
  * Defines the learning opportunity specification entity class.
@@ -52,7 +53,7 @@ use Drupal\user\EntityOwnerTrait;
  *     "id" = "id",
  *     "revision" = "revision_id",
  *     "bundle" = "bundle",
- *     "label" = "title.0.string",
+ *     "label" = "label",
  *     "uuid" = "uuid",
  *     "owner" = "uid",
  *   },
@@ -117,7 +118,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
    * {@inheritdoc}
    */
   public function getLabel(): string {
-    return $this->get('title')->getValue()[0]['string'];
+    return $this->get('label')->value;
   }
 
   /**
@@ -354,6 +355,14 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setDisplayConfigurable('view', TRUE)
       ->setRequired(TRUE)
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
+
+    $fields['label'] = BaseFieldDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('Label'))
+      ->setDescription(new TranslatableMarkup('Computed label of the Learning Opportunity Specification.'))
+      ->setComputed(TRUE)
+      ->setClass(LosLabelComputedField::class)
+      ->setReadOnly(TRUE)
+      ->setTranslatable(FALSE);
 
     return $fields;
   }
