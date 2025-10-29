@@ -7,6 +7,9 @@ declare(strict_types=1);
  * Install, update and uninstall functions for the OCC Entities module.
  */
 
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+
 /**
  * Implements hook_install().
  */
@@ -19,4 +22,35 @@ function occ_entities_install(): void {
  */
 function occ_entities_uninstall(): void {
   \Drupal::messenger()->addStatus(t('Module OCC Entities has been uninstalled.'));
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * Adds and populates entity labels in preexisting installations.
+ */
+function occ_entities_update_10401() {
+  $field_storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(new TranslatableMarkup('Label'))
+    ->setDescription(new TranslatableMarkup('Computed label of the Learning Opportunity Specification.'))
+    ->setReadOnly(TRUE)
+    ->setRevisionable(TRUE)
+    ->setTranslatable(FALSE);
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('label', 'occ_los', 'occ_los', $field_storage_definition);
+
+  /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager */
+  $entity_type_manager = \Drupal::service('entity_type.manager');
+  $entity_storage = $entity_type_manager->getStorage('occ_los');
+  $query = $entity_storage->getQuery()->accessCheck(FALSE);
+  $ids = $query->execute();
+
+  if (!empty($ids)) {
+    foreach ($entity_storage->loadMultiple($ids) as $occ_los) {
+      /** @var \Drupal\occ_entities\Entity\LearningOpportunitySpecification $occ_los */
+      $occ_los->setNewRevision(FALSE);
+      $occ_los->save();
+    }
+  }
 }

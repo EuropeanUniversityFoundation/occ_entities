@@ -12,7 +12,6 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\user\EntityOwnerTrait;
-use Drupal\occ_entities\Plugin\Field\FieldType\LosLabelComputedField;
 
 /**
  * Defines the learning opportunity specification entity class.
@@ -105,6 +104,10 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       // If no owner has been set explicitly, make the anonymous user the owner.
       $this->setOwnerId(0);
     }
+
+    // Set the first string value of title as the entity label.
+    $label = $this->get('title')[0]->string;
+    $this->set('label', $label);
   }
 
   /**
@@ -359,9 +362,8 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
     $fields['label'] = BaseFieldDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Label'))
       ->setDescription(new TranslatableMarkup('Computed label of the Learning Opportunity Specification.'))
-      ->setComputed(TRUE)
-      ->setClass(LosLabelComputedField::class)
       ->setReadOnly(TRUE)
+      ->setRevisionable(TRUE)
       ->setTranslatable(FALSE);
 
     return $fields;
