@@ -54,3 +54,64 @@ function occ_entities_update_10401() {
     }
   }
 }
+
+/**
+ * Implements hook_update_N().
+ *
+ * Modifies local classification type schema.
+ */
+function occ_entities_update_10402() {
+
+  $database = \Drupal::database();
+  $transaction = $database->startTransaction();
+
+  $definition_manager = \Drupal::entityDefinitionUpdateManager();
+  $existing_table_name = 'occ_los__course__local_classification';
+  $existing_revision_table_name = 'occ_los_revision__course__local_classification';
+
+  // Get the existing values.
+  $existing_values = $database->select($existing_table_name)
+    ->fields($existing_table_name)
+    ->execute()
+    ->fetchAll();
+
+  $existing_revision_values = $database->select($existing_revision_table_name)
+    ->fields($existing_revision_table_name)
+    ->execute()
+    ->fetchAll();
+
+  // Get the existing field storage definition.
+  $existing_storage_definition = $definition_manager
+    ->getFieldStorageDefinition('course__local_classification', 'occ_los');
+
+  foreach ($existing_values as $id => $value) {
+    $value = (array) $value;
+  }
+
+  // Uninstall the existing field storage definition.
+  $definition_manager
+    ->uninstallFieldStorageDefinition($existing_storage_definition);
+
+  // Reinstall the field storage definition.
+  $definition_manager
+    ->installFieldStorageDefinition('course__local_classification', 'occ_los', 'occ_los', $existing_storage_definition);
+
+  // Restore the values.
+  foreach ($existing_values as $id => $value) {
+    $value = (array) $value;
+
+    $database->insert($existing_table_name)
+      ->fields($value)
+      ->execute();
+  }
+
+  foreach ($existing_revision_values as $id => $value) {
+    $value = (array) $value;
+
+    $database->insert($existing_revision_table_name)
+      ->fields($value)
+      ->execute();
+  }
+
+  unset($transaction);
+}

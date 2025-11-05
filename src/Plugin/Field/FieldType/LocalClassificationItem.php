@@ -57,7 +57,7 @@ class LocalClassificationItem extends FieldItemBase {
     $schema = [
       'columns' => [
         'type' => [
-          'type' => 'varchar_ascii',
+          'type' => 'varchar',
           'length' => 255,
         ],
         'value' => [
