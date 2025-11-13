@@ -4,24 +4,27 @@ declare(strict_types=1);
 
 namespace Drupal\occ_entities\Plugin\Validation\Constraint;
 
-use Symfony\Component\Validator\Constraint;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Validation\Attribute\Constraint;
+use Symfony\Component\Validator\Constraint as SymfonyConstraint;
 
 /**
  * Provides a OunitHeiMatchesLos constraint.
- *
- * @Constraint(
- *   id = "ounit_hei_matches_los",
- *   label = @Translation("OunitHeiMatchesLos", context = "Validation"),
- * )
- *
- * @DCG
- * To apply this constraint on third party entity types implement either
- * hook_entity_base_field_info_alter() or hook_entity_bundle_field_info_alter().
- *
- * @see https://www.drupal.org/node/2015723
  */
-final class OunitHeiMatchesLosConstraint extends Constraint
-{
+#[Constraint(
+  id: 'OunitHeiMatchesLos',
+  label: new TranslatableMarkup('OUnit and LOS reference the same Institution.', [], ['context' => 'Validation'])
+)]
+final class OunitHeiMatchesLosConstraint extends SymfonyConstraint {
 
-  public string $message = 'Organizatoinal Unit %ounit must reference the same HEI as this Learning Opportunity Specification.';
+  /**
+   * The error message.
+   *
+   * The error message if the Organizational Unit and the Learning Opportunity
+   * Specification do not reference the same Institution.
+   *
+   * @var string
+   */
+  public string $message = 'Organizational Unit %ounit must reference the same HEI as this Learning Opportunity Specification.';
+
 }

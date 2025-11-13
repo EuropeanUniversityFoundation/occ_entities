@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.occ_los.course__local_classification
+    - occ_entities.occ_los_type.course
+  module:
+    - occ_entities
+id: occ_los.course.course__local_classification
+field_name: course__local_classification
+entity_type: occ_los
+bundle: course
+label: 'Local classification'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: occ_entities_local_classification

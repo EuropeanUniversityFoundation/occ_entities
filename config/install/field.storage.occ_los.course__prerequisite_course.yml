@@ -3,8 +3,6 @@ status: true
 dependencies:
   module:
     - occ_entities
-_core:
-  default_config_hash: JzZQiO9o4B5owCvKTbZQjhIiukf9cNCuCjEI49lop5Y
 id: occ_los.course__prerequisite_course
 field_name: course__prerequisite_course
 entity_type: occ_los

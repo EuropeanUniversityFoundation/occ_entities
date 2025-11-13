@@ -60,6 +60,7 @@ final class LearningOpportunitySpecificationTypeForm extends BundleEntityFormBas
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state): int {
+    /** @var int<1, 2> $result */
     $result = parent::save($form, $form_state);
 
     $message_args = ['%label' => $this->entity->label()];

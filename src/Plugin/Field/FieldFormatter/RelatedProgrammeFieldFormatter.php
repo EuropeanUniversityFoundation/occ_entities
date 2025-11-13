@@ -2,21 +2,26 @@
 
 namespace Drupal\occ_entities\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceLabelFormatter;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
- * @FieldFormatter(
- *   id = "related_programme_view",
- *   label = @Translation("Entity label and mandatory flag"),
- *   description = @Translation("Display the referenced entities’ label with their mandatory flag."),
- *   field_types = {
- *     "related_programme"
- *   }
- * )
+ * Plugin implementation of the 'related_programme_view' formatter.
  */
+#[FieldFormatter(
+  id: 'related_programme_view',
+  label: new TranslatableMarkup('Entity label and mandatory flag'),
+  field_types: [
+    'related_programme',
+  ],
+)]
 class RelatedProgrammeFieldFormatter extends EntityReferenceLabelFormatter {
 
+  /**
+   * {@inheritdoc}
+   */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = parent::viewElements($items, $langcode);
     $values = $items->getValue();
@@ -28,7 +33,8 @@ class RelatedProgrammeFieldFormatter extends EntityReferenceLabelFormatter {
       $mandatory_value = $values[$delta]['mandatory'];
       if (is_null($mandatory_value)) {
         $mandatory_label = 'Not specified';
-      } else {
+      }
+      else {
         $mandatory_label = $mandatory_value ? 'Yes' : 'No';
       }
 
@@ -45,4 +51,5 @@ class RelatedProgrammeFieldFormatter extends EntityReferenceLabelFormatter {
 
     return $elements;
   }
+
 }

@@ -6,11 +6,15 @@ use Drupal\Core\Field\FieldItemList;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class IntOverGreaterOrEqualIntConstraintValidator extends ConstraintValidator
-{
+/**
+ * Validates the PositiveIntOverInt constraint.
+ */
+class PositiveIntOverIntConstraintValidator extends ConstraintValidator {
 
-  public function validate($value, Constraint $constraint)
-  {
+  /**
+   * {@inheritdoc}
+   */
+  public function validate($value, Constraint $constraint) {
     if (!$value instanceof FieldItemList) {
       throw new \InvalidArgumentException(
         sprintf('The validated value must be instance of \Drupal\Core\Field\FieldItemList, %s was given.', get_debug_type($value))
@@ -24,23 +28,25 @@ class IntOverGreaterOrEqualIntConstraintValidator extends ConstraintValidator
     foreach ($value as $delta => $item) {
       $field_value = $item->get('value')->getValue();
       if (!preg_match('~^\d+/\d+$~', $field_value)) {
-        /** @var IntOverGreaterOrEqualIntConstraint $constraint */
+        /** @var PositiveIntOverIntConstraint $constraint */
         $this->context->buildViolation($constraint->noRegexMatchMessage)
           ->setParameter('%value', $field_value)
-          ->atPath($delta)
+          ->atPath((string) $delta)
           ->addViolation();
       }
 
       if (str_contains($field_value, '/')) {
         $field_values = explode('/', $field_value);
-        if ($field_values[0] > $field_values[1]) {
-          /** @var IntOverGreaterOrEqualIntConstraint $constraint */
-          $this->context->buildViolation($constraint->numberValueMismatchMessage)
+        // Ensures n/N: N > 0 and n > 0.
+        if ((int) $field_values[1] <= 0 || (int) $field_values[0] <= 0) {
+          /** @var PositiveIntOverIntConstraint $constraint */
+          $this->context->buildViolation($constraint->termsNotPositiveMessage)
             ->setParameter('%value', $field_value)
-            ->atPath($delta)
+            ->atPath((string) $delta)
             ->addViolation();
         }
       }
     }
   }
+
 }

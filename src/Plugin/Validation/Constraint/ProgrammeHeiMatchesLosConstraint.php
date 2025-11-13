@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace Drupal\occ_entities\Plugin\Validation\Constraint;
 
-use Symfony\Component\Validator\Constraint;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Validation\Attribute\Constraint;
+use Symfony\Component\Validator\Constraint as SymfonyConstraint;
 
 /**
- * Provides a ProgrammeHeiMatches constraint.
- *
- * @Constraint(
- *   id = "programme_hei_matches_los",
- *   label = @Translation("ProgrammeHeiMatches", context = "Validation"),
- * )
- *
- * @DCG
- * To apply this constraint on third party entity types implement either
- * hook_entity_base_field_info_alter() or hook_entity_bundle_field_info_alter().
- *
- * @see https://www.drupal.org/node/2015723
+ * Provides a ProgrammeHeiMatchesLos constraint.
  */
-final class ProgrammeHeiMatchesLosConstraint extends Constraint
-{
+#[Constraint(
+  id: 'ProgrammeHeiMatchesLos',
+  label: new TranslatableMarkup('Programme references the same Institution.', [], ['context' => 'Validation'])
+)]
+final class ProgrammeHeiMatchesLosConstraint extends SymfonyConstraint {
 
+  /**
+   * The error message if the Programme does not reference the same Institution.
+   *
+   * @var string
+   */
   public string $message = 'Programme %programme must reference the same HEI as this Learning Opportunity Specification.';
+
 }

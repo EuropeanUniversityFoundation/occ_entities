@@ -2,19 +2,24 @@
 
 namespace Drupal\occ_entities\Plugin\Validation\Constraint;
 
-use Symfony\Component\Validator\Constraint;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Validation\Attribute\Constraint;
+use Symfony\Component\Validator\Constraint as SymfonyConstraint;
 
 /**
  * Checks if combination of code and HEI reference is unique.
- *
- * @Constraint(
- *   id = "code_and_hei_unique",
- *   label = @Translation("The combination of the code and the Institution must be unique.", context = "Validation"),
- * )
  */
-class UniqueCodeAndHeiConstraint extends Constraint
-{
+#[Constraint(
+  id: 'UniqueCodeAndHei',
+  label: new TranslatableMarkup('Unique code within an Institution.', [], ['context' => 'Validation'])
+)]
+class UniqueCodeAndHeiConstraint extends SymfonyConstraint {
 
+  /**
+   * The error message if a code is already in use within an Institution.
+   *
+   * @var string
+   */
   public $message = 'The %entity_label code: %code is already in use for this Institution: %hei.';
 
   /**
@@ -38,8 +43,11 @@ class UniqueCodeAndHeiConstraint extends Constraint
    */
   public $entity_label = 'Learning Opportunity Specification';
 
-  public function getRequiredOptions()
-  {
+  /**
+   * {@inheritdoc}
+   */
+  public function getRequiredOptions() {
     return ['code_field', 'hei_field', 'entity_label'];
   }
+
 }

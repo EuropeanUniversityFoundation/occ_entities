@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
-    - ewp_core
     - occ_entities
-id: occ_los.course__other_prerequisites
-field_name: course__other_prerequisites
+id: occ_los.course__local_classification
+field_name: course__local_classification
 entity_type: occ_los
-type: ewp_multiline_lang
-settings: {  }
-module: ewp_core
+type: occ_entities_local_classification
+settings:
+  max_length: 255
+module: occ_entities
 locked: false
 cardinality: -1
 translatable: true

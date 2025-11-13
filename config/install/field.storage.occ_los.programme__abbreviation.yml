@@ -2,14 +2,15 @@ langcode: en
 status: true
 dependencies:
   module:
-    - isced_field
+    - ewp_core
     - occ_entities
-id: occ_los.course__isced_f
-field_name: course__isced_f
+id: occ_los.programme__abbreviation
+field_name: programme__abbreviation
 entity_type: occ_los
-type: isced_f
-settings: {  }
-module: isced_field
+type: ewp_string_lang
+settings:
+  max_length: 255
+module: ewp_core
 locked: false
 cardinality: -1
 translatable: true

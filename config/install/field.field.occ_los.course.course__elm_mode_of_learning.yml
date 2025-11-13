@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.occ_los.course__elm_learning_mode
+    - field.storage.occ_los.course__elm_mode_of_learning
     - occ_entities.occ_los_type.course
   module:
     - elm_vocabulary_field
-id: occ_los.course.course__elm_learning_mode
-field_name: course__elm_learning_mode
+id: occ_los.course.course__elm_mode_of_learning
+field_name: course__elm_mode_of_learning
 entity_type: occ_los
 bundle: course
-label: 'Mode of learning and assessment'
+label: 'ELM - Mode of learning'
 description: 'ELM vocabulary for Mode of learning and assessment'
 required: false
 translatable: false

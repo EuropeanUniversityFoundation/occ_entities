@@ -9,16 +9,14 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 /**
- * Validates the ProgrammeHeiMatches constraint.
+ * Validates the ProgrammeHeiMatchesLos constraint.
  */
-final class ProgrammeHeiMatchesLosConstraintValidator extends ConstraintValidator
-{
+final class ProgrammeHeiMatchesLosConstraintValidator extends ConstraintValidator {
 
   /**
    * {@inheritdoc}
    */
-  public function validate(mixed $items, Constraint $constraint): void
-  {
+  public function validate(mixed $items, Constraint $constraint): void {
     if (!$items instanceof FieldItemListInterface) {
       throw new \InvalidArgumentException(
         sprintf('The validated value must be instance of \Drupal\Core\Field\FieldItemListInterface, %s was given.', get_debug_type($items))
@@ -33,9 +31,10 @@ final class ProgrammeHeiMatchesLosConstraintValidator extends ConstraintValidato
         /** @var ProgrammeHeiMatchesLosConstraint $constraint */
         $this->context->buildViolation($constraint->message)
           ->setParameter('%programme', $item->entity->label())
-          ->atPath($delta)
+          ->atPath((string) $delta)
           ->addViolation();
       }
     }
   }
+
 }

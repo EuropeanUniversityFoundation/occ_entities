@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\occ_entities\Entity;
 
-use Drupal\user\EntityOwnerTrait;
 use Drupal\Core\Entity\EntityChangedTrait;
-use Drupal\Core\Field\BaseFieldDefinition;
-use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\RevisionableContentEntityBase;
+use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
-use Drupal\occ_entities\Entity\LearningOpportunitySpecificationInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\user\EntityOwnerTrait;
 
 /**
  * Defines the learning opportunity specification entity class.
@@ -53,7 +52,7 @@ use Drupal\occ_entities\Entity\LearningOpportunitySpecificationInterface;
  *     "id" = "id",
  *     "revision" = "revision_id",
  *     "bundle" = "bundle",
- *     "label" = "title.0.string",
+ *     "label" = "label",
  *     "uuid" = "uuid",
  *     "owner" = "uid",
  *   },
@@ -81,7 +80,7 @@ use Drupal\occ_entities\Entity\LearningOpportunitySpecificationInterface;
  *   revisionable = TRUE,
  *   translatable = FALSE,
  *   constraints = {
- *     "code_and_hei_unique" = {
+ *     "UniqueCodeAndHei" = {
  *       "code_field" = "code",
  *       "hei_field" = "hei",
  *       "entity_label" = "Learning Opportunity Specification",
@@ -89,40 +88,46 @@ use Drupal\occ_entities\Entity\LearningOpportunitySpecificationInterface;
  *   },
  * )
  */
-final class LearningOpportunitySpecification extends RevisionableContentEntityBase implements LearningOpportunitySpecificationInterface
-{
+final class LearningOpportunitySpecification extends RevisionableContentEntityBase implements LearningOpportunitySpecificationInterface {
 
   use EntityChangedTrait;
   use EntityOwnerTrait;
 
   /**
    * {@inheritdoc}
+   *
+   * @todo review.
    */
-  // TODO: review
-  public function preSave(EntityStorageInterface $storage): void
-  {
+  public function preSave(EntityStorageInterface $storage): void {
     parent::preSave($storage);
     if (!$this->getOwnerId()) {
       // If no owner has been set explicitly, make the anonymous user the owner.
       $this->setOwnerId(0);
     }
-  }
 
-  public function label(): string
-  {
-    return $this->get('title')->getValue()[0]['string'];
-  }
-
-  public function getLabel(): string
-  {
-    return $this->get('title')->getValue()[0]['string'];
+    // Set the first string value of title as the entity label.
+    $label = $this->get('title')[0]->string;
+    $this->set('label', $label);
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array
-  {
+  public function label(): string {
+    return $this->getLabel();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLabel(): string {
+    return $this->get('label')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array {
 
     $fields = parent::baseFieldDefinitions($entity_type);
 
@@ -190,29 +195,6 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setLabel(new TranslatableMarkup('Changed'))
       ->setDescription(new TranslatableMarkup('The time that the learning opportunity specification was last edited.'));
 
-    $fields['deprecated'] = BaseFieldDefinition::create('boolean')
-      ->setRevisionable(TRUE)
-      ->setLabel(new TranslatableMarkup('Deprecated'))
-      ->setDefaultValue(FALSE)
-      ->setSetting('on_label', 'Deprecated')
-      ->setDisplayOptions('form', [
-        'type' => 'boolean_checkbox',
-        'settings' => [
-          'display_label' => FALSE,
-        ],
-        'weight' => 100,
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayOptions('view', [
-        'type' => 'boolean',
-        'label' => 'above',
-        'weight' => 100,
-        'settings' => [
-          'format' => 'enabled-disabled',
-        ],
-      ])
-      ->setDisplayConfigurable('view', TRUE);
-
     $fields['code'] = BaseFieldDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Code'))
       ->setDescription(new TranslatableMarkup('Code of the Learning Opportunity Specification.'))
@@ -234,27 +216,6 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setDisplayConfigurable('view', TRUE)
       ->setRequired(TRUE)
       ->setTranslatable(FALSE);
-
-    $fields['abbreviation'] = BaseFieldDefinition::create('ewp_string_lang')
-      ->setLabel(new TranslatableMarkup('Abbreviation'))
-      ->setDescription(new TranslatableMarkup('Abbreviation of the Learning Opportunity Specification.'))
-      ->setSettings([
-        'max_length' => 255,
-      ])
-      ->setDisplayOptions('view', [
-        'label' => 'hidden',
-        'type' => 'ewp_string_lang_default',
-        'weight' => -20,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'ewp_string_lang_default',
-        'weight' => -20,
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE)
-      ->setRequired(FALSE)
-      ->setTranslatable(FALSE)
-      ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
 
     $fields['title'] = BaseFieldDefinition::create('ewp_string_lang')
       ->setLabel(new TranslatableMarkup('Title'))
@@ -291,7 +252,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
-      ->setRequired(FALSE)
+      ->setRequired(TRUE)
       ->setTranslatable(FALSE)
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
 
@@ -309,7 +270,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
-      ->setRequired(FALSE)
+      ->setRequired(TRUE)
       ->setTranslatable(FALSE)
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
 
@@ -359,7 +320,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setLabel(new TranslatableMarkup('Organizational Unit'))
       ->setSetting('target_type', 'ounit')
       ->setSetting('handler', 'default:ounit')
-      ->addConstraint('ounit_hei_matches_los', [])
+      ->addConstraint('OunitHeiMatchesLos', [])
       ->setDisplayOptions('form', [
         'type' => 'entity_reference_autocomplete',
         'settings' => [
@@ -395,9 +356,17 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
-      ->setRequired(FALSE)
+      ->setRequired(TRUE)
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
+
+    $fields['label'] = BaseFieldDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('Label'))
+      ->setDescription(new TranslatableMarkup('Computed label of the Learning Opportunity Specification.'))
+      ->setReadOnly(TRUE)
+      ->setRevisionable(TRUE)
+      ->setTranslatable(FALSE);
 
     return $fields;
   }
+
 }

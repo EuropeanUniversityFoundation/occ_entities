@@ -10,7 +10,7 @@ id: occ_los.course.course__elm_lo_type
 field_name: course__elm_lo_type
 entity_type: occ_los
 bundle: course
-label: 'Learning opportunity type'
+label: 'ELM - Learning opportunity type'
 description: 'ELM vocabulary for ELM Learning opportunity type'
 required: false
 translatable: false

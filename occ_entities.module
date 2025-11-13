@@ -14,18 +14,23 @@ function occ_entities_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
 {
   if ($entity_type->id() === 'occ_los' && $bundle === 'course') {
     if (isset($fields['course__related_programme'])) {
-      $fields['course__related_programme']->addConstraint('unique_programme_reference', []);
-      $fields['course__related_programme']->addConstraint('year_format', []);
-      $fields['course__related_programme']->addConstraint('year_matches_programme', []);
-      $fields['course__related_programme']->addConstraint('programme_hei_matches_los', []);
+      $fields['course__related_programme']->addConstraint('UniqueProgrammeReference', []);
+      $fields['course__related_programme']->addConstraint('YearFormat', []);
+      // TODO: figure out if constraint is possible
+      // $fields['course__related_programme']->addConstraint('YearMatchesProgramme', []);
+      $fields['course__related_programme']->addConstraint('ProgrammeHeiMatchesLos', []);
     }
 
     if (isset($fields['course__prerequisite_course'])) {
-      $fields['course__prerequisite_course']->addConstraint('course_hei_matches_los', []);
+      $fields['course__prerequisite_course']->addConstraint('CourseHeiMatchesLos', []);
     }
 
     if (isset($fields['course__academic_term'])) {
-      $fields['course__academic_term']->addConstraint('int_over_greater_or_equal_int', []);
+      $fields['course__academic_term']->addConstraint('IntOverGreaterOrEqualPositiveInt', []);
+    }
+
+    if (isset($fields['course__local_classification'])) {
+      $fields['course__local_classification']->addConstraint('ValueAndTypeProvided', []);
     }
   }
 
@@ -40,7 +45,7 @@ function occ_entities_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
     }
 
     if (isset($fields['programme__length'])) {
-      $fields['programme__length']->addConstraint('int_over_int_format', []);
+      $fields['programme__length']->addConstraint('PositiveIntOverInt', []);
     }
   }
 }

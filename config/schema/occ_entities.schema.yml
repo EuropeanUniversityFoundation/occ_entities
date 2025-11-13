@@ -1,0 +1,112 @@
+# Schema for the configuration of the Local classification field type.
+field.value.occ_entities_local_classification:
+  type: mapping
+  label: Default value
+  mapping:
+    type:
+      type: string
+      label: 'Type'
+      constraints:
+        NotNull: []
+    value:
+      type: string
+      label: 'Value'
+      constraints:
+        NotNull: []
+
+field.storage_settings.occ_entities_local_classification:
+  type: mapping
+  label: 'String settings'
+  mapping:
+    max_length:
+      type: integer
+      label: 'Maximum length'
+
+field.widget.settings.occ_entities_local_classification_default:
+  type: mapping
+  label: 'Local classification default widget settings'
+  mapping:
+    type_size:
+      type: integer
+      label: 'Type textfield size'
+    type_placeholder:
+      type: string
+      label: 'Type textfield placeholder'
+    value_size:
+      type: integer
+      label: 'Value textfield size'
+    value_placeholder:
+      type: string
+      label: 'Value textfield placeholder'
+
+# Schema for the configuration of the Related programme field type.
+field.value.related_programme:
+  type: mapping
+  label: Default value
+  constraints:
+    YearMatchesProgramme: ~
+  mapping:
+    target_id:
+      type: string
+      label: 'Value'
+    target_uuid:
+      type: uuid
+    mandatory:
+      type: boolean
+      label: Mandatory
+    year:
+      type: string
+      label: Year
+      constraints:
+        NotNull: []
+
+field.storage_settings.related_programme:
+  type: mapping
+  label: 'Related programme field storage settings'
+  mapping:
+    target_type:
+      type: string
+      label: 'Type of item to reference'
+
+field.field_settings.related_programme:
+  type: mapping
+  label: 'Related programme field settings'
+  mapping:
+    handler:
+      type: string
+      label: 'Reference method'
+      constraints:
+        PluginExists:
+          manager: plugin.manager.entity_reference_selection
+          interface: 'Drupal\Core\Entity\EntityReferenceSelection\SelectionInterface'
+          # @todo Remove this line and explicitly require valid entity reference
+          # selection plugin IDs in https://drupal.org/i/3420198.
+          allowFallback: true
+    handler_settings:
+      type: entity_reference_selection.[%parent.handler]
+      label: 'Entity reference selection plugin settings'
+
+field.formatter.settings.related_programme_view:
+  type: mapping
+  label: 'Related programme label display format settings'
+  mapping:
+    link:
+      type: boolean
+      label: 'Link label to the referenced entity'
+
+field.widget.settings.related_programme_autocomplete:
+  type: mapping
+  label: 'Related programme autocomplete display format settings'
+  mapping:
+    match_operator:
+      type: string
+      label: 'Autocomplete matching'
+    match_limit:
+      type: integer
+      label: 'Maximum number of autocomplete suggestions.'
+    size:
+      type: integer
+      label: 'Size of textfield'
+    placeholder:
+      type: label
+      label: 'Placeholder'

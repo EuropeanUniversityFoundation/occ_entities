@@ -10,7 +10,7 @@ id: occ_los.programme.programme__elm_learning_schedule
 field_name: programme__elm_learning_schedule
 entity_type: occ_los
 bundle: programme
-label: 'Learning schedule'
+label: 'ELM - Learning schedule'
 description: 'ELM vocabulary for learning schedule type'
 required: false
 translatable: false

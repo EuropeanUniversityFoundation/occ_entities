@@ -28,6 +28,7 @@
         }
     ],
     "require": {
+        "drupal/entity_reference_validators": "^2.0",
         "euf/ewp_core": "^1.0",
         "euf/ewp_institutions": "^1.0",
         "euf/ewp_ounits": "^1.0",
@@ -37,6 +38,10 @@
     },
     "minimum-stability": "dev",
     "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        },
         {
             "type": "composer",
             "url": "https://packages.uni-foundation.eu"

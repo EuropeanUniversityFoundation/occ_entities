@@ -2,43 +2,48 @@
 
 namespace Drupal\occ_entities\Plugin\Validation\Constraint;
 
-use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidator;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
 
 /**
- * Checks if combnation of code and HEI reference is unique.
- *
- * @Constraint(
- *   id = "code_and_hei_unique",
- *   label = @Translation("The combination of the code and the Institution must be unique.", context = "Validation"),
- * )
+ * Validates the UniqueCodeAndHei constraint.
  */
-class UniqueCodeAndHeiConstraintValidator extends ConstraintValidator implements ContainerInjectionInterface
-{
+class UniqueCodeAndHeiConstraintValidator extends ConstraintValidator implements ContainerInjectionInterface {
 
-  protected EntityTypeManagerInterface $entityTypeManager;
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
 
-  public function __construct(EntityTypeManagerInterface $entity_type_manager)
-  {
+  /**
+   * Constructs the object.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   */
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
     $this->entityTypeManager = $entity_type_manager;
   }
 
-  public static function create(ContainerInterface $container)
-  {
-    // @phpstan-ignore new.static
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity_type.manager'),
     );
   }
 
-  public function validate($entity, Constraint $constraint)
-  {
-    // @phpstan-ignore property.notFound
+  /**
+   * {@inheritdoc}
+   */
+  public function validate($entity, Constraint $constraint) {
     $entity_code = $entity->get($constraint->code_field)->value;
-    // @phpstan-ignore property.notFound
     $entity_hei = $entity->get($constraint->hei_field)->referencedEntities();
     $entity_hei = reset($entity_hei);
     $entity_type = $entity->getEntityTypeId();
@@ -67,4 +72,5 @@ class UniqueCodeAndHeiConstraintValidator extends ConstraintValidator implements
         ->addViolation();
     }
   }
+
 }

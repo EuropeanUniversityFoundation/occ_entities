@@ -4,8 +4,8 @@ dependencies:
   module:
     - ewp_core
     - occ_entities
-id: occ_los.programme__eqf_level
-field_name: programme__eqf_level
+id: occ_los.programme__eqf_level_provided
+field_name: programme__eqf_level_provided
 entity_type: occ_los
 type: eqf_level
 settings: {  }

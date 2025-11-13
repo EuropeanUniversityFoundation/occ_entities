@@ -4,28 +4,28 @@ declare(strict_types=1);
 
 namespace Drupal\occ_entity_reference_selection\Plugin\EntityReferenceSelection;
 
-use Drupal\user\Entity\User;
-use Drupal\Core\Entity\Query\QueryInterface;
+use Drupal\Core\Entity\Attribute\EntityReferenceSelection;
 use Drupal\Core\Entity\Plugin\EntityReferenceSelection\DefaultSelection;
+use Drupal\Core\Entity\Query\QueryInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\user\Entity\User;
 
 /**
- * An entity selection plugin that allows to select courses from a HEI that is set in the user account.
- *
- * @EntityReferenceSelection(
- *   id = "occ_entity_reference_selection_course_selection",
- *   label = @Translation("Own HEIs Course selection"),
- *   group = "occ_entity_reference_selection_course_selection",
- *   entity_types = {"occ_los"},
- * )
+ * Plugin implementation of the Own HEIs Course selection plugin.
  */
-final class CourseSelection extends DefaultSelection
-{
+#[EntityReferenceSelection(
+  id: "occ_entity_reference_selection_course_selection",
+  label: new TranslatableMarkup("Own HEIs Course selection"),
+  group: "occ_entity_reference_selection_course_selection",
+  entity_types: ['occ_los'],
+  weight: 0,
+)]
+final class CourseSelection extends DefaultSelection {
 
   /**
    * {@inheritdoc}
    */
-  protected function buildEntityQuery($match = NULL, $match_operator = 'CONTAINS'): QueryInterface
-  {
+  protected function buildEntityQuery($match = NULL, $match_operator = 'CONTAINS'): QueryInterface {
     $query = parent::buildEntityQuery($match, $match_operator);
 
     // @phpstan-ignore class.notFound
@@ -45,4 +45,5 @@ final class CourseSelection extends DefaultSelection
 
     return $query;
   }
+
 }

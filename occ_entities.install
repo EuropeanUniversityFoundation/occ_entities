@@ -7,6 +7,9 @@ declare(strict_types=1);
  * Install, update and uninstall functions for the OCC Entities module.
  */
 
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+
 /**
  * Implements hook_install().
  */
@@ -19,4 +22,96 @@ function occ_entities_install(): void {
  */
 function occ_entities_uninstall(): void {
   \Drupal::messenger()->addStatus(t('Module OCC Entities has been uninstalled.'));
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * Adds and populates entity labels in preexisting installations.
+ */
+function occ_entities_update_10401() {
+  $field_storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(new TranslatableMarkup('Label'))
+    ->setDescription(new TranslatableMarkup('Computed label of the Learning Opportunity Specification.'))
+    ->setReadOnly(TRUE)
+    ->setRevisionable(TRUE)
+    ->setTranslatable(FALSE);
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('label', 'occ_los', 'occ_los', $field_storage_definition);
+
+  /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager */
+  $entity_type_manager = \Drupal::service('entity_type.manager');
+  $entity_storage = $entity_type_manager->getStorage('occ_los');
+  $query = $entity_storage->getQuery()->accessCheck(FALSE);
+  $ids = $query->execute();
+
+  if (!empty($ids)) {
+    foreach ($entity_storage->loadMultiple($ids) as $occ_los) {
+      /** @var \Drupal\occ_entities\Entity\LearningOpportunitySpecification $occ_los */
+      $occ_los->setNewRevision(FALSE);
+      $occ_los->save();
+    }
+  }
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * Modifies local classification type schema.
+ */
+function occ_entities_update_10402() {
+
+  $database = \Drupal::database();
+  $transaction = $database->startTransaction();
+
+  $definition_manager = \Drupal::entityDefinitionUpdateManager();
+  $existing_table_name = 'occ_los__course__local_classification';
+  $existing_revision_table_name = 'occ_los_revision__course__local_classification';
+
+  // Get the existing values.
+  $existing_values = $database->select($existing_table_name)
+    ->fields($existing_table_name)
+    ->execute()
+    ->fetchAll();
+
+  $existing_revision_values = $database->select($existing_revision_table_name)
+    ->fields($existing_revision_table_name)
+    ->execute()
+    ->fetchAll();
+
+  // Get the existing field storage definition.
+  $existing_storage_definition = $definition_manager
+    ->getFieldStorageDefinition('course__local_classification', 'occ_los');
+
+  foreach ($existing_values as $id => $value) {
+    $value = (array) $value;
+  }
+
+  // Uninstall the existing field storage definition.
+  $definition_manager
+    ->uninstallFieldStorageDefinition($existing_storage_definition);
+
+  // Reinstall the field storage definition.
+  $definition_manager
+    ->installFieldStorageDefinition('course__local_classification', 'occ_los', 'occ_los', $existing_storage_definition);
+
+  // Restore the values.
+  foreach ($existing_values as $id => $value) {
+    $value = (array) $value;
+
+    $database->insert($existing_table_name)
+      ->fields($value)
+      ->execute();
+  }
+
+  foreach ($existing_revision_values as $id => $value) {
+    $value = (array) $value;
+
+    $database->insert($existing_revision_table_name)
+      ->fields($value)
+      ->execute();
+  }
+
+  unset($transaction);
 }
