@@ -20,7 +20,7 @@ class UniqueCodeAndHeiConstraint extends SymfonyConstraint {
    *
    * @var string
    */
-  public $message = 'The %entity_label code: %code is already in use for this Institution: %hei.';
+  public $message = 'The code: %code is already in use for this Institution: %hei.';
 
   /**
    * Field name storing the code of the entity.
