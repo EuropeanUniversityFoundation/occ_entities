@@ -43,6 +43,7 @@ class UniqueCodeAndHeiConstraintValidator extends ConstraintValidator implements
    * {@inheritdoc}
    */
   public function validate($entity, Constraint $constraint) {
+    /** @var UniqueCodeAndHeiConstraint $constraint */
     $entity_code = $entity->get($constraint->code_field)->value;
     $entity_hei = $entity->get($constraint->hei_field)->referencedEntities();
     $entity_hei = reset($entity_hei);
@@ -65,7 +66,6 @@ class UniqueCodeAndHeiConstraintValidator extends ConstraintValidator implements
 
     if (!empty($result)) {
       $this->context->buildViolation($constraint->message)
-        ->setParameter('%entity_label', $entity->label())
         ->setParameter('%code', $entity_code)
         ->setParameter('%hei', $entity_hei->label())
         ->atPath($constraint->code_field)

@@ -47,7 +47,7 @@ class UniqueCodeAndHeiConstraint extends SymfonyConstraint {
    * {@inheritdoc}
    */
   public function getRequiredOptions() {
-    return ['code_field', 'hei_field', 'entity_label'];
+    return ['code_field', 'hei_field'];
   }
 
 }
