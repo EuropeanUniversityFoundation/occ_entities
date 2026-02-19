@@ -21,5 +21,3 @@ Then you can require the package as usual:
 Finally, install the module:
 
     drush en occ_entities
-
-## Usage - TODO
