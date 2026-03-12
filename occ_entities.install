@@ -10,6 +10,7 @@ declare(strict_types=1);
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -125,6 +126,8 @@ function occ_entities_update_10402() {
  */
 function occ_entities_update_10603() {
   $database = \Drupal::database();
+  $transaction = $database->startTransaction();
+
   $entity_type = 'occ_los';
   $bundle = 'programme';
   $field_name = 'programme__ects';
@@ -161,48 +164,57 @@ function occ_entities_update_10603() {
     }
   }
 
-  // Delete the field instance.
-  $active_storage->delete();
+  try {
+    // Delete the field instance.
+    // This is a DDL operation, causes an implicit commit in the DB!
+    $active_storage->delete();
 
-  // Reinstalling and modifying based on active configuration.
-  $storage_values['type'] = 'decimal';
-  $storage_values['settings'] = [
-    'precision' => 10,
-    'scale' => 2,
-  ];
+    // Reinstalling and modifying based on active configuration.
+    $storage_values['type'] = 'decimal';
+    $storage_values['settings'] = [
+      'precision' => 10,
+      'scale' => 2,
+    ];
 
-  $storage_values['module'] = 'core';
+    $storage_values['module'] = 'core';
 
-  FieldStorageConfig::create($storage_values)->save();
+    FieldStorageConfig::create($storage_values)->save();
 
-  if ($field_values) {
-    $field_values['field_type'] = 'decimal';
-    FieldConfig::create($field_values)->save();
-  }
+    if ($field_values) {
+      $field_values['field_type'] = 'decimal';
+      FieldConfig::create($field_values)->save();
+    }
 
-  // Restore displays.
-  foreach ($saved_displays as $type => $components) {
-    foreach ($components as $id => $component) {
-      $display = ($type == 'form') ? EntityFormDisplay::load($id) : EntityViewDisplay::load($id);
+    // Restore displays.
+    foreach ($saved_displays as $type => $components) {
+      foreach ($components as $id => $component) {
+        $display = ($type == 'form') ? EntityFormDisplay::load($id) : EntityViewDisplay::load($id);
 
-      if ($display) {
-        // Changing widget/formatter from number_integer to number_decimal.
-        if (isset($component['type']) && $component['type'] == 'number_integer') {
-          $component['type'] = 'number_decimal';
+        if ($display) {
+          if (isset($component['type']) && $component['type'] == 'number_integer') {
+            $component['type'] = ($type == 'form') ? 'number' : 'number_decimal';
+          }
+
+          $display->setComponent($field_name, $component)->save();
         }
-
-        $display->setComponent($field_name, $component)->save();
       }
     }
+
+    // Restore data.
+    foreach ($existing_values as $value) {
+      $database->insert($table_name)->fields((array) $value)->execute();
+    }
+    foreach ($existing_revision_values as $value) {
+      $database->insert($revision_table_name)->fields((array) $value)->execute();
+    }
+  }
+  catch (\Exception $e) {
+    $transaction->rollBack();
+    \Drupal::logger('occ_entities')->error($e->getMessage());
+    throw $e;
   }
 
-  // Restore data.
-  foreach ($existing_values as $value) {
-    $database->insert($table_name)->fields((array) $value)->execute();
-  }
-  foreach ($existing_revision_values as $value) {
-    $database->insert($revision_table_name)->fields((array) $value)->execute();
-  }
+  unset($transaction);
 }
 
 /**
@@ -210,71 +222,93 @@ function occ_entities_update_10603() {
  */
 function occ_entities_update_10604() {
   $database = \Drupal::database();
+  $transaction = $database->startTransaction();
+
   $entity_type = 'occ_los';
   $field_name = 'programme__elm_learning_schedule';
   $table_name = 'occ_los__programme__elm_learning_schedule';
   $revision_table_name = 'occ_los_revision__programme__elm_learning_schedule';
   $new_cardinality = 1;
 
-  // Change cardinality in active configuration.
-  $field_storage = FieldStorageConfig::loadByName($entity_type, $field_name);
-  if ($field_storage) {
-    $field_storage->setCardinality($new_cardinality);
-    $field_storage->save();
-  }
+  try {
+    // Change cardinality in active configuration.
+    $field_storage = FieldStorageConfig::loadByName($entity_type, $field_name);
+    if ($field_storage) {
+      $field_storage->setCardinality($new_cardinality);
+      $field_storage->save();
+    }
 
-  // Deleting excess data (delta > 0).
-  if ($new_cardinality === 1) {
+    // Deleting excess data (delta > 0).
+    if ($new_cardinality === 1) {
 
-    if ($database->schema()->tableExists($table_name)) {
+      if ($database->schema()->tableExists($table_name)) {
       $database->delete($table_name)
-        ->condition('delta', 0, '>')
-        ->execute();
-    }
+          ->condition('delta', 0, '>')
+          ->execute();
+      }
 
-    // Cleaning revision table if it exists.
-    if ($database->schema()->tableExists($revision_table_name)) {
-      $database->delete($revision_table_name)
-        ->condition('delta', 0, '>')
-        ->execute();
+      // Cleaning revision table if it exists.
+      if ($database->schema()->tableExists($revision_table_name)) {
+        $database->delete($revision_table_name)
+          ->condition('delta', 0, '>')
+          ->execute();
+      }
     }
-
-    return new TranslatableMarkup('Cardinality for @field updated to 1 and extra values (delta > 0) removed.', ['@field' => $field_name]);
   }
+  catch (\Exception $e) {
+    $transaction->rollBack();
+    \Drupal::logger('occ_entities')->error($e->getMessage());
+    throw $e;
+  }
+
+  unset($transaction);
+
+  return new TranslatableMarkup('Cardinality for @field updated to 1 and extra values (delta > 0) removed.', ['@field' => $field_name]);
 }
 
 /**
  * Make 'code' base field revisionable.
  */
 function occ_entities_update_10605() {
+  $database = \Drupal::database();
+  $transaction = $database->startTransaction();
+
   $entity_type = 'occ_los';
   $field_name = 'code';
   $definition_manager = \Drupal::entityDefinitionUpdateManager();
-  $database = \Drupal::database();
 
-  /** @var \Drupal\entity_test\FieldStorageDefinition $storage_definition */
+  /** @var FieldStorageDefinitionInterface $storage_definition */
   $storage_definition = $definition_manager->getFieldStorageDefinition($field_name, $entity_type);
 
-  if ($storage_definition) {
-    // Updating definition.
-    $storage_definition->setRevisionable(TRUE);
-    $definition_manager->updateFieldStorageDefinition($storage_definition);
+  try {
+    if ($storage_definition) {
+      // Updating definition.
+      $storage_definition->setRevisionable(TRUE);
+      $definition_manager->updateFieldStorageDefinition($storage_definition);
 
-    // Creating definition manually if update manager did not do it.
-    $rev_table = $entity_type . '_revision';
-    if (!$database->schema()->fieldExists($rev_table, $field_name)) {
-      $database->schema()->addField($rev_table, $field_name, [
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => FALSE,
-      ]);
+      // Creating definition manually if update manager did not do it.
+      $rev_table = $entity_type . '_revision';
+      if (!$database->schema()->fieldExists($rev_table, $field_name)) {
+        $database->schema()->addField($rev_table, $field_name, [
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ]);
 
-      // Copying from original table so revision 1 exists.
-      $database->query("UPDATE {$rev_table} r
-                        INNER JOIN {$entity_type} b ON r.id = b.id
-                        SET r.{$field_name} = b.{$field_name}");
+        // Copying from original table so revision 1 exists.
+        $database->query("UPDATE {$rev_table} r
+                          INNER JOIN {$entity_type} b ON r.id = b.id
+                          SET r.{$field_name} = b.{$field_name}");
+      }
     }
-
-    return new TranslatableMarkup('The @field field is now revisionable.', ['@field' => $field_name]);
   }
+  catch (\Exception $e) {
+    $transaction->rollBack();
+    \Drupal::logger('occ_entities')->error($e->getMessage());
+    throw $e;
+  }
+
+  unset($transaction);
+
+  return new TranslatableMarkup('The @field field is now revisionable.', ['@field' => $field_name]);
 }
