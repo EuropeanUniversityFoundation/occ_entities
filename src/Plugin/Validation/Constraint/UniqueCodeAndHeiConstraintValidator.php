@@ -44,8 +44,8 @@ class UniqueCodeAndHeiConstraintValidator extends ConstraintValidator implements
    */
   public function validate($entity, Constraint $constraint) {
     /** @var UniqueCodeAndHeiConstraint $constraint */
-    $entity_code = $entity->get($constraint->code_field)->value;
-    $entity_hei = $entity->get($constraint->hei_field)->referencedEntities();
+    $entity_code = $entity->get($constraint->codeField)->value;
+    $entity_hei = $entity->get($constraint->heiField)->referencedEntities();
     $entity_hei = reset($entity_hei);
     $entity_type = $entity->getEntityTypeId();
     $is_new = $entity->isNew();
@@ -55,8 +55,8 @@ class UniqueCodeAndHeiConstraintValidator extends ConstraintValidator implements
       ->getStorage($entity_type)
       ->getQuery()
       ->accessCheck(FALSE)
-      ->condition($constraint->hei_field, $entity_hei->id())
-      ->condition($constraint->code_field, $entity_code);
+      ->condition($constraint->heiField, $entity_hei->id())
+      ->condition($constraint->codeField, $entity_code);
 
     if (!$is_new) {
       $query->condition('id', $entity->id(), '<>');
@@ -68,7 +68,7 @@ class UniqueCodeAndHeiConstraintValidator extends ConstraintValidator implements
       $this->context->buildViolation($constraint->message)
         ->setParameter('%code', $entity_code)
         ->setParameter('%hei', $entity_hei->label())
-        ->atPath($constraint->code_field)
+        ->atPath($constraint->codeField)
         ->addViolation();
     }
   }

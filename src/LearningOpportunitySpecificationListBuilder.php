@@ -8,7 +8,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
 
 /**
- * Provides a list controller for the learning opportunity specification entity type.
+ * Provides a list controller for the occ_los entity type.
  */
 final class LearningOpportunitySpecificationListBuilder extends EntityListBuilder {
 

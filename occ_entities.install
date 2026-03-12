@@ -1,17 +1,16 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @file
  * Install, update and uninstall functions for the OCC Entities module.
  */
 
+declare(strict_types=1);
+
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\entity_test\FieldStorageDefinition;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 
@@ -89,7 +88,7 @@ function occ_entities_update_10402() {
   $existing_storage_definition = $definition_manager
     ->getFieldStorageDefinition('course__local_classification', 'occ_los');
 
-  foreach ($existing_values as $id => $value) {
+  foreach ($existing_values as $value) {
     $value = (array) $value;
   }
 
@@ -102,7 +101,7 @@ function occ_entities_update_10402() {
     ->installFieldStorageDefinition('course__local_classification', 'occ_los', 'occ_los', $existing_storage_definition);
 
   // Restore the values.
-  foreach ($existing_values as $id => $value) {
+  foreach ($existing_values as $value) {
     $value = (array) $value;
 
     $database->insert($existing_table_name)
@@ -110,7 +109,7 @@ function occ_entities_update_10402() {
       ->execute();
   }
 
-  foreach ($existing_revision_values as $id => $value) {
+  foreach ($existing_revision_values as $value) {
     $value = (array) $value;
 
     $database->insert($existing_revision_table_name)
@@ -122,7 +121,7 @@ function occ_entities_update_10402() {
 }
 
 /**
- * Change programme__ects field type to decimal, preserving data and active configuration.
+ * Change programme__ects to decimal, keeping data and active configuration.
  */
 function occ_entities_update_10603() {
   $database = \Drupal::database();
@@ -132,20 +131,22 @@ function occ_entities_update_10603() {
   $table_name = 'occ_los__programme__ects';
   $revision_table_name = 'occ_los_revision__programme__ects';
 
-  // Saving data and config
+  // Saving data and config.
   $existing_values = $database->select($table_name)->fields($table_name)->execute()->fetchAll();
   $existing_revision_values = $database->select($revision_table_name)->fields($revision_table_name)->execute()->fetchAll();
 
-  // Saving storage and field instance config
+  // Saving storage and field instance config.
   $active_storage = FieldStorageConfig::loadByName($entity_type, $field_name);
   $active_field = FieldConfig::loadByName($entity_type, $bundle, $field_name);
 
-  if (!$active_storage) return;
+  if (!$active_storage) {
+    return;
+  }
 
   $storage_values = $active_storage->toArray();
-  $field_values = $active_field ? $active_field->toArray() : null;
+  $field_values = $active_field ? $active_field->toArray() : \NULL;
 
-  // Saving form and view displays
+  // Saving form and view displays.
   $form_displays = EntityFormDisplay::loadMultiple();
   $view_displays = EntityViewDisplay::loadMultiple();
   $saved_displays = [];
@@ -160,10 +161,10 @@ function occ_entities_update_10603() {
     }
   }
 
-  // Delete the field instance
+  // Delete the field instance.
   $active_storage->delete();
 
-  // Reinstalling and modifying based on active configuration
+  // Reinstalling and modifying based on active configuration.
   $storage_values['type'] = 'decimal';
   $storage_values['settings'] = [
     'precision' => 10,
@@ -175,27 +176,27 @@ function occ_entities_update_10603() {
   FieldStorageConfig::create($storage_values)->save();
 
   if ($field_values) {
-     $field_values['field_type'] = 'decimal';
+    $field_values['field_type'] = 'decimal';
     FieldConfig::create($field_values)->save();
   }
 
-  // Restore displays
+  // Restore displays.
   foreach ($saved_displays as $type => $components) {
-      foreach ($components as $id => $component) {
-        $display = ($type == 'form') ? EntityFormDisplay::load($id) : EntityViewDisplay::load($id);
+    foreach ($components as $id => $component) {
+      $display = ($type == 'form') ? EntityFormDisplay::load($id) : EntityViewDisplay::load($id);
 
-        if ($display) {
-          // Changing widget/formatter from number_integer to number_decimal
-          if (isset($component['type']) && $component['type'] == 'number_integer') {
-            $component['type'] = 'number_decimal';
-          }
-
-          $display->setComponent($field_name, $component)->save();
+      if ($display) {
+        // Changing widget/formatter from number_integer to number_decimal.
+        if (isset($component['type']) && $component['type'] == 'number_integer') {
+          $component['type'] = 'number_decimal';
         }
+
+        $display->setComponent($field_name, $component)->save();
       }
     }
+  }
 
-  // Restore data
+  // Restore data.
   foreach ($existing_values as $value) {
     $database->insert($table_name)->fields((array) $value)->execute();
   }
@@ -215,7 +216,7 @@ function occ_entities_update_10604() {
   $revision_table_name = 'occ_los_revision__programme__elm_learning_schedule';
   $new_cardinality = 1;
 
-  // Change cardinality in active configuration
+  // Change cardinality in active configuration.
   $field_storage = FieldStorageConfig::loadByName($entity_type, $field_name);
   if ($field_storage) {
     $field_storage->setCardinality($new_cardinality);
@@ -231,7 +232,7 @@ function occ_entities_update_10604() {
         ->execute();
     }
 
-    // Cleaning revision table if it exists
+    // Cleaning revision table if it exists.
     if ($database->schema()->tableExists($revision_table_name)) {
       $database->delete($revision_table_name)
         ->condition('delta', 0, '>')
@@ -251,15 +252,15 @@ function occ_entities_update_10605() {
   $definition_manager = \Drupal::entityDefinitionUpdateManager();
   $database = \Drupal::database();
 
-  /** @var FieldStorageDefinition $storage_definition */
+  /** @var \Drupal\entity_test\FieldStorageDefinition $storage_definition */
   $storage_definition = $definition_manager->getFieldStorageDefinition($field_name, $entity_type);
 
   if ($storage_definition) {
-    // Updating definition
+    // Updating definition.
     $storage_definition->setRevisionable(TRUE);
     $definition_manager->updateFieldStorageDefinition($storage_definition);
 
-    // Creating definition manually if update manager did not do it
+    // Creating definition manually if update manager did not do it.
     $rev_table = $entity_type . '_revision';
     if (!$database->schema()->fieldExists($rev_table, $field_name)) {
       $database->schema()->addField($rev_table, $field_name, [
@@ -268,7 +269,7 @@ function occ_entities_update_10605() {
         'not null' => FALSE,
       ]);
 
-      // Copying from original table so revision 1 exists
+      // Copying from original table so revision 1 exists.
       $database->query("UPDATE {$rev_table} r
                         INNER JOIN {$entity_type} b ON r.id = b.id
                         SET r.{$field_name} = b.{$field_name}");

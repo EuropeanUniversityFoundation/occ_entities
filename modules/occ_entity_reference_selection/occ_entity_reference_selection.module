@@ -1,21 +1,18 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @file
- * Adds reference selection handlers to occ_los entities.
+ * Adds reference selection handlers for occ_los entities.
  */
 
+declare(strict_types=1);
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
 /**
- * Adds entity reference selection handler to both Programme and Course ounit base field.
- *
- * @param mixed $fields
- * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
- * @return void
+ * Entity reference selection handler for Programme and Course ounit base field.
  */
-function occ_entity_reference_selection_entity_base_field_info_alter(&$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type)
-{
+function occ_entity_reference_selection_entity_base_field_info_alter(&$fields, EntityTypeInterface $entity_type) {
   if ($entity_type->id() === 'occ_los') {
     if (isset($fields['ounit'])) {
       $fields['ounit']->setSetting('handler', 'occ_entity_reference_selection_ounit_selection');
@@ -32,9 +29,10 @@ function occ_entity_reference_selection_entity_base_field_info_alter(&$fields, \
   }
 }
 
-// Activates select own HEIs Programmes only for course__related_programme bundle field
-function occ_entity_reference_selection_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type, $bundle)
-{
+/**
+ * Activates select own HEIs Programmes only for course__related_programme.
+ */
+function occ_entity_reference_selection_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
   if ($entity_type->id() === 'occ_los' && $bundle === 'course') {
     if (isset($fields['course__related_programme'])) {
       $fields['course__related_programme']->setSetting('handler', 'occ_entity_reference_selection_programme_selection');

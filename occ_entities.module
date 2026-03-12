@@ -1,22 +1,25 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @file
  * Provides a learning opportunity specification entity type.
  */
 
+declare(strict_types=1);
+
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Render\Element;
 use Drupal\user\UserInterface;
 
-function occ_entities_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type, $bundle)
-{
+/**
+ * Adds constraints to bundle fields.
+ */
+function occ_entities_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
   if ($entity_type->id() === 'occ_los' && $bundle === 'course') {
     if (isset($fields['course__related_programme'])) {
       $fields['course__related_programme']->addConstraint('UniqueProgrammeReference', []);
       $fields['course__related_programme']->addConstraint('YearFormat', []);
-      // TODO: figure out if constraint is possible
+      // @todo figure out if constraint is possible.
       // $fields['course__related_programme']->addConstraint('YearMatchesProgramme', []);
       $fields['course__related_programme']->addConstraint('ProgrammeHeiMatchesLos', []);
     }
@@ -40,7 +43,7 @@ function occ_entities_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
         'Range' => [
           'min' => 5,
           'max' => 8,
-        ]
+        ],
       ]);
     }
 
@@ -53,8 +56,7 @@ function occ_entities_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
 /**
  * Implements hook_theme().
  */
-function occ_entities_theme(): array
-{
+function occ_entities_theme(): array {
   return [
     'occ_los' => ['render element' => 'elements'],
   ];
@@ -67,12 +69,12 @@ function occ_entities_theme(): array
  *
  * @param array $variables
  *   An associative array containing:
- *   - elements: An associative array containing the learning opportunity specification information and any
- *     fields attached to the entity.
+ *   - elements: An associative array containing the
+ *     learning opportunity specification
+ *     information and any fields attached to the entity.
  *   - attributes: HTML attributes for the containing element.
  */
-function template_preprocess_occ_los(array &$variables): void
-{
+function template_preprocess_occ_los(array &$variables): void {
   $variables['view_mode'] = $variables['elements']['#view_mode'];
   foreach (Element::children($variables['elements']) as $key) {
     $variables['content'][$key] = $variables['elements'][$key];
@@ -82,9 +84,8 @@ function template_preprocess_occ_los(array &$variables): void
 /**
  * Implements hook_user_cancel().
  */
-// TODO: review
-function occ_entities_user_cancel($edit, UserInterface $account, $method): void
-{
+function occ_entities_user_cancel($edit, UserInterface $account, $method): void {
+  // @todo review
   switch ($method) {
     case 'user_cancel_block_unpublish':
       // Unpublish learning opportunity specifications.
@@ -118,9 +119,8 @@ function occ_entities_user_cancel($edit, UserInterface $account, $method): void
 /**
  * Implements hook_ENTITY_TYPE_predelete() for user entities.
  */
-// TODO: review
-function occ_entities_user_predelete(UserInterface $account): void
-{
+function occ_entities_user_predelete(UserInterface $account): void {
+  // @todo review
   // Delete learning opportunity specifications that belong to this account.
   $storage = \Drupal::entityTypeManager()->getStorage('occ_los');
   $occ_los_ids = $storage->getQuery()
@@ -136,7 +136,7 @@ function occ_entities_user_predelete(UserInterface $account): void
     ->condition('uid', $account->id())
     ->accessCheck(FALSE)
     ->execute();
-  // TODO: check deprecation notice
+  // @todo check deprecation notice
   foreach (array_keys($occ_los_ids) as $revision_id) {
     $storage->deleteRevision($revision_id);
   }

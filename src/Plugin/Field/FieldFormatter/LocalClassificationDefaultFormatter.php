@@ -3,7 +3,6 @@
 namespace Drupal\occ_entities\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\Attribute\FieldFormatter;
-use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -12,7 +11,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Plugin implementation of the 'occ_entities_local_classification_default' formatter.
+ * Plugin for the 'occ_entities_local_classification_default' formatter.
  */
 #[FieldFormatter(
   id: 'occ_entities_local_classification_default',
@@ -22,21 +21,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
   ],
 )]
 class LocalClassificationDefaultFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
-
-  /**
-   * {@inheritdoc}
-   */
-  public function __construct(
-    $plugin_id,
-    $plugin_definition,
-    FieldDefinitionInterface $field_definition,
-    array $settings,
-    $label,
-    $view_mode,
-    array $third_party_settings,
-  ) {
-    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
-  }
 
   /**
    * {@inheritdoc}
@@ -85,13 +69,11 @@ class LocalClassificationDefaultFormatter extends FormatterBase implements Conta
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    // $types = $this->otherIdManager->getDefinedTypes();
     $elements = [];
 
     foreach ($items as $delta => $item) {
       $value = $item->value;
       $type = $item->type;
-      // $type = (array_key_exists($key, $types)) ? $types[$key]->render() : $key;
       $elements[$delta] = [
         '#theme' => 'other_id',
         '#value' => $value,

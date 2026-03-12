@@ -81,9 +81,9 @@ use Drupal\user\EntityOwnerTrait;
  *   translatable = FALSE,
  *   constraints = {
  *     "UniqueCodeAndHei" = {
- *       "code_field" = "code",
- *       "hei_field" = "hei",
- *       "entity_label" = "Learning Opportunity Specification",
+ *       "codeField" = "code",
+ *       "heiField" = "hei",
+ *       "entityLabel" = "Learning Opportunity Specification",
  *     }
  *   },
  * )
