@@ -111,19 +111,4 @@ class RelatedProgrammeItem extends EntityReferenceItem {
     return $constraints;
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function isEmpty() {
-    // $mandatory = $this->get('mandatory')->getValue();
-    // if ($mandatory === NULL) {
-    // return TRUE;
-    // }
-    // $year = $this->get('year')->getValue();
-    // if ($year === NULL || $year === '') {
-    // return TRUE;
-    // }
-    return parent::isEmpty();
-  }
-
 }

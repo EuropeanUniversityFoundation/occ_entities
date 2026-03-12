@@ -81,9 +81,9 @@ use Drupal\user\EntityOwnerTrait;
  *   translatable = FALSE,
  *   constraints = {
  *     "UniqueCodeAndHei" = {
- *       "code_field" = "code",
- *       "hei_field" = "hei",
- *       "entity_label" = "Learning Opportunity Specification",
+ *       "codeField" = "code",
+ *       "heiField" = "hei",
+ *       "entityLabel" = "Learning Opportunity Specification",
  *     }
  *   },
  * )
@@ -196,6 +196,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setDescription(new TranslatableMarkup('The time that the learning opportunity specification was last edited.'));
 
     $fields['code'] = BaseFieldDefinition::create('string')
+      ->setRevisionable(TRUE)
       ->setLabel(new TranslatableMarkup('Code'))
       ->setDescription(new TranslatableMarkup('Code of the Learning Opportunity Specification.'))
       ->setSettings([
@@ -218,6 +219,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setTranslatable(FALSE);
 
     $fields['title'] = BaseFieldDefinition::create('ewp_string_lang')
+      ->setRevisionable(TRUE)
       ->setLabel(new TranslatableMarkup('Title'))
       ->setDescription(new TranslatableMarkup('Title of the Learning Opportunity Specification.'))
       ->setSettings([
@@ -239,6 +241,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
 
     $fields['description'] = BaseFieldDefinition::create('ewp_multiline_lang')
+      ->setRevisionable(TRUE)
       ->setLabel(new TranslatableMarkup('Description'))
       ->setDescription(new TranslatableMarkup('Description of the Learning Opportunity Specification.'))
       ->setDisplayOptions('view', [
@@ -257,6 +260,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
 
     $fields['learning_outcomes'] = BaseFieldDefinition::create('ewp_multiline_lang')
+      ->setRevisionable(TRUE)
       ->setLabel(new TranslatableMarkup('Learning outcomes'))
       ->setDescription(new TranslatableMarkup('Learning outcomes of the Learning Opportunity Specification.'))
       ->setDisplayOptions('view', [
@@ -275,6 +279,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
 
     $fields['url'] = BaseFieldDefinition::create('ewp_http_lang')
+      ->setRevisionable(TRUE)
       ->setLabel(new TranslatableMarkup('URL'))
       ->setDescription(new TranslatableMarkup('External URLs of the Learning Opportunity Specification.'))
       ->setDisplayOptions('view', [
@@ -339,6 +344,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setDisplayConfigurable('view', TRUE);
 
     $fields['language_of_instruction'] = BaseFieldDefinition::create('ewp_lang')
+      ->setRevisionable(TRUE)
       ->setLabel(new TranslatableMarkup('Language of Instruction'))
       ->setDescription(new TranslatableMarkup('Language(s) of Instruction for the Learning Opportunity Specification.'))
       ->setSettings([
@@ -360,10 +366,10 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
 
     $fields['label'] = BaseFieldDefinition::create('string')
+      ->setRevisionable(TRUE)
       ->setLabel(new TranslatableMarkup('Label'))
       ->setDescription(new TranslatableMarkup('Computed label of the Learning Opportunity Specification.'))
       ->setReadOnly(TRUE)
-      ->setRevisionable(TRUE)
       ->setTranslatable(FALSE);
 
     return $fields;

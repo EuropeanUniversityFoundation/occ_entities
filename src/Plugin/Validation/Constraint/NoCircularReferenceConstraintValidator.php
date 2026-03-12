@@ -47,20 +47,20 @@ class NoCircularReferenceConstraintValidator extends ConstraintValidator impleme
     // $entity_type = $entity->getEntityTypeId();
     $entity_id = $entity->id();
     /** @var NoCircularReferenceConstraint $constraint */
-    $parent_entity = $entity->get($constraint->parent_field)->referencedEntities();
+    $parent_entity = $entity->get($constraint->parentField)->referencedEntities();
 
     if (!empty($parent_entity)) {
       $parent_entity = reset($parent_entity);
-      $parent_referenced_entity = $parent_entity->get($constraint->parent_field)->referencedEntities();
+      $parent_referenced_entity = $parent_entity->get($constraint->parentField)->referencedEntities();
 
       if (!empty($parent_referenced_entity)) {
         $parent_referenced_entity = reset($parent_referenced_entity);
 
         if ($parent_referenced_entity->id() == $entity_id) {
           $this->context->addViolation($constraint->message, [
-            '%entity_label' => $constraint->entity_label,
-            '%code_1' => $entity->get($constraint->code_field)->value,
-            '%code_2' => $parent_entity->get($constraint->code_field)->value,
+            '%entityLabel' => $constraint->entityLabel,
+            '%code_1' => $entity->get($constraint->codeField)->value,
+            '%code_2' => $parent_entity->get($constraint->codeField)->value,
           ]);
         }
       }

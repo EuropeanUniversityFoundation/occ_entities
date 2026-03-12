@@ -27,27 +27,27 @@ class UniqueCodeAndHeiConstraint extends SymfonyConstraint {
    *
    * @var string
    */
-  public $code_field = 'code';
+  public $codeField = 'code';
 
   /**
    * Field name storing the assosiated HEI.
    *
    * @var mixed
    */
-  public $hei_field = 'hei';
+  public $heiField = 'hei';
 
   /**
    * Human readable name of the entity.
    *
    * @var string
    */
-  public $entity_label = 'Learning Opportunity Specification';
+  public $entityLabel = 'Learning Opportunity Specification';
 
   /**
    * {@inheritdoc}
    */
   public function getRequiredOptions() {
-    return ['code_field', 'hei_field'];
+    return ['codeField', 'heiField'];
   }
 
 }

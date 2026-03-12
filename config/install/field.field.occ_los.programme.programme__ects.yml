@@ -15,8 +15,8 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  min: 0
+  min: 0.0
   max: null
   prefix: ''
   suffix: ''
-field_type: integer
+field_type: decimal

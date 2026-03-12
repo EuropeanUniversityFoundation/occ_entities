@@ -10,7 +10,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Session\AccountInterface;
 
 /**
- * Defines the access control handler for the learning opportunity specification entity type.
+ * Defines the access control handler for the occ_los entity type.
  *
  * phpcs:disable Drupal.Arrays.Array.LongLineDeclaration
  *
