@@ -10,7 +10,6 @@ declare(strict_types=1);
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Core\Field\BaseFieldDefinition;
-use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -242,7 +241,7 @@ function occ_entities_update_10604() {
     if ($new_cardinality === 1) {
 
       if ($database->schema()->tableExists($table_name)) {
-      $database->delete($table_name)
+        $database->delete($table_name)
           ->condition('delta', 0, '>')
           ->execute();
       }
@@ -277,7 +276,7 @@ function occ_entities_update_10605() {
   $field_name = 'code';
   $definition_manager = \Drupal::entityDefinitionUpdateManager();
 
-  /** @var FieldStorageDefinitionInterface $storage_definition */
+  /** @var \Drupal\Core\Field\FieldStorageDefinitionInterface $storage_definition */
   $storage_definition = $definition_manager->getFieldStorageDefinition($field_name, $entity_type);
 
   try {
