@@ -214,6 +214,9 @@ function occ_entities_update_10603() {
   }
 
   unset($transaction);
+
+  \Drupal::logger('occ_entities')->warning(new TranslatableMarkup('If @field was present in any views readd it! Affected views might be disabled!', ['@field' => $field_name]));
+  \Drupal::logger('occ_entities')->notice(new TranslatableMarkup('@field updated to decimal.', ['@field' => $field_name]));
 }
 
 /**
