@@ -10,3 +10,16 @@ occ_entities.occ_los_type.*:
       label: 'Label'
     uuid:
       type: string
+
+occ_entities.occ_loi_type.*:
+  type: config_entity
+  label: 'Learning Opportunity Instance type config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string

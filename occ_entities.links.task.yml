@@ -24,3 +24,30 @@ entity.occ_los_type.collection:
   title: 'List'
   route_name: entity.occ_los_type.collection
   base_route: entity.occ_los_type.collection
+
+entity.occ_loi.view:
+  title: 'View'
+  route_name: entity.occ_loi.canonical
+  base_route: entity.occ_loi.canonical
+entity.occ_loi.edit_form:
+  title: 'Edit'
+  route_name: entity.occ_loi.edit_form
+  base_route: entity.occ_loi.canonical
+entity.occ_loi.delete_form:
+  title: 'Delete'
+  route_name: entity.occ_loi.delete_form
+  base_route: entity.occ_loi.canonical
+  weight: 10
+entity.occ_loi.collection:
+  title: 'Learning Opportunity Instances'
+  route_name: entity.occ_loi.collection
+  base_route: system.admin_content
+  weight: 10
+entity.occ_loi_type.edit_form:
+  title: 'Edit'
+  route_name: entity.occ_loi_type.edit_form
+  base_route: entity.occ_loi_type.edit_form
+entity.occ_loi_type.collection:
+  title: 'List'
+  route_name: entity.occ_loi_type.collection
+  base_route: entity.occ_loi_type.collection
