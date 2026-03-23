@@ -9,7 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
 
 /**
- * Defines a class to build a listing of learning opportunity instance type entities.
+ * Defines a class for listing of learning opportunity instance type entities.
  *
  * @see \Drupal\occ_entities\Entity\LearningOpportunityInstanceType
  */

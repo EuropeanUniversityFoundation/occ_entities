@@ -8,7 +8,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
 
 /**
- * Provides a list controller for the learning opportunity instance entity type.
+ * Provides a list builder for the learning opportunity instance entity type.
  */
 final class LearningOpportunityInstanceListBuilder extends EntityListBuilder {
 
