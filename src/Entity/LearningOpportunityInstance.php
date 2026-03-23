@@ -9,7 +9,8 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\RevisionableContentEntityBase;
 use Drupal\Core\Field\BaseFieldDefinition;
-use Drupal\occ_entities\Entity\LearningOpportunityInstanceInterface;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\user\EntityOwnerTrait;
 
 /**
@@ -51,7 +52,7 @@ use Drupal\user\EntityOwnerTrait;
  *     "id" = "id",
  *     "revision" = "revision_id",
  *     "bundle" = "bundle",
- *     "label" = "id",
+ *     "label" = "label",
  *     "uuid" = "uuid",
  *     "owner" = "uid",
  *   },
@@ -91,6 +92,17 @@ final class LearningOpportunityInstance extends RevisionableContentEntityBase im
       // If no owner has been set explicitly, make the anonymous user the owner.
       $this->setOwnerId(0);
     }
+
+    // Set the first string value of title as the entity label.
+    if (!$this->get('course')->isEmpty() && !$this->get('academic_term_id')->isEmpty()) {
+      /** @var \Drupal\Core\Entity\ContentEntityInterface $course */
+      $course = $this->get('course')->entity;
+
+      // Create label from the referenced Course label and the Academic term id.
+      $label = $course->get('label')->value . ' | ' . $this->get('academic_term_id')->value;
+
+      $this->set('label', $label);
+    }
   }
 
   /**
@@ -102,7 +114,7 @@ final class LearningOpportunityInstance extends RevisionableContentEntityBase im
 
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setRevisionable(TRUE)
-      ->setLabel(t('Status'))
+      ->setLabel(new TranslatableMarkup('Status'))
       ->setDefaultValue(TRUE)
       ->setSetting('on_label', 'Enabled')
       ->setDisplayOptions('form', [
@@ -125,7 +137,7 @@ final class LearningOpportunityInstance extends RevisionableContentEntityBase im
 
     $fields['uid'] = BaseFieldDefinition::create('entity_reference')
       ->setRevisionable(TRUE)
-      ->setLabel(t('Author'))
+      ->setLabel(new TranslatableMarkup('Author'))
       ->setSetting('target_type', 'user')
       ->setDefaultValueCallback(self::class . '::getDefaultEntityOwner')
       ->setDisplayOptions('form', [
@@ -146,8 +158,8 @@ final class LearningOpportunityInstance extends RevisionableContentEntityBase im
       ->setDisplayConfigurable('view', TRUE);
 
     $fields['created'] = BaseFieldDefinition::create('created')
-      ->setLabel(t('Authored on'))
-      ->setDescription(t('The time that the learning opportunity instance was created.'))
+      ->setLabel(new TranslatableMarkup('Authored on'))
+      ->setDescription(new TranslatableMarkup('The time that the learning opportunity instance was created.'))
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'timestamp',
@@ -161,8 +173,166 @@ final class LearningOpportunityInstance extends RevisionableContentEntityBase im
       ->setDisplayConfigurable('view', TRUE);
 
     $fields['changed'] = BaseFieldDefinition::create('changed')
-      ->setLabel(t('Changed'))
-      ->setDescription(t('The time that the learning opportunity instance was last edited.'));
+      ->setLabel(new TranslatableMarkup('Changed'))
+      ->setDescription(new TranslatableMarkup('The time that the learning opportunity instance was last edited.'));
+
+    $fields['start_date'] = BaseFieldDefinition::create('datetime')
+      ->setRequired(TRUE)
+      ->setRevisionable(TRUE)
+      ->setLabel(new TranslatableMarkup('Start date'))
+      ->setDescription(new TranslatableMarkup('The date the Learning Opportunity Instance starts'))
+      ->setCardinality(1)
+      ->setSettings([
+        'datetime_type' => 'date',
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'datetime_default',
+        'weight' => -20,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'datetime_default',
+        'weight' => -20,
+        'settings' => [
+          'format_type' => 'html_date',
+        ],
+      ])
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['end_date'] = BaseFieldDefinition::create('datetime')
+      ->setRequired(TRUE)
+      ->setRevisionable(TRUE)
+      ->setLabel(new TranslatableMarkup('End date'))
+      ->setDescription(new TranslatableMarkup('The date the Learning Opportunity Instance ends'))
+      ->setCardinality(1)
+      ->setSettings([
+        'datetime_type' => 'date',
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'datetime_default',
+        'weight' => -20,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'datetime_default',
+        'weight' => -20,
+        'settings' => [
+          'format_type' => 'html_date',
+        ],
+      ])
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['academic_term_id'] = BaseFieldDefinition::create('string')
+      ->setRequired(TRUE)
+      ->setRevisionable(TRUE)
+      ->setLabel(new TranslatableMarkup('Academic Term Identifier'))
+      ->setDescription(new TranslatableMarkup('Academic Term Identifier in the format: YYYY-XXXX-t/T (e.g: 1900/1901-1/2)'))
+      ->addConstraint('AcademicTermIdFormat', [])
+      ->addConstraint('AcademicTermIdLogic', [])
+      ->setSettings([
+        'max_length' => 100,
+      ])
+      ->setDisplayOptions('view', [
+        'type' => 'string',
+        'label' => 'above',
+        'weight' => -20,
+      ])
+      ->setDisplayConfigurable('view', TRUE)
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'weight' => -20,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setCardinality(1);
+
+    $fields['ects'] = BaseFieldDefinition::create('decimal')
+      ->setRequired(TRUE)
+      ->setRevisionable(TRUE)
+      ->setLabel('ECTS')
+      ->setDescription('ECTS credits obtained by completing the course.')
+      ->setCardinality(1)
+      ->setSettings([
+        'precision' => 10,
+        'scale' => 2,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'number',
+        'weight' => -20,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'number_decimal',
+        'weight' => -20,
+        'settings' => [
+          'thousand_separator' => '',
+          'decimal_separator' => '.',
+          'scale' => '2',
+          'prefix_suffix' => TRUE,
+        ],
+      ])
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['language_of_instruction'] = BaseFieldDefinition::create('ewp_lang')
+      ->setRequired(TRUE)
+      ->setRevisionable(TRUE)
+      ->setLabel(new TranslatableMarkup('Language of Instruction'))
+      ->setDescription(new TranslatableMarkup('Language(s) of Instruction for the Learning Opportunity Specification.'))
+      ->setSettings([
+        'max_length' => 100,
+        'text_processing' => 0,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'ewp_lang_default',
+        'weight' => -20,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'ewp_lang_default',
+        'weight' => -20,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
+
+    $fields['course'] = BaseFieldDefinition::create('entity_reference')
+      ->setRevisionable(TRUE)
+      ->setLabel(new TranslatableMarkup('Course Specification'))
+      ->setSettings([
+        'target_type' => 'occ_los',
+        'handler' => 'default:occ_los',
+        'handler_settings' => [
+          'target_budles' => [
+            'course' => 'course',
+          ],
+        ],
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'entity_reference_autocomplete',
+        'settings' => [
+          'match_operator' => 'CONTAINS',
+          'size' => 60,
+          'placeholder' => '',
+        ],
+        'weight' => -80,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -80,
+      ])
+      ->setDisplayConfigurable('view', TRUE)
+      ->setRequired(TRUE);
+
+    $fields['label'] = BaseFieldDefinition::create('string')
+      ->setRevisionable(TRUE)
+      ->setLabel(new TranslatableMarkup('Label'))
+      ->setDescription(new TranslatableMarkup('Computed label of the Learning Opportunity Specification.'))
+      ->setReadOnly(TRUE)
+      ->setTranslatable(FALSE);
 
     return $fields;
   }
