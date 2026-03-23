@@ -76,6 +76,9 @@ use Drupal\user\EntityOwnerTrait;
  *   },
  *   bundle_entity_type = "occ_loi_type",
  *   field_ui_base_route = "entity.occ_loi_type.edit_form",
+ *   constraints = {
+ *     "EndDateGreaterOrEqualStartDate" = {}
+ *   },
  * )
  */
 final class LearningOpportunityInstance extends RevisionableContentEntityBase implements LearningOpportunityInstanceInterface {
