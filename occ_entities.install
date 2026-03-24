@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Core\Field\BaseFieldDefinition;
@@ -215,6 +216,18 @@ function occ_entities_update_10603() {
 
   unset($transaction);
 
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $entity_type_manager->clearCachedDefinitions();
+  \Drupal::service('plugin.manager.field.field_type')->clearCachedDefinitions();
+
+  $field_storage = FieldStorageConfig::loadByName('occ_los', 'programme__ects');
+
+  if ($field_storage) {
+    // Refreshes installed definitions snapshot.
+    \Drupal::service('field_storage_definition.listener')
+      ->onFieldStorageDefinitionUpdate($field_storage, $field_storage);
+  }
+
   \Drupal::logger('occ_entities')->warning(new TranslatableMarkup('If @field was present in any views readd it! Affected views might be disabled!', ['@field' => $field_name]));
   \Drupal::logger('occ_entities')->notice(new TranslatableMarkup('@field updated to decimal.', ['@field' => $field_name]));
 }
@@ -313,4 +326,85 @@ function occ_entities_update_10605() {
   unset($transaction);
 
   return new TranslatableMarkup('The @field field is now revisionable.', ['@field' => $field_name]);
+}
+
+/**
+ * Adds occ_loi entity type, course_instance bundle and loads its config.
+ */
+function occ_entities_update_10606() {
+
+  $update_manager = \Drupal::entityDefinitionUpdateManager();
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $entity_type_manager->clearCachedDefinitions();
+
+  // Installing bundle entity type.
+  $bundle_entity_type = $entity_type_manager->getDefinition('occ_loi_type');
+  $update_manager->installEntityType($bundle_entity_type);
+
+  // Install entity type.
+  $entity_type = $entity_type_manager->getDefinition('occ_loi');
+  $update_manager->installEntityType($entity_type);
+
+  // Import config from config/install.
+  $config_path = \Drupal::service('extension.list.module')->getPath('occ_entities') . '/config/install';
+  $source = new FileStorage($config_path);
+  $config_factory = \Drupal::configFactory();
+
+  $configs_to_import = [
+    'occ_entities.occ_loi_type.course_instance',
+    'field.storage.occ_loi.course__elm_assessment_type',
+    'field.storage.occ_loi.course__elm_la_type',
+    'field.storage.occ_loi.course__elm_lo_type',
+    'field.storage.occ_loi.course__elm_mo_learning',
+    'field.storage.occ_loi.engagement_hours',
+    'field.field.occ_loi.course_instance.course__elm_assessment_type',
+    'field.field.occ_loi.course_instance.course__elm_la_type',
+    'field.field.occ_loi.course_instance.course__elm_lo_type',
+    'field.field.occ_loi.course_instance.course__elm_mo_learning',
+    'field.field.occ_loi.course_instance.engagement_hours',
+    'core.entity_form_display.occ_loi.course_instance.default',
+    'core.entity_view_display.occ_loi.course_instance.default',
+    'system.action.occ_loi_delete_action',
+    'system.action.occ_loi_save_action',
+  ];
+
+  foreach ($configs_to_import as $config_name) {
+    $data = $source->read($config_name);
+
+    if ($data === FALSE) {
+      continue;
+    }
+
+    $config = $config_factory->getEditable($config_name);
+
+    // If config exists, get UUID.
+    $existing_uuid = $config->get('uuid');
+
+    if ($existing_uuid) {
+      $data['uuid'] = $existing_uuid;
+    }
+    else {
+      // If new, generate a UUID.
+      $data['uuid'] = \Drupal::service('uuid')->generate();
+    }
+
+    $config->setData($data)->save();
+  }
+
+  // Synchronizing Field storage definitions.
+  $entity_type_name = 'occ_loi';
+
+  // Reload cache after importing field config.
+  $entity_type_manager->clearCachedDefinitions();
+  \Drupal::service('plugin.manager.field.field_type')->clearCachedDefinitions();
+
+  $field_storages = $entity_type_manager
+    ->getStorage('field_storage_config')
+    ->loadByProperties(['entity_type' => $entity_type_name]);
+
+  foreach ($field_storages as $storage) {
+    \Drupal::service('field_storage_definition.listener')
+      ->onFieldStorageDefinitionCreate($storage);
+  }
+
 }
