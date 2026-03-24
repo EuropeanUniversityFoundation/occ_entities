@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\occ_entities\Plugin\Validation\Constraint;
 
-use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -26,7 +25,7 @@ final class EndDateGreaterOrEqualStartDateConstraintValidator extends Constraint
         sprintf('The validated value must be instance of \Drupal\Core\Entity\EntityInterface, %s was given.', get_debug_type($entity))
       );
     }
-    /** @var ContentEntityInterface $entity */
+    /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
     $start_date = $entity->get(self::START_DATE_FIELD)->value;
     $end_date = $entity->get(self::END_DATE_FIELD)->value;
 
