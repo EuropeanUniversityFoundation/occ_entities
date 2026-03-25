@@ -110,3 +110,28 @@ field.widget.settings.related_programme_autocomplete:
     placeholder:
       type: label
       label: 'Placeholder'
+
+field.storage_settings.result_distribution_category:
+  type: mapping
+  label: 'Result Distribution Category storage settings'
+  mapping:
+    max_length:
+      type: integer
+      label: 'Maximum length'
+
+field.widget.settings.result_distribution_category_default:
+  type: mapping
+  label: 'Result Distribution Category widget settings'
+  mapping:
+    label_size:
+      type: integer
+      label: 'Label size'
+    label_placeholder:
+      type: string
+      label: 'Label placeholder'
+    count_size:
+      type: integer
+      label: 'Count size'
+    count_placeholder:
+      type: string
+      label: 'Count placeholder'

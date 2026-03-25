@@ -1,3 +1,4 @@
+uuid: 53650c7b-3203-490b-b720-1bc898171f90
 langcode: en
 status: true
 dependencies:
@@ -6,12 +7,15 @@ dependencies:
     - field.field.occ_loi.course_instance.course__elm_la_type
     - field.field.occ_loi.course_instance.course__elm_lo_type
     - field.field.occ_loi.course_instance.course__elm_mo_learning
+    - field.field.occ_loi.course_instance.course__result_dist_category
+    - field.field.occ_loi.course_instance.course__result_dist_description
     - field.field.occ_loi.course_instance.engagement_hours
     - occ_entities.occ_loi_type.course_instance
   module:
     - datetime
     - elm_vocabulary_field
     - ewp_core
+    - occ_entities
     - user
 id: occ_loi.course_instance.default
 targetEntityType: occ_loi
@@ -66,6 +70,20 @@ content:
     third_party_settings: {  }
     weight: 9
     region: content
+  course__result_dist_category:
+    type: result_distribution_category_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  course__result_dist_description:
+    type: ewp_multiline_lang_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 12
+    region: content
   created:
     type: timestamp
     label: above
@@ -83,7 +101,7 @@ content:
         granularity: 2
         refresh: 60
     third_party_settings: {  }
-    weight: 13
+    weight: 15
     region: content
   ects:
     type: number_decimal
@@ -140,13 +158,13 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 11
+    weight: 13
     region: content
   uid:
     type: author
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 12
+    weight: 14
     region: content
 hidden: {  }
