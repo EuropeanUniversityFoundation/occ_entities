@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.occ_loi.course__elm_mo_learning
+    - field.storage.occ_loi.course__elm_mode_of_learning
     - occ_entities.occ_loi_type.course_instance
   module:
     - elm_vocabulary_field
-id: occ_loi.course_instance.course__elm_mo_learning
-field_name: course__elm_mo_learning
+id: occ_loi.course_instance.course__elm_mode_of_learning
+field_name: course__elm_mode_of_learning
 entity_type: occ_loi
 bundle: course_instance
 label: 'ELM - Mode of learning'

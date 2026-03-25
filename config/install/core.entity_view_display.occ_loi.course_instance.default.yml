@@ -4,9 +4,9 @@ status: true
 dependencies:
   config:
     - field.field.occ_loi.course_instance.course__elm_assessment_type
-    - field.field.occ_loi.course_instance.course__elm_la_type
+    - field.field.occ_loi.course_instance.course__elm_activity_type
     - field.field.occ_loi.course_instance.course__elm_lo_type
-    - field.field.occ_loi.course_instance.course__elm_mo_learning
+    - field.field.occ_loi.course_instance.course__elm_mode_of_learning
     - field.field.occ_loi.course_instance.course__result_dist_category
     - field.field.occ_loi.course_instance.course__result_dist_description
     - field.field.occ_loi.course_instance.engagement_hours
@@ -46,7 +46,7 @@ content:
     third_party_settings: {  }
     weight: 6
     region: content
-  course__elm_la_type:
+  course__elm_activity_type:
     type: elm_controlled_vocabulary_default
     label: above
     settings:
@@ -62,7 +62,7 @@ content:
     third_party_settings: {  }
     weight: 8
     region: content
-  course__elm_mo_learning:
+  course__elm_mode_of_learning:
     type: elm_controlled_vocabulary_default
     label: above
     settings:

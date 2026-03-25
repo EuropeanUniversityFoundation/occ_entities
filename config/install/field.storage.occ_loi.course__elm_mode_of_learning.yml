@@ -4,12 +4,12 @@ dependencies:
   module:
     - elm_vocabulary_field
     - occ_entities
-id: occ_loi.course__elm_la_type
-field_name: course__elm_la_type
+id: occ_loi.course__elm_mode_of_learning
+field_name: course__elm_mode_of_learning
 entity_type: occ_loi
 type: elm_controlled_vocabulary
 settings:
-  vocabulary: learning_activity
+  vocabulary: learning_assessment
 module: elm_vocabulary_field
 locked: false
 cardinality: -1

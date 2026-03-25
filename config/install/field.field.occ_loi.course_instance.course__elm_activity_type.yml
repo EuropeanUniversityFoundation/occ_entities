@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.occ_loi.course__elm_la_type
+    - field.storage.occ_loi.course__elm_activity_type
     - occ_entities.occ_loi_type.course_instance
   module:
     - elm_vocabulary_field
-id: occ_loi.course_instance.course__elm_la_type
-field_name: course__elm_la_type
+id: occ_loi.course_instance.course__elm_activity_type
+field_name: course__elm_activity_type
 entity_type: occ_loi
 bundle: course_instance
 label: 'ELM - Learning activity type'
