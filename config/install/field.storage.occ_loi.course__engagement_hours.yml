@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - occ_entities
-id: occ_loi.engagement_hours
-field_name: engagement_hours
+id: occ_loi.course__engagement_hours
+field_name: course__engagement_hours
 entity_type: occ_loi
 type: decimal
 settings:

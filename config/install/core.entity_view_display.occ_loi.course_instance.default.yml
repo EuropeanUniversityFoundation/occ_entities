@@ -9,7 +9,7 @@ dependencies:
     - field.field.occ_loi.course_instance.course__elm_mode_of_learning
     - field.field.occ_loi.course_instance.course__result_dist_category
     - field.field.occ_loi.course_instance.course__result_dist_description
-    - field.field.occ_loi.course_instance.engagement_hours
+    - field.field.occ_loi.course_instance.course__engagement_hours
     - occ_entities.occ_loi_type.course_instance
   module:
     - datetime
