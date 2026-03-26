@@ -87,24 +87,67 @@ final class LearningOpportunityInstance extends RevisionableContentEntityBase im
   use EntityOwnerTrait;
 
   /**
+   * Returns the mapping of LOI fields to Course fields for default values.
+   * Single source of truth for both the entity and the form.
+   */
+  public static function getCourseDefaultFieldCopyMapping(): array {
+    return [
+      'ects'                         => 'course__ects',
+      'language_of_instruction'      => 'language_of_instruction',
+      'course__elm_assessment_type'  => 'course__elm_assessment_type',
+      'course__elm_activity_type'    => 'course__elm_activity_type',
+      'course__elm_lo_type'          => 'course__elm_lo_type',
+      'course__elm_mode_of_learning' => 'course__elm_mode_of_learning',
+    ];
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function preSave(EntityStorageInterface $storage): void {
     parent::preSave($storage);
+
     if (!$this->getOwnerId()) {
-      // If no owner has been set explicitly, make the anonymous user the owner.
       $this->setOwnerId(0);
     }
 
-    // Set the first string value of title as the entity label.
     if (!$this->get('course')->isEmpty() && !$this->get('academic_term_id')->isEmpty()) {
-      /** @var \Drupal\Core\Entity\ContentEntityInterface $course */
       $course = $this->get('course')->entity;
-
-      // Create label from the referenced Course label and the Academic term id.
       $label = $course->get('label')->value . ' | ' . $this->get('academic_term_id')->value;
-
       $this->set('label', $label);
+    }
+
+    if ($this->isNew()) {
+      $this->fillDefaultsFromCourse();
+    }
+  }
+
+  /**
+   * Fills empty LOI fields with values from the related Course entity.
+   *
+   * Respects user intent when called from a form submission:
+   * - If _from_form is TRUE, fields listed in _user_modified_fields are skipped.
+   * - If called from API (no _from_form flag), all empty fields are filled.
+   */
+  private function fillDefaultsFromCourse(): void {
+    $course = $this->get('course')->entity;
+    if (!$course) {
+      return;
+    }
+
+    $from_form = $this->_from_form ?? FALSE;
+    $user_modified = $this->_user_modified_fields ?? [];
+
+    foreach (self::getCourseDefaultFieldCopyMapping() as $loi_field => $course_field) {
+      if (!$this->get($loi_field)->isEmpty()) {
+        continue;
+      }
+
+      if ($from_form && in_array($loi_field, $user_modified)) {
+        continue;
+      }
+
+      $this->set($loi_field, $course->get($course_field)->getValue());
     }
   }
 
