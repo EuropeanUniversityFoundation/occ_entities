@@ -92,12 +92,12 @@ final class LearningOpportunityInstance extends RevisionableContentEntityBase im
    */
   public static function getCourseDefaultFieldCopyMapping(): array {
     return [
-      'ects'                         => 'course__ects',
-      'language_of_instruction'      => 'language_of_instruction',
-      'course__elm_assessment_type'  => 'course__elm_assessment_type',
-      'course__elm_activity_type'    => 'course__elm_activity_type',
-      'course__elm_lo_type'          => 'course__elm_lo_type',
-      'course__elm_mode_of_learning' => 'course__elm_mode_of_learning',
+      'ects' => 'course__ects',
+      'language_of_instruction' => 'language_of_instruction',
+      'course__elm_assessment_type' => 'course__elm_assessment_type',
+      'course__elm_activity_type' => 'course__elm_activity_type',
+      'course__elm_lo_type' => 'course__elm_lo_type',
+      'course__elm_mode_of_learning'=> 'course__elm_mode_of_learning',
     ];
   }
 
