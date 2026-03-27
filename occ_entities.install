@@ -332,83 +332,81 @@ function occ_entities_update_10605() {
  * Adds occ_loi entity type, course_instance bundle and loads its config.
  */
 function occ_entities_update_10606() {
+  $entity_type_id = 'occ_loi';
+  $bundle_id = 'course_instance';
+  $field_names = [
+    'course__elm_assessment_type',
+    'course__elm_activity_type',
+    'course__elm_lo_type',
+    'course__elm_mode_of_learning',
+    'course__engagement_hours',
+    'course__result_dist_description',
+    'course__result_dist_category',
+  ];
 
-  $update_manager = \Drupal::entityDefinitionUpdateManager();
-  $entity_type_manager = \Drupal::entityTypeManager();
-  $entity_type_manager->clearCachedDefinitions();
-
-  // Installing bundle entity type.
-  $bundle_entity_type = $entity_type_manager->getDefinition('occ_loi_type');
-  $update_manager->installEntityType($bundle_entity_type);
-
-  // Install entity type.
-  $entity_type = $entity_type_manager->getDefinition('occ_loi');
-  $update_manager->installEntityType($entity_type);
-
-  // Import config from config/install.
-  $config_path = \Drupal::service('extension.list.module')->getPath('occ_entities') . '/config/install';
-  $source = new FileStorage($config_path);
-  $config_factory = \Drupal::configFactory();
-
-  $configs_to_import = [
-    'occ_entities.occ_loi_type.course_instance',
-    'field.storage.occ_loi.course__elm_assessment_type',
-    'field.storage.occ_loi.course__elm_activity_type',
-    'field.storage.occ_loi.course__elm_lo_type',
-    'field.storage.occ_loi.course__elm_mode_of_learning',
-    'field.storage.occ_loi.course__engagement_hours',
-    'field.field.occ_loi.course_instance.course__elm_assessment_type',
-    'field.field.occ_loi.course_instance.course__elm_activity_type',
-    'field.field.occ_loi.course_instance.course__elm_lo_type',
-    'field.field.occ_loi.course_instance.course__elm_mode_of_learning',
-    'field.field.occ_loi.course_instance.course__engagement_hours',
-    'field.storage.occ_loi.course__result_dist_description',
-    'field.storage.occ_loi.course__result_dist_category',
-    'field.field.occ_loi.course_instance.course__result_dist_category',
-    'field.field.occ_loi.course_instance.course__result_dist_description',
+  $config_to_load = [
     'core.entity_form_display.occ_loi.course_instance.default',
     'core.entity_view_display.occ_loi.course_instance.default',
     'system.action.occ_loi_delete_action',
     'system.action.occ_loi_save_action',
   ];
 
-  foreach ($configs_to_import as $config_name) {
-    $data = $source->read($config_name);
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $update_manager = \Drupal::entityDefinitionUpdateManager();
 
+  // Registering entity types if they don't exist.
+  $entity_type_manager->clearCachedDefinitions();
+  foreach (['occ_loi_type', 'occ_loi'] as $id) {
+    if (!$update_manager->getEntityType($id)) {
+      $update_manager->installEntityType($entity_type_manager->getDefinition($id));
+    }
+  }
+
+  // Setting source directory for config.
+  $config_path = \Drupal::service('extension.list.module')->getPath('occ_entities') . '/config/install';
+  $source = new FileStorage($config_path);
+
+  // Creating occ_loi_type: course_instance.
+  $bundle_config_name = "occ_entities.occ_loi_type.$bundle_id";
+  if (!$entity_type_manager->getStorage('occ_loi_type')->load($bundle_id)) {
+    $bundle_data = $source->read($bundle_config_name);
+    $entity_type_manager->getStorage('occ_loi_type')->create($bundle_data)->save();
+  }
+
+  // Creating field storage with Entity API.
+  foreach($field_names as $field_name) {
+    $storage_config_name = "field.storage.$entity_type_id.$field_name";
+    if (!FieldStorageConfig::loadByName($entity_type_id, $field_name)) {
+      $storage_data = $source->read($storage_config_name);
+      FieldStorageConfig::create($storage_data)->save();
+    }
+
+    // Loading fields for bundle.
+    $field_config_name = "field.field.$entity_type_id.$bundle_id.$field_name";
+    if (!FieldConfig::loadByName($entity_type_id, $bundle_id, $field_name)) {
+      $field_data = $source->read($field_config_name);
+      // A create() + save() itt garantálja a postSave() és a field_map frissülését
+      FieldConfig::create($field_data)->save();
+    }
+  }
+
+  // Force deletion of field definition cache.
+  \Drupal::service('entity_field.manager')->clearCachedFieldDefinitions();
+  \Drupal::cache('discovery')->delete('jsonapi.resource_types');
+
+  // Importing other config.
+  $config_factory = \Drupal::configFactory();
+  foreach ($config_to_load as $config_name) {
+    $data = $source->read($config_name);
     if ($data === FALSE) {
       continue;
     }
 
     $config = $config_factory->getEditable($config_name);
-
-    // If config exists, get UUID.
     $existing_uuid = $config->get('uuid');
-
-    if ($existing_uuid) {
-      $data['uuid'] = $existing_uuid;
-    }
-    else {
-      // If new, generate a UUID.
-      $data['uuid'] = \Drupal::service('uuid')->generate();
-    }
-
+    $data['uuid'] = $existing_uuid ?: \Drupal::service('uuid')->generate();
     $config->setData($data)->save();
   }
 
-  // Synchronizing Field storage definitions.
-  $entity_type_name = 'occ_loi';
-
-  // Reload cache after importing field config.
-  $entity_type_manager->clearCachedDefinitions();
-  \Drupal::service('plugin.manager.field.field_type')->clearCachedDefinitions();
-
-  $field_storages = $entity_type_manager
-    ->getStorage('field_storage_config')
-    ->loadByProperties(['entity_type' => $entity_type_name]);
-
-  foreach ($field_storages as $storage) {
-    \Drupal::service('field_storage_definition.listener')
-      ->onFieldStorageDefinitionCreate($storage);
-  }
-
+  return new TranslatableMarkup('Entity, bundle and fields installed and registered.');
 }

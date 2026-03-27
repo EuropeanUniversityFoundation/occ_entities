@@ -123,7 +123,7 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  engagement_hours:
+  course__engagement_hours:
     type: number_decimal
     label: above
     settings:
