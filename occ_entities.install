@@ -374,7 +374,7 @@ function occ_entities_update_10606() {
   }
 
   // Creating field storage with Entity API.
-  foreach($field_names as $field_name) {
+  foreach ($field_names as $field_name) {
     $storage_config_name = "field.storage.$entity_type_id.$field_name";
     if (!FieldStorageConfig::loadByName($entity_type_id, $field_name)) {
       $storage_data = $source->read($storage_config_name);
@@ -385,7 +385,7 @@ function occ_entities_update_10606() {
     $field_config_name = "field.field.$entity_type_id.$bundle_id.$field_name";
     if (!FieldConfig::loadByName($entity_type_id, $bundle_id, $field_name)) {
       $field_data = $source->read($field_config_name);
-      // A create() + save() itt garantálja a postSave() és a field_map frissülését
+      // create() + save() adds definitions to field_map.
       FieldConfig::create($field_data)->save();
     }
   }

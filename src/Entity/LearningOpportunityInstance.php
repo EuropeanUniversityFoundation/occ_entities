@@ -88,7 +88,6 @@ final class LearningOpportunityInstance extends RevisionableContentEntityBase im
 
   /**
    * Returns the mapping of LOI fields to Course fields for default values.
-   * Single source of truth for both the entity and the form.
    */
   public static function getCourseDefaultFieldCopyMapping(): array {
     return [
@@ -97,7 +96,7 @@ final class LearningOpportunityInstance extends RevisionableContentEntityBase im
       'course__elm_assessment_type' => 'course__elm_assessment_type',
       'course__elm_activity_type' => 'course__elm_activity_type',
       'course__elm_lo_type' => 'course__elm_lo_type',
-      'course__elm_mode_of_learning'=> 'course__elm_mode_of_learning',
+      'course__elm_mode_of_learning' => 'course__elm_mode_of_learning',
     ];
   }
 
@@ -126,7 +125,7 @@ final class LearningOpportunityInstance extends RevisionableContentEntityBase im
    * Fills empty LOI fields with values from the related Course entity.
    *
    * Respects user intent when called from a form submission:
-   * - If _from_form is TRUE, fields listed in _user_modified_fields are skipped.
+   * - If _from_form = TRUE, fields listed in _user_modified_fields are skipped.
    * - If called from API (no _from_form flag), all empty fields are filled.
    */
   private function fillDefaultsFromCourse(): void {

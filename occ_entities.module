@@ -20,7 +20,8 @@ function occ_entities_entity_bundle_field_info_alter(&$fields, EntityTypeInterfa
       $fields['course__related_programme']->addConstraint('UniqueProgrammeReference', []);
       $fields['course__related_programme']->addConstraint('YearFormat', []);
       // @todo figure out if constraint is possible.
-      // $fields['course__related_programme']->addConstraint('YearMatchesProgramme', []);
+      // $fields['course__related_programme']
+      // ->addConstraint('YearMatchesProgramme', []);
       $fields['course__related_programme']->addConstraint('ProgrammeHeiMatchesLos', []);
     }
 

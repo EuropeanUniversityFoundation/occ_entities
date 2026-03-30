@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\occ_entities\Form;
 
-use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Entity\ContentEntityForm;
-use Drupal\Core\Entity\EntityRepositoryInterface;
-use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\occ_entities\Entity\LearningOpportunityInstance;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -16,14 +13,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Form controller for the learning opportunity instance entity edit forms.
  */
 final class LearningOpportunityInstanceForm extends ContentEntityForm {
-
-  public function __construct(
-    EntityRepositoryInterface $entity_repository,
-    EntityTypeBundleInfoInterface $entity_type_bundle_info,
-    TimeInterface $time,
-  ) {
-    parent::__construct($entity_repository, $entity_type_bundle_info, $time);
-  }
 
   /**
    * {@inheritdoc}
