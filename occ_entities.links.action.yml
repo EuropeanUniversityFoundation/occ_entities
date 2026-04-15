@@ -9,3 +9,15 @@ occ_los.add_page:
   route_name: entity.occ_los.add_page
   appears_on:
     - entity.occ_los.collection
+
+occ_loi.type_add:
+  title: 'Add learning opportunity instance type'
+  route_name: entity.occ_loi_type.add_form
+  appears_on:
+    - entity.occ_loi_type.collection
+
+occ_loi.add_page:
+  title: 'Add learning opportunity instance'
+  route_name: entity.occ_loi.add_page
+  appears_on:
+    - entity.occ_loi.collection

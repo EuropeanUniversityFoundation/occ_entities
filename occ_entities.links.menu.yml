@@ -9,3 +9,15 @@ entity.occ_los.collection:
   description: 'List of learning opportunity specifications.'
   route_name: entity.occ_los.collection
   parent: system.admin_content
+
+entity.occ_loi_type.collection:
+  title: 'Learning Opportunity Instance types'
+  description: 'Manage and CRUD actions on Learning Opportunity Instance type.'
+  parent: system.admin_structure
+  route_name: entity.occ_loi_type.collection
+
+entity.occ_loi.collection:
+  title: 'Learning Opportunity Instances'
+  description: 'List of learning opportunity instances.'
+  route_name: entity.occ_loi.collection
+  parent: system.admin_content

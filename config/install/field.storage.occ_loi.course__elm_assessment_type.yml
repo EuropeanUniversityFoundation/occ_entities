@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - elm_vocabulary_field
+    - occ_entities
+id: occ_loi.course__elm_assessment_type
+field_name: course__elm_assessment_type
+entity_type: occ_loi
+type: elm_controlled_vocabulary
+settings:
+  vocabulary: assessment
+module: elm_vocabulary_field
+locked: false
+cardinality: -1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

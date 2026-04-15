@@ -16,3 +16,22 @@ revert occ_los revision:
   title: 'Revert learning opportunity specification revision'
 delete occ_los revision:
   title: 'Delete learning opportunity specification revision'
+
+administer occ_loi types:
+  title: 'Administer learning opportunity instance types'
+  description: 'Maintain the types of occ loi entity.'
+  restrict access: true
+view occ_loi:
+  title: 'View learning opportunity instance'
+edit occ_loi:
+  title: 'Edit learning opportunity instance'
+delete occ_loi:
+  title: 'Delete learning opportunity instance'
+create occ_loi:
+  title: 'Create learning opportunity instance'
+view occ_loi revision:
+  title: 'View learning opportunity instance revision'
+revert occ_loi revision:
+  title: 'Revert learning opportunity instance revision'
+delete occ_loi revision:
+  title: 'Delete learning opportunity instance revision'
