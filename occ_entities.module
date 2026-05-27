@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\RevisionableStorageInterface;
 use Drupal\Core\Render\Element;
 use Drupal\user\UserInterface;
 
@@ -137,8 +138,11 @@ function occ_entities_user_predelete(UserInterface $account): void {
     ->condition('uid', $account->id())
     ->accessCheck(FALSE)
     ->execute();
-  // @todo check deprecation notice
+
   foreach (array_keys($occ_los_ids) as $revision_id) {
-    $storage->deleteRevision($revision_id);
+    // Fixes deprecation notice.
+    if ($storage instanceof RevisionableStorageInterface) {
+        $storage->deleteRevision($revision_id);
+    }
   }
 }
