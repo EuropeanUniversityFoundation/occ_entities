@@ -31,10 +31,9 @@
         "drupal/entity_reference_validators": "^2.0",
         "euf/ewp_core": "^1.0",
         "euf/ewp_institutions": "^1.0",
-        "euf/ewp_ounits": "^1.0",
-        "euf/isced_field": "^1.0",
-        "euf/erasmus_subject_area_code": "^1.0",
-        "euf/elm_vocabulary_field": "^1.0"
+        "euf/ewp_ounits": "^1.1",
+        "euf/isced_field": "^1.1",
+        "euf/elm_vocabulary_field": "^1.1"
     },
     "minimum-stability": "dev",
     "repositories": [
