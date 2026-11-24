@@ -60,7 +60,10 @@ function occ_entities_entity_bundle_field_info_alter(&$fields, EntityTypeInterfa
  */
 function occ_entities_theme(): array {
   return [
-    'occ_los' => ['render element' => 'elements'],
+    'occ_los' => [
+      'render element' => 'elements',
+      'initial preprocess' => 'template_preprocess_occ_los',
+    ],
   ];
 }
 
