@@ -39,11 +39,11 @@
     "repositories": [
         {
             "type": "composer",
-            "url": "https://packages.drupal.org/8"
+            "url": "https://packages.uni-foundation.eu"
         },
         {
             "type": "composer",
-            "url": "https://packages.uni-foundation.eu"
+            "url": "https://packages.drupal.org/8"
         }
     ]
 }
