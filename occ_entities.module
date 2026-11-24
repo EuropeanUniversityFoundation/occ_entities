@@ -143,7 +143,6 @@ function occ_entities_user_predelete(UserInterface $account): void {
     ->execute();
 
   foreach (array_keys($occ_los_ids) as $revision_id) {
-    // Fixes deprecation notice.
     if ($storage instanceof RevisionableStorageInterface) {
         $storage->deleteRevision($revision_id);
     }
