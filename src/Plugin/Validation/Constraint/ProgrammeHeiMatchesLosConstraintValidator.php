@@ -24,13 +24,21 @@ final class ProgrammeHeiMatchesLosConstraintValidator extends ConstraintValidato
     }
 
     $referenced_hei_target_ids = $items->getEntity()->get('hei')->getValue();
+    if (!$referenced_hei_target_ids) {
+      return;
+    }
+
     foreach ($items as $delta => $item) {
-      $referenced_entity_hei_target_ids = $item->entity->hei->getValue();
+      $programme = $item->entity;
+      if (!$programme) {
+        continue;
+      }
+      $referenced_entity_hei_target_ids = $programme->get('hei')->getValue();
 
       if ($referenced_hei_target_ids !== $referenced_entity_hei_target_ids) {
         /** @var ProgrammeHeiMatchesLosConstraint $constraint */
         $this->context->buildViolation($constraint->message)
-          ->setParameter('%programme', $item->entity->label())
+          ->setParameter('%programme', $programme->label())
           ->atPath((string) $delta)
           ->addViolation();
       }

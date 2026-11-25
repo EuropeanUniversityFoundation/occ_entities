@@ -28,12 +28,16 @@ final class OunitHeiMatchesLosConstraintValidator extends ConstraintValidator {
     }
 
     $referenced_hei_target_ids = $item->getEntity()->get('hei')->getValue();
-    $referenced_entity_hei_target_ids = $item->entity->parent_hei->getValue();
+    $ounit = $item->entity;
+    if (!$ounit || !$referenced_hei_target_ids) {
+      return;
+    }
+    $referenced_entity_hei_target_ids = $ounit->get('parent_hei')->getValue();
 
     if ($referenced_hei_target_ids !== $referenced_entity_hei_target_ids) {
       /** @var OunitHeiMatchesLosConstraint $constraint */
       $this->context->buildViolation($constraint->message)
-        ->setParameter('%ounit', $item->entity->label())
+        ->setParameter('%ounit', $ounit->label())
         ->addViolation();
     }
   }

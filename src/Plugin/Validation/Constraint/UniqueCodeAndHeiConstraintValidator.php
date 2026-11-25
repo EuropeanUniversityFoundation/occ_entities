@@ -47,6 +47,10 @@ class UniqueCodeAndHeiConstraintValidator extends ConstraintValidator implements
     $entity_code = $entity->get($constraint->codeField)->value;
     $entity_hei = $entity->get($constraint->heiField)->referencedEntities();
     $entity_hei = reset($entity_hei);
+    if ($entity_code === NULL || $entity_code === '' || !$entity_hei) {
+      return;
+    }
+
     $entity_type = $entity->getEntityTypeId();
     $is_new = $entity->isNew();
 

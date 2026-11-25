@@ -29,12 +29,16 @@ final class CourseHeiMatchesLosConstraintValidator extends ConstraintValidator {
 
     foreach ($items as $delta => $item) {
       $referenced_hei_target_ids = $item->getEntity()->get('hei')->getValue();
-      $referenced_entity_hei_target_ids = $item->entity->get('hei')->getValue();
+      $course = $item->entity;
+      if (!$course || !$referenced_hei_target_ids) {
+        continue;
+      }
+      $referenced_entity_hei_target_ids = $course->get('hei')->getValue();
 
       if ($referenced_hei_target_ids !== $referenced_entity_hei_target_ids) {
         /** @var \Drupal\occ_entities\Plugin\Validation\Constraint\CourseHeiMatchesLosConstraint $constraint */
         $this->context->buildViolation($constraint->message)
-          ->setParameter('%course', $item->entity->label())
+          ->setParameter('%course', $course->label())
           ->atPath((string) $delta)
           ->addViolation();
       }

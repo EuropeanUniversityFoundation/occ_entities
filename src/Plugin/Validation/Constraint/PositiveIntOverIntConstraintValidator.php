@@ -27,24 +27,27 @@ class PositiveIntOverIntConstraintValidator extends ConstraintValidator {
 
     foreach ($value as $delta => $item) {
       $field_value = $item->get('value')->getValue();
-      if (!preg_match('~^\d+/\d+$~', $field_value)) {
+      if ($field_value === NULL) {
+        continue;
+      }
+
+      if (!preg_match('~\A\d+/\d+\z~', $field_value)) {
         /** @var PositiveIntOverIntConstraint $constraint */
         $this->context->buildViolation($constraint->noRegexMatchMessage)
           ->setParameter('%value', $field_value)
           ->atPath((string) $delta)
           ->addViolation();
+        continue;
       }
 
-      if (str_contains($field_value, '/')) {
-        $field_values = explode('/', $field_value);
-        // Ensures n/N: N > 0 and n > 0.
-        if ((int) $field_values[1] <= 0 || (int) $field_values[0] <= 0) {
-          /** @var PositiveIntOverIntConstraint $constraint */
-          $this->context->buildViolation($constraint->termsNotPositiveMessage)
-            ->setParameter('%value', $field_value)
-            ->atPath((string) $delta)
-            ->addViolation();
-        }
+      $field_values = explode('/', $field_value);
+      // Ensures n/N: N > 0 and n > 0.
+      if ((int) $field_values[1] <= 0 || (int) $field_values[0] <= 0) {
+        /** @var PositiveIntOverIntConstraint $constraint */
+        $this->context->buildViolation($constraint->termsNotPositiveMessage)
+          ->setParameter('%value', $field_value)
+          ->atPath((string) $delta)
+          ->addViolation();
       }
     }
   }
