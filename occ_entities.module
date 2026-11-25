@@ -20,9 +20,6 @@ function occ_entities_entity_bundle_field_info_alter(&$fields, EntityTypeInterfa
     if (isset($fields['course__related_programme'])) {
       $fields['course__related_programme']->addConstraint('UniqueProgrammeReference', []);
       $fields['course__related_programme']->addConstraint('YearFormat', []);
-      // @todo figure out if constraint is possible.
-      // $fields['course__related_programme']
-      // ->addConstraint('YearMatchesProgramme', []);
       $fields['course__related_programme']->addConstraint('ProgrammeHeiMatchesLos', []);
     }
 
@@ -40,8 +37,8 @@ function occ_entities_entity_bundle_field_info_alter(&$fields, EntityTypeInterfa
   }
 
   if ($entity_type->id() == 'occ_los' && $bundle == 'programme') {
-    if (isset($fields['programme__eqf_level'])) {
-      $fields['programme__eqf_level']->addPropertyConstraints('value', [
+    if (isset($fields['programme__eqf_level_provided'])) {
+      $fields['programme__eqf_level_provided']->addPropertyConstraints('value', [
         'Range' => [
           'min' => 5,
           'max' => 8,
