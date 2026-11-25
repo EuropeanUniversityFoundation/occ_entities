@@ -110,8 +110,8 @@ final class LearningOpportunityInstance extends RevisionableContentEntityBase im
       $this->setOwnerId(0);
     }
 
-    if (!$this->get('course')->isEmpty() && !$this->get('academic_term_id')->isEmpty()) {
-      $course = $this->get('course')->entity;
+    $course = $this->get('course')->entity;
+    if ($course instanceof LearningOpportunitySpecificationInterface && !$this->get('academic_term_id')->isEmpty()) {
       $label = $course->get('label')->value . ' | ' . $this->get('academic_term_id')->value;
       $this->set('label', $label);
     }
@@ -130,7 +130,7 @@ final class LearningOpportunityInstance extends RevisionableContentEntityBase im
    */
   private function fillDefaultsFromCourse(): void {
     $course = $this->get('course')->entity;
-    if (!$course) {
+    if (!$course instanceof LearningOpportunitySpecificationInterface) {
       return;
     }
 

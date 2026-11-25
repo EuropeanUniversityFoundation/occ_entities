@@ -254,20 +254,17 @@ function occ_entities_update_10604() {
     }
 
     // Deleting excess data (delta > 0).
-    if ($new_cardinality === 1) {
+    if ($database->schema()->tableExists($table_name)) {
+      $database->delete($table_name)
+        ->condition('delta', 0, '>')
+        ->execute();
+    }
 
-      if ($database->schema()->tableExists($table_name)) {
-        $database->delete($table_name)
-          ->condition('delta', 0, '>')
-          ->execute();
-      }
-
-      // Cleaning revision table if it exists.
-      if ($database->schema()->tableExists($revision_table_name)) {
-        $database->delete($revision_table_name)
-          ->condition('delta', 0, '>')
-          ->execute();
-      }
+    // Cleaning revision table if it exists.
+    if ($database->schema()->tableExists($revision_table_name)) {
+      $database->delete($revision_table_name)
+        ->condition('delta', 0, '>')
+        ->execute();
     }
   }
   catch (\Exception $e) {
@@ -292,7 +289,7 @@ function occ_entities_update_10605() {
   $field_name = 'code';
   $definition_manager = \Drupal::entityDefinitionUpdateManager();
 
-  /** @var \Drupal\Core\Field\FieldStorageDefinitionInterface $storage_definition */
+  /** @var \Drupal\Core\Field\BaseFieldDefinition|null $storage_definition */
   $storage_definition = $definition_manager->getFieldStorageDefinition($field_name, $entity_type);
 
   try {
