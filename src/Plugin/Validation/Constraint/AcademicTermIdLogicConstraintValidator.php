@@ -24,7 +24,7 @@ final class AcademicTermIdLogicConstraintValidator extends ConstraintValidator {
     $item_value = (string) $value->first()->value;
 
     // If REGEX fails, return.
-    if (!preg_match('/^(\d{4})\/(\d{4})-(\d)\/(\d)$/', $item_value, $matches)) {
+    if (!preg_match('/\A(\d{4})\/(\d{4})-(\d)\/(\d)\z/', $item_value, $matches)) {
       return;
     }
 
@@ -41,6 +41,11 @@ final class AcademicTermIdLogicConstraintValidator extends ConstraintValidator {
         ->setParameter('%year1', (string) $year1)
         ->setParameter('%year2', (string) $year2)
         ->addViolation();
+    }
+
+    if ($term1 === 0 || $term2 === 0) {
+      $this->context->addViolation($constraint->positiveTermMessage);
+      return;
     }
 
     // Term logic: t <= T.

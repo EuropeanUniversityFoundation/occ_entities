@@ -21,7 +21,12 @@ class AcademicTermIdLogicConstraint extends Constraint {
    *
    * @var string
    */
-  public string $yearMessage = 'The first (%year1) and second year (%year2) must be conscecutive.';
+  public string $yearMessage = 'The first (%year1) and second year (%year2) must be consecutive.';
+
+  /**
+   * Error message for a zero term number.
+   */
+  public string $positiveTermMessage = 'Both term numbers must be greater than zero.';
 
   /**
    * Term logic error message.
