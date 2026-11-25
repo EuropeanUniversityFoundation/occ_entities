@@ -34,6 +34,7 @@ final class AcademicTermIdLogicConstraintValidator extends ConstraintValidator {
     $term1 = (int) $matches[3];
     $term2 = (int) $matches[4];
 
+    /** @var \Drupal\occ_entities\Plugin\Validation\Constraint\AcademicTermIdLogicConstraint $constraint */
     // Year logic: YYYY = XXXX - 1.
     if ($year1 !== ($year2 - 1)) {
       $this->context->buildViolation($constraint->yearMessage)

@@ -32,13 +32,13 @@ class RelatedProgrammeAutocomplete extends EntityReferenceAutocompleteWidget {
     $widget['year'] = [
       '#title' => $this->t('Year'),
       '#type' => 'textfield',
-      '#default_value' => $items[$delta]->year ?? '',
+      '#default_value' => $items[$delta]->get('year')->getValue() ?? '',
       '#placeholder' => 'e.g. 1/2',
       '#description' => $this->t('Year of course delivery / Total years in programme'),
       '#weight' => 2,
     ];
 
-    $mandatory_value = $items[$delta]->mandatory;
+    $mandatory_value = $items[$delta]->get('mandatory')->getValue();
     $widget['mandatory'] = [
       '#title' => $this->t('Mandatory'),
       '#type' => 'checkbox',

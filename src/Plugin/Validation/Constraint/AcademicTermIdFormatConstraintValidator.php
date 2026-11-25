@@ -24,6 +24,7 @@ final class AcademicTermIdFormatConstraintValidator extends ConstraintValidator 
     $item_value = $value->first()->value;
 
     if (!preg_match('/^\d{4}\/\d{4}-\d\/\d$/', $item_value)) {
+      /** @var \Drupal\occ_entities\Plugin\Validation\Constraint\AcademicTermIdFormatConstraint $constraint */
       $this->context->addViolation($constraint->message);
     }
   }
