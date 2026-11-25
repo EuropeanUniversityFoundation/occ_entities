@@ -67,6 +67,7 @@ final class LearningOpportunityInstanceTypeForm extends BundleEntityFormBase {
       match($result) {
         SAVED_NEW => $this->t('The learning opportunity instance type %label has been added.', $message_args),
         SAVED_UPDATED => $this->t('The learning opportunity instance type %label has been updated.', $message_args),
+        default => throw new \LogicException('Could not save the entity.'),
       }
     );
     $form_state->setRedirectUrl($this->entity->toUrl('collection'));

@@ -106,7 +106,7 @@ final class LearningOpportunitySpecification extends RevisionableContentEntityBa
     }
 
     // Set the first string value of title as the entity label.
-    $label = $this->get('title')[0]->string;
+    $label = $this->get('title')->string;
     $this->set('label', $label);
   }
 

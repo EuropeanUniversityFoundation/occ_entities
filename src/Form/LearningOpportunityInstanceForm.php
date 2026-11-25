@@ -59,7 +59,7 @@ final class LearningOpportunityInstanceForm extends ContentEntityForm {
     $course_id = $form_state->getValue('course')[0]['target_id'] ?? NULL;
 
     if ($course_id) {
-      /** @var \Drupal\occ_entities\Entity\LearningOpportunitySpecification $course */
+      /** @var \Drupal\occ_entities\Entity\LearningOpportunitySpecification|null $course */
       $course = $this->entityTypeManager->getStorage('occ_los')->load($course_id);
 
       if ($course) {
