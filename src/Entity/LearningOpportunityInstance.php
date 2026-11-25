@@ -273,7 +273,7 @@ final class LearningOpportunityInstance extends RevisionableContentEntityBase im
       ->setRequired(TRUE)
       ->setRevisionable(TRUE)
       ->setLabel(new TranslatableMarkup('Academic Term Identifier'))
-      ->setDescription(new TranslatableMarkup('Academic Term Identifier in the format: YYYY-XXXX-t/T (e.g: 1900/1901-1/2)'))
+      ->setDescription(new TranslatableMarkup('Academic Term Identifier in the format: YYYY/XXXX-t/T (e.g: 1900/1901-1/2)'))
       ->addConstraint('AcademicTermIdFormat', [])
       ->addConstraint('AcademicTermIdLogic', [])
       ->setSettings([
@@ -349,7 +349,7 @@ final class LearningOpportunityInstance extends RevisionableContentEntityBase im
         'target_type' => 'occ_los',
         'handler' => 'default:occ_los',
         'handler_settings' => [
-          'target_budles' => [
+          'target_bundles' => [
             'course' => 'course',
           ],
         ],
