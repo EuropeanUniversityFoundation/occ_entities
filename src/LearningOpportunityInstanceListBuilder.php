@@ -28,12 +28,14 @@ final class LearningOpportunityInstanceListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity): array {
-    /** @var \Drupal\occ_entities\LearningOpportunityInstanceInterface $entity */
+    /** @var \Drupal\occ_entities\Entity\LearningOpportunityInstanceInterface $entity */
     $row['id'] = $entity->toLink();
     $row['status'] = $entity->get('status')->value ? $this->t('Enabled') : $this->t('Disabled');
+    /** @var \Drupal\user\UserInterface|null $owner */
+    $owner = $entity->getOwner();
     $username_options = [
       'label' => 'hidden',
-      'settings' => ['link' => $entity->get('uid')->entity->isAuthenticated()],
+      'settings' => ['link' => $owner?->isAuthenticated() ?? FALSE],
     ];
     $row['uid']['data'] = $entity->get('uid')->view($username_options);
     $row['created']['data'] = $entity->get('created')->view(['label' => 'hidden']);

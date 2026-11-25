@@ -73,8 +73,8 @@ class ResultDistributionCategoryDefaultFormatter extends FormatterBase implement
     $elements = [];
 
     foreach ($items as $delta => $item) {
-      $label = $item->label;
-      $count = $item->count;
+      $label = $item->get('label')->getValue();
+      $count = $item->get('count')->getValue();
 
       $elements[$delta]['category'] = [
         '#type' => 'container',

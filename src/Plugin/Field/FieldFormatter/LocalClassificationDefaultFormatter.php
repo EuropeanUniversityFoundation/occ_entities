@@ -72,8 +72,8 @@ class LocalClassificationDefaultFormatter extends FormatterBase implements Conta
     $elements = [];
 
     foreach ($items as $delta => $item) {
-      $value = $item->value;
-      $type = $item->type;
+      $value = $item->get('value')->getValue();
+      $type = $item->get('type')->getValue();
       $elements[$delta] = [
         '#theme' => 'other_id',
         '#value' => $value,
