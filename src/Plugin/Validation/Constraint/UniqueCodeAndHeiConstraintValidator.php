@@ -10,6 +10,8 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 /**
  * Validates the UniqueCodeAndHei constraint.
+ *
+ * @phpstan-consistent-constructor
  */
 class UniqueCodeAndHeiConstraintValidator extends ConstraintValidator implements ContainerInjectionInterface {
 

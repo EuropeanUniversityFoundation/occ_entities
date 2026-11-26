@@ -3,6 +3,7 @@
 namespace Drupal\occ_entities\Plugin\Validation\Constraint;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\occ_entities\Plugin\Field\FieldType\RelatedProgrammeItem;
@@ -12,6 +13,8 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 /**
  * Validates the YearMatchesProgramme constraint.
+ *
+ * @phpstan-consistent-constructor
  */
 class YearMatchesProgrammeConstraintValidator extends ConstraintValidator implements ContainerInjectionInterface {
 
@@ -53,7 +56,7 @@ class YearMatchesProgrammeConstraintValidator extends ConstraintValidator implem
     $programme = $value instanceof RelatedProgrammeItem
       ? $value->entity
       : $this->findProgramme($field_value);
-    if (!$programme || $programme->bundle() !== 'programme' || !$programme->hasField('programme__length')) {
+    if (!$programme instanceof ContentEntityInterface || $programme->bundle() !== 'programme' || !$programme->hasField('programme__length')) {
       return;
     }
 
@@ -62,6 +65,7 @@ class YearMatchesProgrammeConstraintValidator extends ConstraintValidator implem
       return;
     }
 
+    /** @var YearMatchesProgrammeConstraint $constraint */
     $length = $programme->get('programme__length')->value ?? '';
     if (!preg_match('~\A(\d+)/(\d+)\z~', $length, $length_parts)
         || (int) $length_parts[1] <= 0 || (int) $length_parts[2] <= 0) {

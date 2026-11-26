@@ -6,6 +6,7 @@ namespace Drupal\Tests\occ_entities\Kernel;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\user\UserInterface;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
@@ -47,6 +48,7 @@ final class LearningOpportunityTest extends KernelTestBase {
 
     // Reference validation should use an account with access to the fixtures.
     $admin = $this->createEntity('user', ['uid' => 1, 'name' => 'admin', 'status' => 1]);
+    $this->assertInstanceOf(UserInterface::class, $admin);
     $admin->enforceIsNew();
     $admin->save();
     $this->container->get('current_user')->setAccount($admin);
@@ -286,7 +288,9 @@ final class LearningOpportunityTest extends KernelTestBase {
    * Creates an unsaved content entity.
    */
   private function createEntity(string $type, array $values): ContentEntityInterface {
-    return $this->container->get('entity_type.manager')->getStorage($type)->create($values);
+    $entity = $this->container->get('entity_type.manager')->getStorage($type)->create($values);
+    $this->assertInstanceOf(ContentEntityInterface::class, $entity);
+    return $entity;
   }
 
   /**
@@ -294,9 +298,11 @@ final class LearningOpportunityTest extends KernelTestBase {
    */
   private function saveAndReload(ContentEntityInterface $entity): ContentEntityInterface {
     $entity->save();
-    return $this->container->get('entity_type.manager')
+    $reloaded = $this->container->get('entity_type.manager')
       ->getStorage($entity->getEntityTypeId())
       ->loadUnchanged($entity->id());
+    $this->assertInstanceOf(ContentEntityInterface::class, $reloaded);
+    return $reloaded;
   }
 
   /**
