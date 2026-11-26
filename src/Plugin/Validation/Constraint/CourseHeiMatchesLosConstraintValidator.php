@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\occ_entities\Plugin\Validation\Constraint;
 
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Field\EntityReferenceFieldItemList;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -30,7 +31,7 @@ final class CourseHeiMatchesLosConstraintValidator extends ConstraintValidator {
     foreach ($items as $delta => $item) {
       $referenced_hei_target_ids = $item->getEntity()->get('hei')->getValue();
       $course = $item->entity;
-      if (!$course || !$referenced_hei_target_ids) {
+      if (!$course instanceof ContentEntityInterface || !$referenced_hei_target_ids) {
         continue;
       }
       $referenced_entity_hei_target_ids = $course->get('hei')->getValue();

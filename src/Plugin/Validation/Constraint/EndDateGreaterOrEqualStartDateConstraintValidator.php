@@ -34,6 +34,7 @@ final class EndDateGreaterOrEqualStartDateConstraintValidator extends Constraint
     }
 
     if (strtotime($end_date) < strtotime($start_date)) {
+      /** @var EndDateGreaterOrEqualStartDateConstraint $constraint */
       $this->context->buildViolation($constraint->message)
         ->setParameter('%start', $start_date)
         ->setParameter('%end', $end_date)

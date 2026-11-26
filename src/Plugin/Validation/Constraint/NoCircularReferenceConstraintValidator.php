@@ -10,6 +10,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Validates the NoCircularReference constraint.
+ *
+ * @phpstan-consistent-constructor
  */
 class NoCircularReferenceConstraintValidator extends ConstraintValidator implements ContainerInjectionInterface {
 
