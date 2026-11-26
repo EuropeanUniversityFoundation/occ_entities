@@ -84,7 +84,8 @@ class ResultDistributionCategoryItem extends FieldItemBase {
    */
   public function isEmpty(): bool {
     $label = $this->get('label')->getValue();
-    return $label === NULL || $label === '';
+    $count = $this->get('count')->getValue();
+    return ($label === NULL || $label === '') && ($count === NULL || $count === '');
   }
 
   /**
@@ -93,6 +94,10 @@ class ResultDistributionCategoryItem extends FieldItemBase {
   public function getConstraints(): array {
     $constraints = parent::getConstraints();
     $constraint_manager = \Drupal::typedDataManager()->getValidationConstraintManager();
+
+    $constraints[] = $constraint_manager->create('ComplexData', [
+      'label' => ['NotBlank' => ['allowNull' => TRUE]],
+    ]);
 
     if ($max_length = $this->getSetting('max_length')) {
       $constraints[] = $constraint_manager->create('ComplexData', [
