@@ -17,13 +17,13 @@ final class AcademicTermIdFormatConstraintValidator extends ConstraintValidator 
    */
   public function validate(mixed $value, Constraint $constraint): void {
 
-    if ($value === NULL || $value === '') {
+    if ($value === NULL || $value->isEmpty()) {
       return;
     }
 
     $item_value = $value->first()->value;
 
-    if (!preg_match('/^\d{4}\/\d{4}-\d\/\d$/', $item_value)) {
+    if (!preg_match('/\A\d{4}\/\d{4}-\d\/\d\z/', $item_value)) {
       /** @var \Drupal\occ_entities\Plugin\Validation\Constraint\AcademicTermIdFormatConstraint $constraint */
       $this->context->addViolation($constraint->message);
     }
