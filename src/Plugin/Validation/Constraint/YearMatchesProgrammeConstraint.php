@@ -15,6 +15,11 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 )]
 class YearMatchesProgrammeConstraint extends SymfonyConstraint {
   /**
+   * Error message for a programme with an invalid length.
+   */
+  public $invalidLengthMessage = 'The related programme %programme_label must have a valid length before its year can be checked.';
+
+  /**
    * The error message if the year is not within the Programme length.
    *
    * @var string

@@ -45,62 +45,58 @@ class YearMatchesProgrammeConstraintValidator extends ConstraintValidator implem
    * {@inheritdoc}
    */
   public function validate($value, Constraint $constraint) {
-    $field_value = ($value instanceof RelatedProgrammeItem)
-      ? $value->getValue()
-      : $value;
+    $field_value = $value instanceof RelatedProgrammeItem ? $value->getValue() : $value;
+    if (!is_array($field_value)) {
+      return;
+    }
 
-    /** @var \Drupal\occ_entities\Entity\LearningOpportunitySpecificationInterface|null $programme */
-    $programme = $this->findProgramme(($field_value));
+    $programme = $value instanceof RelatedProgrammeItem
+      ? $value->entity
+      : $this->findProgramme($field_value);
+    if (!$programme || $programme->bundle() !== 'programme' || !$programme->hasField('programme__length')) {
+      return;
+    }
 
-    if (!is_null($programme)) {
-      $programme_length = $programme->get('programme__length')->value;
-      $programme_length_values = explode('/', $programme_length);
-      $total_terms = (int) $programme_length_values[0];
-      $terms_per_year = (int) $programme_length_values[1];
-      $programme_length_int = (int) ceil($total_terms / $terms_per_year);
+    $year = $field_value['year'] ?? '';
+    if (!preg_match('~\A(\d+)/(\d+)\z~', $year, $year_parts) || (int) $year_parts[2] === 0) {
+      return;
+    }
 
-      $programme_label = $programme->label();
+    $length = $programme->get('programme__length')->value ?? '';
+    if (!preg_match('~\A(\d+)/(\d+)\z~', $length, $length_parts)
+        || (int) $length_parts[1] <= 0 || (int) $length_parts[2] <= 0) {
+      $this->context->buildViolation($constraint->invalidLengthMessage)
+        ->setParameter('%programme_label', $programme->label())
+        ->atPath('year')
+        ->addViolation();
+      return;
+    }
 
-      $year_value = $field_value['year'];
-
-      if (strpos($year_value, '/') !== FALSE) {
-        $year_values = explode('/', $year_value);
-        $year_item = (int) $year_values[0];
-        $year_total = (int) $year_values[1];
-
-        $year_total_match = ($year_total === $programme_length_int);
-        $year_item_within = ($year_item <= $programme_length_int);
-
-        if (!$year_total_match || !$year_item_within) {
-          /** @var YearMatchesProgrammeConstraint $constraint */
-          $this->context->addViolation($constraint->message, [
-            '%programme_length' => $programme_length_int,
-            '%programme_label' => $programme_label,
-          ]);
-        }
-      }
+    $programme_years = (int) ceil((int) $length_parts[1] / (int) $length_parts[2]);
+    if ((int) $year_parts[2] !== $programme_years || (int) $year_parts[1] > $programme_years) {
+      $this->context->buildViolation($constraint->message)
+        ->setParameter('%programme_length', (string) $programme_years)
+        ->setParameter('%programme_label', $programme->label())
+        ->atPath('year')
+        ->addViolation();
     }
   }
 
   /**
    * Finds a Programme from a field value.
    */
-  private function findProgramme($value): ?EntityInterface {
-    if (is_null($value)) {
-      return NULL;
-    }
-
+  private function findProgramme(array $value): ?EntityInterface {
     $storage = $this->entityTypeManager->getStorage('occ_los');
 
-    if (array_key_exists('target_id', $value)) {
+    if (!empty($value['target_id'])) {
       return $storage->load($value['target_id']);
     }
 
-    if (array_key_exists('target_uuid', $value)) {
+    if (!empty($value['target_uuid'])) {
       $programme = $storage->loadByProperties([
         'uuid' => $value['target_uuid'],
       ]);
-      return array_values($programme)[0];
+      return reset($programme) ?: NULL;
     }
 
     return NULL;
